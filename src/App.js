@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "@emotion/react";
+import { AntdTheme } from "./lib/antd/AntdCustomTheme";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+import AppTheme from "./theme";
+
+import AuthLayout from "./_auth/AuthLayout";
+import RootLayout from "./_root/RootLayout";
+
+import { Home } from "./_root/pages/home";
+import { Account } from "./_auth/pages";
+
+import { ConfigProvider } from "antd";
+
+// fullpage.js : https://github.com/alvarotrigo/fullPage.js
+<link rel="stylesheet" type="text/css" href="fullpage.css" />;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={AppTheme}>
+      <ConfigProvider theme={AntdTheme}>
+        <Routes>
+          <Route element={<AuthLayout />}>
+            {/* Private Routes */}
+            <Route path="/account" element={<Account />} />
+          </Route>
+
+          <Route element={<RootLayout />}>
+            {/* Public Routes */}
+            <Route index element={<Home />} />
+          </Route>
+        </Routes>
+      </ConfigProvider>
+    </ThemeProvider>
   );
 }
 
