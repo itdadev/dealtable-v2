@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
-import { AntdTheme } from "./lib/antd/AntdCustomTheme";
+import { ConfigProvider } from "antd";
 
 // Import Swiper styles
 import "swiper/css";
@@ -9,12 +9,22 @@ import "swiper/css/pagination";
 import AppTheme from "./theme";
 
 import AuthLayout from "./_auth/AuthLayout";
+import AuthAfterLayout from "./_auth/AuthAfterLayout";
 import RootLayout from "./_root/RootLayout";
+import { AntdTheme } from "./lib/antd/AntdCustomTheme";
 
 import { Home } from "./_root/pages/home";
-import { Account } from "./_auth/pages";
 
-import { ConfigProvider } from "antd";
+import {
+  ChangePassword,
+  FindAccount,
+  FindAccountFail,
+  Join,
+  JoinComplete,
+  Login,
+} from "./_root/pages/user";
+import { AddNeed, AddNeedComplete, Need } from "./_root/pages/need";
+import { Account } from "./_auth/pages";
 
 // fullpage.js : https://github.com/alvarotrigo/fullPage.js
 <link rel="stylesheet" type="text/css" href="fullpage.css" />;
@@ -25,8 +35,21 @@ function App() {
       <ConfigProvider theme={AntdTheme}>
         <Routes>
           <Route element={<AuthLayout />}>
-            {/* Private Routes */}
+            {/* Private Routes - only accessible after login */}
             <Route path="/account" element={<Account />} />
+            <Route path="/need" element={<Need />} />
+            <Route path="/need/add" element={<AddNeed />} />
+            <Route path="/need/add-complete" element={<AddNeedComplete />} />
+          </Route>
+
+          {/* Public Routes - not accessible after login */}
+          <Route element={<AuthAfterLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/join" element={<Join />} />
+            <Route path="/join-complete" element={<JoinComplete />} />
+            <Route path="/find-account" element={<FindAccount />} />
+            <Route path="/find-account-fail" element={<FindAccountFail />} />
+            <Route path="/change-password" element={<ChangePassword />} />
           </Route>
 
           <Route element={<RootLayout />}>

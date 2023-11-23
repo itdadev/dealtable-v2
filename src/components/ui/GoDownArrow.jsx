@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import styled from "@emotion/styled";
 
 import { image } from "@/theme";
-import { borderZIndex } from "@/constants/zIndex";
+import { headerContainerZIndex } from "@/constants/zIndex";
 
 const GoDownArrowContainer = styled.button(({ fixed }) => ({
   position: fixed ? "fixed" : "static",
@@ -15,7 +15,7 @@ const GoDownArrowContainer = styled.button(({ fixed }) => ({
   alignItems: "center",
   justifyContent: "center",
   background: "white",
-  zIndex: borderZIndex,
+  zIndex: headerContainerZIndex,
 }));
 
 const GoDownArrow = ({ swiper, idx, fixed }) => {

@@ -3,13 +3,13 @@ import { Navigate, Outlet } from "react-router-dom";
 
 import { useUserContext } from "@/context/AuthContext";
 
-const AuthLayout = () => {
+const AuthAfterLayout = () => {
   const { isAuthenticated } = useUserContext();
 
   return (
     <>
-      {!isAuthenticated ? (
-        <Navigate to="/login" />
+      {isAuthenticated ? (
+        <Navigate to="/need" />
       ) : (
         <div>
           <Outlet />
@@ -19,4 +19,4 @@ const AuthLayout = () => {
   );
 };
 
-export default AuthLayout;
+export default AuthAfterLayout;

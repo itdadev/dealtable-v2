@@ -1,5 +1,17 @@
 import React from "react";
-import { HomeSectionDescContainer, HomeSectionTextWrapper } from "./Home";
+import styled from "@emotion/styled";
+
+import {
+  HomeSectionDescWithLine,
+  HomeSectionSmallDesc,
+  HomeSectionTextWrapper,
+} from "./Home";
+
+const TextBox = styled.div(() => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "7.2rem",
+}));
 
 const HomeSecurity = () => {
   return (
@@ -8,11 +20,27 @@ const HomeSecurity = () => {
         <header>Security</header>
       </HomeSectionTextWrapper>
 
-      <HomeSectionDescContainer>
-        <div>공개 제한</div>
+      <HomeSectionDescWithLine>
+        <hr />
 
-        <div>NDA 계약 체결</div>
-      </HomeSectionDescContainer>
+        <TextBox>
+          <div>
+            <div>공개 제한</div>
+
+            <HomeSectionSmallDesc>
+              내가 선택한 상대방에게만 Deal 정보가 공개됩니다.
+            </HomeSectionSmallDesc>
+          </div>
+
+          <div>
+            <div>NDA 계약 체결</div>
+
+            <HomeSectionSmallDesc>
+              내가 선택한 상대방에게만 Deal 정보가 공개됩니다.
+            </HomeSectionSmallDesc>
+          </div>
+        </TextBox>
+      </HomeSectionDescWithLine>
     </>
   );
 };

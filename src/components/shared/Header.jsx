@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from "react";
+import { NavLink } from "react-router-dom";
 import styled from "@emotion/styled";
 
 import { image } from "@/theme";
 import { headerContainerZIndex } from "@/constants/zIndex";
-import { NavLink } from "react-router-dom";
+import { useUserContext } from "@/context/AuthContext";
 
 const HeaderContainer = styled.header(({ theme }) => ({
   position: "fixed",
@@ -50,6 +51,8 @@ const HeaderLanguageItem = styled.button(({ on, theme }) => ({
 }));
 
 const Header = () => {
+  const { isAuthenticated, logoutUser } = useUserContext();
+
   const [languageArr, setLanguageArr] = useState([
     { id: 1, label: "KR", active: "true" },
     { id: 2, label: "EN", active: "false" },
@@ -89,18 +92,22 @@ const Header = () => {
       </HeaderNavContainer>
 
       <HeaderLanguageContainer>
-        {languageArr.map((language) => {
-          return (
-            <HeaderLanguageItem
-              key={language.id}
-              type="button"
-              on={language.active}
-              onClick={() => switchSiteLanguage(language.id)}
-            >
-              {language.label}
-            </HeaderLanguageItem>
-          );
-        })}
+        {isAuthenticated ? (
+          <button onClick={logoutUser}>로그아웃</button>
+        ) : (
+          languageArr.map((language) => {
+            return (
+              <HeaderLanguageItem
+                key={language.id}
+                type="button"
+                on={language.active}
+                onClick={() => switchSiteLanguage(language.id)}
+              >
+                {language.label}
+              </HeaderLanguageItem>
+            );
+          })
+        )}
       </HeaderLanguageContainer>
     </HeaderContainer>
   );

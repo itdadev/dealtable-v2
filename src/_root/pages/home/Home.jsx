@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styled from "@emotion/styled";
-import { Keyboard, Mousewheel } from "swiper/modules";
+import { Keyboard, Mousewheel, Pagination } from "swiper/modules";
+import autoAnimate from "@formkit/auto-animate";
+import { FadeInOut } from "@/lib/react-transition-group/FadeInOut";
 
 import { image } from "@/theme";
 import { GoDownArrow, NormalOverlay } from "@/components/ui";
-import { Footer } from "@/components/shared";
 import { borderZIndex } from "@/constants/zIndex";
 
 import {
@@ -17,6 +18,7 @@ import {
   HomeStart,
   MainBanner,
 } from ".";
+import { Header } from "@/components/shared";
 
 export const BackgroundImageWrapper = styled.div(({ url }) => ({
   position: "relative",
@@ -37,12 +39,14 @@ export const HomeSectionTextContainer = styled.div(({ theme }) => ({
   transform: "translateX(-50%)",
   width: "100%",
   maxWidth: "92rem",
-  paddingTop: "5%",
   borderRight: `1px solid ${theme.color.opacityWhite20}`,
   borderLeft: `1px solid ${theme.color.opacityWhite20}`,
   height: "100%",
   maxHeight: "calc(100% - 10rem)",
   zIndex: borderZIndex,
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "column",
 
   ":after": {
     content: '""',
@@ -81,7 +85,33 @@ export const HomeSectionDescContainer = styled.div(() => ({
   lineHeight: 1.5,
 }));
 
+export const HomeSectionDescWithLine = styled.div(() => ({
+  display: "flex",
+  gap: "0 2rem",
+  marginTop: "8rem",
+  fontSize: "3.2rem",
+  color: "white",
+  lineHeight: 1.5,
+
+  hr: {
+    minWidth: "44rem",
+    height: "1.4rem",
+    marginTop: "1rem",
+    background: "white",
+  },
+}));
+
+export const HomeSectionSmallDesc = styled.p(() => ({
+  fontSize: "1.8rem",
+}));
+
 const Home = () => {
+  const parent = useRef(null);
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
+
   const [swiper, setSwiper] = useState();
   const [currentSliderIdx, setCurrentSliderIdx] = useState(0);
 
@@ -124,44 +154,48 @@ const Home = () => {
   ];
 
   return (
-    <div style={{ height: "100vh" }}>
-      {currentSliderIdx !== 0 && (
-        <GoDownArrow fixed swiper={swiper} idx={currentSliderIdx + 1} />
-      )}
+    <>
+      <Header />
 
-      <Swiper
-        keyboard={{ enabled: true }}
-        onSwiper={setSwiper}
-        speed={1000}
-        mousewheel={true}
-        slidesPerView="1"
-        direction={"vertical"}
-        autoHeight={true}
-        modules={[Mousewheel, Keyboard]}
-        className="mySwiper"
-        onSlideChange={(swiper) => {
-          setCurrentSliderIdx(swiper.realIndex);
-        }}
-      >
-        {homeArr.map((section) => {
-          return (
-            <SwiperSlide key={section.id}>
-              <BackgroundImageWrapper url={section.image} className="section">
-                <HomeSectionTextContainer>
-                  {section.contents}
-                </HomeSectionTextContainer>
+      <div style={{ height: "100vh" }}>
+        <FadeInOut in={currentSliderIdx !== 0 && currentSliderIdx !== 6}>
+          <GoDownArrow fixed swiper={swiper} idx={currentSliderIdx + 1} />
+        </FadeInOut>
 
-                <NormalOverlay />
-              </BackgroundImageWrapper>
-            </SwiperSlide>
-          );
-        })}
+        <Swiper
+          keyboard={{ enabled: true }}
+          pagination={{
+            enabled: true,
+            clickable: true,
+          }}
+          onSwiper={setSwiper}
+          speed={1000}
+          mousewheel={true}
+          slidesPerView="1"
+          direction={"vertical"}
+          autoHeight={true}
+          modules={[Mousewheel, Keyboard, Pagination]}
+          className="mySwiper"
+          onSlideChange={(swiper) => {
+            setCurrentSliderIdx(swiper.realIndex);
+          }}
+        >
+          {homeArr.map((section) => {
+            return (
+              <SwiperSlide key={section.id}>
+                <BackgroundImageWrapper url={section.image} className="section">
+                  <HomeSectionTextContainer>
+                    {section.contents}
+                  </HomeSectionTextContainer>
 
-        <SwiperSlide>
-          <Footer />
-        </SwiperSlide>
-      </Swiper>
-    </div>
+                  <NormalOverlay />
+                </BackgroundImageWrapper>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
+    </>
   );
 };
 

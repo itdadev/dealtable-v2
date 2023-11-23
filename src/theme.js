@@ -1,6 +1,5 @@
 export const image = {
   // NOTE: images for all pages
-  whiteLogo: require("./assets/images/logo-white.svg"),
   mainBanner01: require("./assets/images/main-banner.png"),
   homeSectionBg01: require("./assets/images/home-section-bg01.png"),
   homeSectionBg02: require("./assets/images/home-section-bg02.png"),
@@ -10,12 +9,16 @@ export const image = {
   homeSectionBg06: require("./assets/images/home-section-bg06.png"),
 
   // NOTE: icons for all pages
+  whiteLogo: require("./assets/icons/logo-white.svg"),
+  basicLogo: require("./assets/icons/logo-basic.svg"),
   homeArrowDown: require("./assets/icons/home-arrow-down.svg"),
+  rightLinkArrow: require("./assets/icons/right-link-arrow.svg"),
 };
 
 export const color = {
   // NOTE: colors for all pages
-  primaryColor: "#2C2E65",
+  primary: "#2C2E65",
+  error: "#ff4d4f",
   inactiveGrey: "#808080",
   opacityWhite20: "rgba(255, 255, 255, 0.2)",
 };
@@ -26,12 +29,12 @@ export const AppTheme = {
   fontWeight: {
     thin: 100,
     light: 200,
-    regular: 300,
-    medium: 400,
-    semiBold: 500,
-    bold: 600,
-    extraBold: 700,
-    black: 800,
+    regular: 400,
+    medium: 500,
+    semiBold: 600,
+    bold: 700,
+    extraBold: 800,
+    black: 900,
   },
 };
 

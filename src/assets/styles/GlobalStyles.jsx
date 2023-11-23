@@ -27,7 +27,7 @@ const style = css`
     overflow-x: hidden;
     box-sizing: border-box;
     font-size: 1.4rem;
-    font-weight: 300;
+    font-weight: 400;
     padding: 0 !important;
     margin: 0;
     font-family: "Montserrat", sans-serif;

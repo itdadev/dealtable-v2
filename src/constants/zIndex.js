@@ -1,3 +1,4 @@
-export const overlayZIndex = 200;
-export const borderZIndex = 201;
+export const overlayZIndex = 0;
+export const borderZIndex = 1;
+export const buttonZIndex = 2;
 export const headerContainerZIndex = 999;

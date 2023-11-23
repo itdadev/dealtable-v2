@@ -1,6 +1,14 @@
 import React from "react";
+import styled from "@emotion/styled";
+
+import { image } from "@/theme";
+import { BorderButton } from "@/components/ui/buttons";
 
 import { HomeSectionDescContainer, HomeSectionTextWrapper } from "./Home";
+
+const ButtonWrapper = styled.div(() => ({
+  marginTop: "14rem",
+}));
 
 const HomeDifferent = () => {
   return (
@@ -16,6 +24,14 @@ const HomeDifferent = () => {
 
         <div>매우 어려운 일이다</div>
       </HomeSectionDescContainer>
+
+      <ButtonWrapper>
+        <BorderButton linkTo="/service">
+          <p>서비스 보기</p>
+
+          <img src={image.rightLinkArrow.default} alt="" />
+        </BorderButton>
+      </ButtonWrapper>
     </>
   );
 };
