@@ -14,18 +14,16 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
-    <React.StrictMode>
-      <QueryProvider>
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+    <QueryProvider>
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
 
-        <AuthProvider>
-          <GlobalStyles />
+      <AuthProvider>
+        <GlobalStyles />
 
-          <LibraryStyles />
+        <LibraryStyles />
 
-          <App />
-        </AuthProvider>
-      </QueryProvider>
-    </React.StrictMode>
+        <App />
+      </AuthProvider>
+    </QueryProvider>
   </BrowserRouter>
 );

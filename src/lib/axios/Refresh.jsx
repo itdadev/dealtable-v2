@@ -1,13 +1,13 @@
 import axios from "axios";
-import moment from "moment";
 import { jwtDecode } from "jwt-decode";
 
 import {
   LOCAL_STORAGE_AUTO_LOGIN,
   LOCAL_STORAGE_TOKENS,
 } from "@/constants/StorageKey";
-import { refreshTokenUrl } from "@/constants/apiUrls";
+import { REFRESH_TOKEN_API_URL } from "@/constants/apiUrls";
 import { useUserContext } from "@/context/AuthContext";
+import dayjs from "dayjs";
 
 const useRefreshToken = async (config) => {
   const isAutoLogin =
@@ -25,18 +25,21 @@ const useRefreshToken = async (config) => {
   const expireAt = jwtDecode(token);
 
   // 토큰이 만료되었고, refreshToken 이 저장되어 있을 때
-  if (moment(expireAt).diff(moment()) < 0 && refreshToken) {
+  if (dayjs.unix(expireAt.exp).diff(dayjs()) < 1) {
+    console.log("token 만료");
+
     const body = {
       refreshToken,
     };
 
     // 토큰 갱신 서버통신
-    const { data } = await axios.post(refreshTokenUrl, body);
+    const { data } = await axios.post(REFRESH_TOKEN_API_URL, body);
 
     token = data.data;
 
     if (isAutoLogin) {
       localStorage.setItem(LOCAL_STORAGE_AUTO_LOGIN, true);
+
       localStorage.setItem(
         LOCAL_STORAGE_TOKENS,
         JSON.stringify({
@@ -46,6 +49,7 @@ const useRefreshToken = async (config) => {
       );
     } else {
       localStorage.setItem(LOCAL_STORAGE_AUTO_LOGIN, false);
+
       sessionStorage.setItem(
         LOCAL_STORAGE_TOKENS,
         JSON.stringify({

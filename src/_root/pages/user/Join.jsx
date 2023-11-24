@@ -22,7 +22,7 @@ import {
 import { zodJoin } from "@/lib/react-hook-form/validation/zodValidation";
 import { useMutation } from "react-query";
 import axios from "axios";
-import { joinUrl } from "@/constants/apiUrls";
+import { JOIN_API_URL } from "@/constants/apiUrls";
 
 const Join = () => {
   const navigate = useNavigate();
@@ -44,7 +44,6 @@ const Join = () => {
     resetField,
     setValue,
     setFocus,
-
     formState: { isSubmitted, errors },
   } = useForm({
     resolver: zodResolver(zodJoin),
@@ -55,7 +54,7 @@ const Join = () => {
       password_confirm: "",
       user_name: "",
       phone: "",
-      verification_code: "",
+      auth_code: "",
       company_name: "",
       user_position: "",
       phone_verified: false,
@@ -63,7 +62,7 @@ const Join = () => {
   });
 
   const { mutate: userJoinFunction } = useMutation(
-    (data) => axios.post(joinUrl, data),
+    (data) => axios.post(JOIN_API_URL, data),
     {
       onSuccess: () => {
         navigate("/join-complete");

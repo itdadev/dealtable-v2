@@ -1,14 +1,19 @@
-import React, { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Flex, Modal } from "antd";
+import { Button, Flex, Modal, Spin } from "antd";
+import styled from "@emotion/styled";
 
 import { CustomForm, TextAreaInput, TextInput } from "@/components/ui/form";
 import { FieldGroup, FormTitle } from "@/components/ui/form/CustomForm";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
-import { addNeedsUrl } from "@/constants/apiUrls";
+import {
+  MUTATE_NEEDS_API_URL,
+  NEED_DETAIL_API_URL,
+  TERMINATE_NEEDS_API_URL,
+} from "@/constants/apiUrls";
 import {
   dealScalePH,
   industryPH,
@@ -18,16 +23,46 @@ import {
 } from "@/lib/react-hook-form/validation/placeholderTexts";
 import { zodNeedsAdd } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
+import { returnNull } from "@/util/ModifyData";
+
+const DeleteButton = styled(Button)(() => ({
+  width: "fit-content",
+  alignSelf: "flex-start",
+}));
 
 const AddNeed = () => {
-  const [confirmModal, setConfirmModal] = useState({
-    complete: false,
-    tempo: false,
-  });
+  const queryClient = useQueryClient();
 
   const navigate = useNavigate();
 
-  const { control, handleSubmit, watch } = useForm({
+  const { needsKey } = useParams();
+
+  const [confirmModal, setConfirmModal] = useState({
+    complete: false,
+    tempo: false,
+    delete: false,
+    terminate: false,
+  });
+
+  const getNeedDetail = useCallback(async () => {
+    const { status, data } = await Interceptor?.get(
+      `${NEED_DETAIL_API_URL}/${needsKey}`
+    );
+
+    if (status === 200) {
+      return data.data;
+    }
+  }, [needsKey]);
+
+  const { data: needDetail, isLoading } = useQuery(
+    ["needDetail", needsKey],
+    getNeedDetail,
+    {
+      enabled: !!needsKey,
+    }
+  );
+
+  const { control, handleSubmit, watch, setValue } = useForm({
     resolver: zodResolver(zodNeedsAdd),
     mode: "onSubmit",
     defaultValues: {
@@ -39,13 +74,46 @@ const AddNeed = () => {
     },
   });
 
-  const { mutate: addNeedsFunction } = useMutation(
+  useEffect(() => {
+    if (needDetail) {
+      setValue("industry", needDetail?.industry);
+      setValue("deal_scale", needDetail?.deal_scale);
+      setValue("sales", needDetail?.sales);
+      setValue("revenue", needDetail?.revenue);
+      setValue("key_condition", needDetail?.key_condition);
+    }
+  }, [needDetail, setValue]);
+
+  const statusNm = useMemo(() => {
+    switch (needDetail?.status) {
+      case "0":
+        return "작성중";
+
+      case "1":
+        return "작성 완료";
+
+      case "2":
+        return "탐색중";
+
+      case "3":
+        return "탐색 완료";
+
+      case "4":
+        return "종료";
+
+      default:
+        return "생성";
+    }
+  }, [needDetail?.status]);
+
+  const { mutate: editNeedsFunction } = useMutation(
     (data) =>
-      Interceptor.post(addNeedsUrl, {
+      // 니즈 수정하기 (완료)
+      Interceptor.patch(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: true,
-        sales: data?.sales !== "" ? data?.sales : null,
-        revenue: data?.revenue !== "" ? data?.revenue : null,
+        sales: returnNull(data?.sales),
+        revenue: returnNull(data?.revenue),
       }),
     {
       onSuccess: () => {
@@ -57,16 +125,19 @@ const AddNeed = () => {
     }
   );
 
-  const { mutate: tempoAddNeedsFunction } = useMutation(
+  const { mutate: tempoEditNeedsFunction } = useMutation(
     (data) =>
-      Interceptor.post(addNeedsUrl, {
+      // 니즈 수정하기 (임시 저장)
+      Interceptor.patch(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: false,
-        sales: data?.sales !== "" ? data?.sales : null,
-        revenue: data?.revenue !== "" ? data?.revenue : null,
+        sales: returnNull(data?.sales),
+        revenue: returnNull(data?.revenue),
       }),
     {
       onSuccess: () => {
+        queryClient.removeQueries("needList");
+
         navigate("/need");
       },
       onError: (error) => {
@@ -75,7 +146,83 @@ const AddNeed = () => {
     }
   );
 
-  const joinSubmit = useCallback((data) => {
+  const { mutate: addNeedsFunction } = useMutation(
+    (data) =>
+      // 니즈 생성하기 (완료)
+      Interceptor.post(MUTATE_NEEDS_API_URL, {
+        ...data,
+        complete: true,
+        sales: returnNull(data?.sales),
+        revenue: returnNull(data?.revenue),
+      }),
+    {
+      onSuccess: () => {
+        queryClient.removeQueries("needList");
+
+        navigate("/need/add-complete");
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const { mutate: tempoAddNeedsFunction } = useMutation(
+    (data) =>
+      // 니즈 임시저장하기
+      Interceptor.post(MUTATE_NEEDS_API_URL, {
+        ...data,
+        complete: false,
+        sales: returnNull(data?.sales),
+        revenue: returnNull(data?.revenue),
+      }),
+    {
+      onSuccess: () => {
+        queryClient.removeQueries("needList");
+
+        navigate("/need", { state: { mutateStatus: "tempo" } });
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const { mutate: deleteNeedsFunction } = useMutation(
+    (data) =>
+      // 니즈 삭제하기
+      Interceptor.delete(MUTATE_NEEDS_API_URL, {
+        data: { needs_key: needsKey },
+      }),
+    {
+      onSuccess: () => {
+        queryClient.removeQueries("needList");
+
+        navigate("/need", { state: { mutateStatus: "delete" } });
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const { mutate: terminateNeedsFunction } = useMutation(
+    (data) =>
+      // 니즈 종료하기
+      Interceptor.patch(TERMINATE_NEEDS_API_URL, { needs_key: needsKey }),
+    {
+      onSuccess: () => {
+        queryClient.removeQueries("needList");
+
+        navigate("/need", { state: { mutateStatus: "terminate" } });
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const joinSubmit = useCallback(() => {
     setConfirmModal({
       complete: true,
       tempo: false,
@@ -89,32 +236,56 @@ const AddNeed = () => {
     });
   }, []);
 
+  const deleteConfirm = useCallback(() => {
+    setConfirmModal((prev) => ({
+      ...prev,
+      delete: true,
+    }));
+  }, []);
+
+  const terminateConfirm = useCallback(() => {
+    setConfirmModal((prev) => ({
+      ...prev,
+      terminate: true,
+    }));
+  }, []);
+
   const doneComplete = useCallback(() => {
+    if (needsKey) {
+      editNeedsFunction(watch());
+    }
+
     addNeedsFunction(watch());
-  }, [addNeedsFunction, watch]);
+  }, [addNeedsFunction, editNeedsFunction, needsKey, watch]);
 
   const doneTempo = useCallback(() => {
-    tempoAddNeedsFunction(watch());
-  }, [tempoAddNeedsFunction, watch]);
+    if (needsKey) {
+      tempoEditNeedsFunction(watch());
+    }
 
-  const handleCancel = (type) => {
+    tempoAddNeedsFunction(watch());
+  }, [needsKey, tempoAddNeedsFunction, tempoEditNeedsFunction, watch]);
+
+  const handleCancel = () => {
     setConfirmModal({
       complete: false,
       tempo: false,
+      delete: false,
+      terminate: false,
     });
   };
 
   return (
     <CustomForm submitEvent={handleSubmit(joinSubmit)}>
       <Modal
-        title="인수 니즈 생성"
+        title={`인수 니즈 ${needsKey ? "수정" : "생성"}`}
         open={confirmModal.complete}
         onOk={doneComplete}
         onCancel={handleCancel}
-        okText="생성"
+        okText={needsKey ? "수정" : "생성"}
         cancelText="취소"
       >
-        인수 니즈를 생성하시겠습니까?
+        인수 니즈를 {needsKey ? "수정" : "생성"}하시겠습니까?
       </Modal>
 
       <Modal
@@ -128,52 +299,105 @@ const AddNeed = () => {
         인수 니즈를 임시로 저장하시겠습니까?
       </Modal>
 
-      <FormTitle>인수 니즈</FormTitle>
+      <Modal
+        title="인수 니즈 삭제"
+        open={confirmModal.delete}
+        onOk={deleteNeedsFunction}
+        onCancel={handleCancel}
+        okText="삭제"
+        cancelText="취소"
+      >
+        인수 니즈를 삭제하시겠습니까?
+      </Modal>
 
-      <FieldGroup>
-        <TextAreaInput
-          name="industry"
-          control={control}
-          placeholder={industryPH}
-          maxLength={200}
-        />
+      <Modal
+        title="인수 니즈 종료"
+        open={confirmModal.terminate}
+        onOk={terminateNeedsFunction}
+        onCancel={handleCancel}
+        okText="종료"
+        cancelText="취소"
+      >
+        인수 니즈를 종료하시겠습니까?
+      </Modal>
 
-        <TextInput
-          name="deal_scale"
-          control={control}
-          placeholder={dealScalePH}
-        />
+      <FormTitle>
+        인수 니즈
+        <p>{needDetail?.status_nm}</p>
+      </FormTitle>
 
-        <TextInput
-          type="number"
-          name="sales"
-          control={control}
-          placeholder={salesPH}
-        />
+      <DeleteButton type="dashed" danger size="small" onClick={deleteConfirm}>
+        삭제
+      </DeleteButton>
 
-        <TextInput
-          type="number"
-          name="revenue"
-          control={control}
-          placeholder={revenuePH}
-        />
+      {isLoading ? (
+        <Spin />
+      ) : (
+        <FieldGroup>
+          <TextAreaInput
+            name="industry"
+            control={control}
+            placeholder={industryPH}
+            maxLength={200}
+          />
 
-        <TextAreaInput
-          name="key_condition"
-          control={control}
-          placeholder={keyConditionPH}
-          maxLength={700}
-        />
-      </FieldGroup>
+          <TextInput
+            name="deal_scale"
+            control={control}
+            placeholder={dealScalePH}
+          />
+
+          <TextInput
+            type="number"
+            name="sales"
+            control={control}
+            placeholder={salesPH}
+          />
+
+          <TextInput
+            type="number"
+            name="revenue"
+            control={control}
+            placeholder={revenuePH}
+          />
+
+          <TextAreaInput
+            name="key_condition"
+            control={control}
+            placeholder={keyConditionPH}
+            maxLength={700}
+          />
+        </FieldGroup>
+      )}
 
       <Flex gap="small">
-        <SecondaryButton fullwidth clickEvent={tempoAdd}>
-          임시저장
-        </SecondaryButton>
+        {(statusNm === "작성중" || !needsKey) && (
+          <>
+            <SecondaryButton fullwidth clickEvent={tempoAdd}>
+              임시저장
+            </SecondaryButton>
 
-        <PrimaryButton fullwidth buttonType="submit">
-          생성하기
-        </PrimaryButton>
+            <PrimaryButton fullwidth buttonType="submit">
+              생성하기
+            </PrimaryButton>
+          </>
+        )}
+
+        {(statusNm === "작성 완료" ||
+          statusNm === "탐색중" ||
+          statusNm === "탐색 완료") && (
+          <>
+            <SecondaryButton fullwidth clickEvent={terminateConfirm}>
+              종료하기
+            </SecondaryButton>
+
+            {statusNm === "탐색중" || statusNm === "탐색 완료" ? null : (
+              <PrimaryButton fullwidth buttonType="submit">
+                수정하기
+              </PrimaryButton>
+            )}
+          </>
+        )}
       </Flex>
     </CustomForm>
   );

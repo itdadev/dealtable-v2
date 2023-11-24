@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "react-query";
 import { LOCAL_STORAGE_TOKENS } from "@/constants/StorageKey";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
-import { getUrserInfoUrl } from "@/constants/apiUrls";
+import { USER_DETAIL_API_URL } from "@/constants/apiUrls";
 
 const AuthContext = createContext();
 
@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
   );
 
   const getUserData = async () => {
-    const response = await Interceptor?.get(getUrserInfoUrl);
+    const response = await Interceptor?.get(USER_DETAIL_API_URL);
 
     return response;
   };

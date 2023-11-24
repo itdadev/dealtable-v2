@@ -25,6 +25,7 @@ const PrimaryButton = ({
   buttonType = "button",
   clickEvent,
   fullwidth,
+  disabled,
 }) => {
   return (
     <Container
@@ -33,6 +34,7 @@ const PrimaryButton = ({
       htmlType={buttonType}
       onClick={clickEvent ? clickEvent : undefined}
       fullwidth={fullwidth ? "true" : "false"}
+      disabled={disabled}
     >
       {children}
     </Container>

@@ -60,10 +60,18 @@ export const FieldGroup = styled.div(() => ({
   },
 }));
 
-export const FormTitle = styled.h1(() => ({
+export const FormTitle = styled.h1(({ theme }) => ({
+  position: "relative",
   marginBottom: "6rem",
   textAlign: "center",
   fontSize: "2.4rem",
+
+  p: {
+    position: "absolute",
+    right: 0,
+    fontSize: "1.4rem",
+    fontWeight: theme.fontWeight.regular,
+  },
 }));
 
 const CustomForm = ({ children, submitEvent }) => {

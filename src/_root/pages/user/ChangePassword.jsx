@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styled from "@emotion/styled";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +13,9 @@ import {
   newPasswordPH,
   passwordConfirmPH,
 } from "@/lib/react-hook-form/validation/placeholderTexts";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { CHANGE_PW_API_URL } from "@/constants/apiUrls";
 
 const FoundEmailContainer = styled.div(() => ({
   background: "lightblue",
@@ -23,36 +26,53 @@ const FoundEmailContainer = styled.div(() => ({
 }));
 
 const ChangePassword = () => {
+  const { state } = useLocation();
   const navigate = useNavigate();
 
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(zodChangePassword),
     mode: "onSubmit",
     defaultValues: {
-      password: "",
+      new_pw: "",
       password_confirm: "",
     },
   });
+  console.log(errors);
 
-  const linktoLogin = useCallback(() => {
-    navigate("/login", {
-      state: {
-        foundEmail: "email@email.com",
-      },
-    });
-  }, [navigate]);
-
-  const changePasswordSubmit = useCallback(
-    (data) => {
-      if (data) {
+  const { mutate: changePasswordFunction } = useMutation(
+    (data) =>
+      axios.post(CHANGE_PW_API_URL, { ...data, enc_email: state?.encEmail }),
+    {
+      onSuccess: () => {
         navigate("/login", {
           state: {
             findAccountSuccess: true,
           },
         });
-      }
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const linktoLogin = useCallback(() => {
+    navigate("/login", {
+      state: {
+        foundEmail: state?.foundEmail,
+      },
+    });
+  }, [navigate, state?.foundEmail]);
+
+  const changePasswordSubmit = useCallback(
+    (data) => {
+      changePasswordFunction(data);
     },
-    [navigate]
+    [changePasswordFunction]
   );
 
   return (
@@ -62,7 +82,7 @@ const ChangePassword = () => {
 
         <p>가입하신 이메일은 아래와 같습니다.</p>
 
-        <FoundEmailContainer>email@email.com</FoundEmailContainer>
+        <FoundEmailContainer>{state?.foundEmail}</FoundEmailContainer>
 
         <PrimaryButton clickEvent={linktoLogin} fullwidth>
           로그인 하기
@@ -75,7 +95,7 @@ const ChangePassword = () => {
         <header>비밀번호 변경하기</header>
 
         <TextInput
-          name="password"
+          name="user_pw"
           control={control}
           type="password"
           placeholder={newPasswordPH}

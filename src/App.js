@@ -24,7 +24,13 @@ import {
   Login,
 } from "./_root/pages/user";
 import { AddNeed, AddNeedComplete, Need } from "./_root/pages/need";
-import { Account } from "./_auth/pages";
+import {
+  Account,
+  ChangeMyPassword,
+  DeleteAccount,
+} from "./_auth/pages/account";
+import { Faq } from "./_root/pages/faq";
+import { Notice } from "./_root/pages/notice";
 
 // fullpage.js : https://github.com/alvarotrigo/fullPage.js
 <link rel="stylesheet" type="text/css" href="fullpage.css" />;
@@ -37,8 +43,13 @@ function App() {
           <Route element={<AuthLayout />}>
             {/* Private Routes - only accessible after login */}
             <Route path="/account" element={<Account />} />
+            <Route path="/change-account" element={<Account edit />} />
+            <Route path="/delete-account" element={<DeleteAccount />} />
+            <Route path="/change-my-password" element={<ChangeMyPassword />} />
+
             <Route path="/need" element={<Need />} />
             <Route path="/need/add" element={<AddNeed />} />
+            <Route path="/need/edit/:needsKey" element={<AddNeed />} />
             <Route path="/need/add-complete" element={<AddNeedComplete />} />
           </Route>
 
@@ -55,6 +66,8 @@ function App() {
           <Route element={<RootLayout />}>
             {/* Public Routes */}
             <Route index element={<Home />} />
+            <Route path="/faq" element={<Faq />} />
+            <Route path="/notice" element={<Notice />} />
           </Route>
         </Routes>
       </ConfigProvider>

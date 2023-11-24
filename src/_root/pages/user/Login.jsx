@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useMutation } from "react-query";
-import { Alert, Flex, Result, Spin } from "antd";
+import { Alert, Flex, Result, Spin, notification } from "antd";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { zodLogin } from "@/lib/react-hook-form/validation/zodValidation";
 import styled from "@emotion/styled";
@@ -12,7 +12,7 @@ import { image } from "@/theme";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
 import { CustomForm, SingleCheckBox, TextInput } from "@/components/ui/form";
 import { useUserContext } from "@/context/AuthContext";
-import { loginUrl } from "@/constants/apiUrls";
+import { LOGIN_API_URL } from "@/constants/apiUrls";
 import {
   emailPH,
   passwordPH,
@@ -28,6 +28,8 @@ const LinkToHome = styled(Link)(() => ({
 }));
 
 const Login = () => {
+  const [api, contextHolder] = notification.useNotification();
+
   const { setIsAuthenticated } = useUserContext();
 
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ const Login = () => {
   });
 
   const { mutate: userLoginFunction, isLoading } = useMutation(
-    (data) => axios.post(loginUrl, data),
+    (data) => axios.post(LOGIN_API_URL, data),
     {
       onSuccess: (data) => {
         if (watch("autoLogin")) {
@@ -100,6 +102,17 @@ const Login = () => {
   );
 
   useEffect(() => {
+    if (state?.mutateStatus === "password") {
+      api.success({
+        message: "비밀번호 수정",
+        description:
+          "비밀번호가 성공적으로 수정되었습니다. 다시 로그인해주세요.",
+        duration: 3,
+      });
+    }
+  }, [api, state?.mutateStatus]);
+
+  useEffect(() => {
     window.history.replaceState({}, document.title);
   }, []);
 
@@ -112,6 +125,8 @@ const Login = () => {
 
   return (
     <CustomForm submitEvent={handleSubmit(loginSubmit)}>
+      {contextHolder}
+
       {state?.findAccountSuccess && (
         <Result
           status="success"

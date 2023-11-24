@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useCallback } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
+import { Flex } from "antd";
 
 import { image } from "@/theme";
 import { headerContainerZIndex } from "@/constants/zIndex";
@@ -11,7 +12,7 @@ const HeaderContainer = styled.header(({ theme }) => ({
   zIndex: headerContainerZIndex,
   display: "flex",
   alignItems: "center",
-  gap: "0 26rem",
+  justifyContent: "space-between",
   width: "100vw",
   height: "10rem",
   padding: "0 4rem",
@@ -19,13 +20,18 @@ const HeaderContainer = styled.header(({ theme }) => ({
 }));
 
 const HeaderNavContainer = styled.nav(({ theme }) => ({
-  flex: 1,
+  position: "absolute",
+  left: "50%",
+  transform: "translateX(-50%)",
   display: "flex",
   alignItems: "center",
   gap: "0 8.8rem",
+  width: "100%",
+  maxWidth: "92rem",
   color: "white",
   fontSize: "2.4rem",
   fontWeight: theme.fontWeight.regular,
+  margin: "0 auto",
 }));
 
 const HeaderLanguageContainer = styled.div(() => ({
@@ -34,29 +40,12 @@ const HeaderLanguageContainer = styled.div(() => ({
   color: "white",
   fontSize: "1.6rem",
   gap: "0 1.2rem",
-}));
-
-const HeaderLanguageItem = styled.button(({ on, theme }) => ({
-  color: on === "true" ? "white" : theme.color.inactiveGrey,
-  paddingRight: "1.2rem",
-  fontWeight: theme.fontWeight.semiBold,
-
-  ":hover": {
-    color: "white",
-  },
-
-  ":first-of-type": {
-    borderRight: `1px solid white`,
-  },
+  whiteSpace: "nowrap",
 }));
 
 const Header = () => {
+  const navigate = useNavigate();
   const { isAuthenticated, logoutUser } = useUserContext();
-
-  const [languageArr, setLanguageArr] = useState([
-    { id: 1, label: "KR", active: "true" },
-    { id: 2, label: "EN", active: "false" },
-  ]);
 
   const navArr = [
     { id: 1, label: "Need", linkTo: "/need" },
@@ -65,15 +54,11 @@ const Header = () => {
     { id: 4, label: "Connect", linkTo: "/connect" },
   ];
 
-  const switchSiteLanguage = useCallback((id) => {
-    setLanguageArr((prev) =>
-      prev.map((language) =>
-        language.id === id
-          ? { ...language, active: "true" }
-          : { ...language, active: "false" }
-      )
-    );
-  }, []);
+  const logout = useCallback(() => {
+    logoutUser();
+
+    navigate("/login");
+  }, [logoutUser, navigate]);
 
   return (
     <HeaderContainer>
@@ -93,20 +78,13 @@ const Header = () => {
 
       <HeaderLanguageContainer>
         {isAuthenticated ? (
-          <button onClick={logoutUser}>로그아웃</button>
+          <Flex gap="small">
+            <Link to="/account">내 프로필</Link>
+
+            <button onClick={logout}>로그아웃</button>
+          </Flex>
         ) : (
-          languageArr.map((language) => {
-            return (
-              <HeaderLanguageItem
-                key={language.id}
-                type="button"
-                on={language.active}
-                onClick={() => switchSiteLanguage(language.id)}
-              >
-                {language.label}
-              </HeaderLanguageItem>
-            );
-          })
+          <Link to="/login">로그인</Link>
         )}
       </HeaderLanguageContainer>
     </HeaderContainer>

@@ -1,18 +1,27 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Flex } from "antd";
+import axios from "axios";
+import { useMutation } from "react-query";
 import Countdown, { zeroPad } from "react-countdown";
 
+import {
+  CHECK_CODE_API_URL,
+  FIND_SEND_CODE_API_URL,
+  SEND_CODE_API_URL,
+} from "@/constants/apiUrls";
 import {
   phoneNumPH,
   verificationCodePH,
 } from "@/lib/react-hook-form/validation/placeholderTexts";
+import {
+  differentPhoneRequired,
+  phoneAlreadyExists,
+  phoneRequired,
+  verificationCodeInvaid,
+} from "@/lib/react-hook-form/validation/inputErrorMessage";
 
-import { TextInput } from ".";
 import { FieldErrorMessage } from "./CustomForm";
-import { verificationCodeInvaid } from "@/lib/react-hook-form/validation/inputErrorMessage";
-import axios from "axios";
-import { useMutation } from "react-query";
-import { checkCodeUrl, sendCodeUrl } from "@/constants/apiUrls";
+import { TextInput } from ".";
 
 export const CODE_EXPIRE_TIME = 5 * 60 * 1000;
 
@@ -24,6 +33,8 @@ const PhoneVerificationFields = ({
   resetField,
   control,
   errors,
+  initalPhoneValue,
+  findAccount,
 }) => {
   const [targetDate, setTargetDate] = useState(
     new Date().getTime() + CODE_EXPIRE_TIME
@@ -51,9 +62,39 @@ const PhoneVerificationFields = ({
   }, []);
 
   const { mutate: sendCodeFunction } = useMutation(
-    (data) => axios.post(sendCodeUrl, { phone: data }),
+    (data) => {
+      if (data === "") {
+        // 전화 번호 입력 안하고 인증 코드 전송 눌렀을 때
+        return phoneRequired;
+      }
+
+      if (initalPhoneValue && data === initalPhoneValue) {
+        // 회원 정보 수정시 기존의 유저 번호와 동일한 번호를 입력했을 때
+
+        return differentPhoneRequired;
+      } else {
+        const { status } = axios.post(
+          findAccount ? FIND_SEND_CODE_API_URL : SEND_CODE_API_URL,
+          {
+            phone: data,
+          }
+        );
+
+        if (status === 200) {
+          return "";
+        }
+      }
+    },
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        if (data !== "" && !!data) {
+          setError("phone", { message: data });
+
+          return;
+        }
+
+        clearErrors("phone");
+
         if (codeSent) {
           // CASE: 전화번호 다시 입력
           setPhoneActive(true);
@@ -61,7 +102,7 @@ const PhoneVerificationFields = ({
           setCodeActive(false);
           resetTimer();
           stopTimer();
-          resetField("verification_code");
+          resetField("auth_code");
 
           return;
         }
@@ -74,26 +115,27 @@ const PhoneVerificationFields = ({
       },
       onError: (error) => {
         if (error.response.status === 400) {
-          setError("phone", { message: "이미 가입된 전화번호입니다." });
+          setError("phone", { message: phoneAlreadyExists });
         }
       },
     }
   );
 
   const { mutate: verifyCodeFunction } = useMutation(
-    (data) => axios.post(checkCodeUrl, { ...data }),
+    (data) => axios.post(CHECK_CODE_API_URL, { ...data }),
     {
       onSuccess: (data) => {
         // CASE: 코드 인증 완료
         resetTimer();
         setCodeVerified(true);
         stopTimer();
-        clearErrors("verification_code");
+        clearErrors("auth_code");
         setValue("phone_verified", true, { shouldValidate: true });
       },
       onError: (error) => {
         if (error?.response?.status === 400) {
-          setError("verification_code", { message: verificationCodeInvaid });
+          setError("auth_code", { message: verificationCodeInvaid });
+
           setCodeVerified(false);
           setPhoneActive(true);
         }
@@ -107,7 +149,7 @@ const PhoneVerificationFields = ({
         setPhoneActive(true);
       }
 
-      if ((name = "verification_code" && value.verification_code !== "")) {
+      if ((name = "auth_code" && value.auth_code !== "")) {
         setCodeActive(true);
       } else {
         setCodeActive(false);
@@ -156,7 +198,7 @@ const PhoneVerificationFields = ({
 
       <Flex>
         <TextInput
-          name="verification_code"
+          name="auth_code"
           control={control}
           readOnly={codeVerified}
           placeholder={verificationCodePH}
@@ -187,7 +229,7 @@ const PhoneVerificationFields = ({
           onClick={() =>
             verifyCodeFunction({
               phone: watch("phone"),
-              auth_code: watch("verification_code"),
+              auth_code: watch("auth_code"),
             })
           }
         >

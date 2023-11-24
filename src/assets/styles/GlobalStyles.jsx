@@ -31,6 +31,7 @@ const style = css`
     padding: 0 !important;
     margin: 0;
     font-family: "Montserrat", sans-serif;
+    word-break: keep-all;
   }
 
   h1,

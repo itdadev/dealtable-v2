@@ -1,21 +1,76 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useInfiniteQuery } from "react-query";
+import { Flex, Spin, notification } from "antd";
+import styled from "@emotion/styled";
 
 import { PrimaryButton } from "@/components/ui/buttons";
+import { NEEDS_LIST_API_URL, NEED_LIST_LOAD_SIZE } from "@/constants/apiUrls";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
-import { needsListUrl } from "@/constants/apiUrls";
-import { useInfiniteQuery } from "react-query";
-import { Spin, Table } from "antd";
 
-const LOAD_SIZE = 2;
+const StyledTable = styled.div(() => ({
+  maxWidth: "80vw",
+  margin: "8rem auto",
+}));
+
+const StyledRow = styled(Flex)(() => ({
+  borderBottom: "1px solid #ccc",
+
+  ":hover": {
+    background: "#f1f1f1",
+  },
+}));
+
+const Column = styled(Flex)(({ flex, header, theme }) => ({
+  flex: flex,
+  minHeight: "8rem",
+  padding: "1rem",
+  whiteSpace: header === "true" ? "nowrap" : "break-word",
+  cursor: header ? "default" : "pointer",
+  fontWeight: header ? theme.fontWeight.bold : theme.fontWeight.regular,
+}));
 
 const Need = () => {
-  const getUserData = async ({ pageParam = 1 }) => {
-    const response = await Interceptor?.get(
-      `${needsListUrl}?page=${pageParam}&size=${LOAD_SIZE}`
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
+  const getNeedList = async ({ pageParam = 1 }) => {
+    const { status, data } = await Interceptor?.get(
+      `${NEEDS_LIST_API_URL}?page=${pageParam}&size=${NEED_LIST_LOAD_SIZE}`
     );
 
-    return response;
+    if (status === 200) {
+      return data;
+    }
   };
+
+  const [api, contextHolder] = notification.useNotification();
+
+  useEffect(() => {
+    if (state?.mutateStatus === "delete") {
+      api.success({
+        message: "인수 니즈 삭제",
+        description: "인수 니즈가 성공적으로 삭제되었습니다.",
+        duration: 3,
+      });
+    }
+
+    if (state?.mutateStatus === "terminate") {
+      api.success({
+        message: "인수 니즈 종료",
+        description: "인수 니즈가 성공적으로 종료되었습니다.",
+        duration: 3,
+      });
+    }
+
+    if (state?.mutateStatus === "tempo") {
+      api.success({
+        message: "인수 니즈 임시 저장",
+        description: "인수 니즈가 성공적으로 임시 저장되었습니다.",
+        duration: 3,
+      });
+    }
+  }, [api, state?.mutateStatus]);
 
   const {
     data: needList,
@@ -26,78 +81,129 @@ const Need = () => {
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["needList"],
-    queryFn: getUserData,
-    getNextPageParam: (lastPage, pages) =>
-      pages.length < lastPage.total_cnt / LOAD_SIZE
+    queryFn: getNeedList,
+    getNextPageParam: (lastPage, pages) => {
+      return pages.length < lastPage.totalCnt / NEED_LIST_LOAD_SIZE
         ? pages.length + 1
-        : undefined,
+        : undefined;
+    },
   });
 
   const columns = [
     {
       title: "번호",
-      dataIndex: "needs_number",
+      flex: "1 1 8rem",
     },
     {
       title: "딜 규모",
-      dataIndex: "deal_scale",
+      flex: "1 1 5rem",
     },
     {
       title: "산업 및 업종",
-      dataIndex: "industry",
+      flex: 5,
     },
     {
       title: "진행 상태",
-      dataIndex: "status_nm",
+      flex: 1,
     },
     {
       title: "작성일",
-      dataIndex: "ins_date",
+      flex: "1 1 6rem",
     },
   ];
 
-  const onChange = (pagination, filters, sorter, extra) => {
-    // console.log("params", pagination, filters, sorter, extra);
-  };
+  const detailClick = useCallback(
+    (id) => {
+      navigate(`/need/edit/${id}`);
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
+    window.history.replaceState({}, document.title);
+  }, []);
 
   return (
     <div>
+      {contextHolder}
+
       <PrimaryButton linkTo="/need/add">인수 니즈 생성</PrimaryButton>
 
-      <div>
+      <StyledTable>
         {isLoading ? (
           <Spin />
         ) : (
           <>
-            {needList.pages.map((group, i) => {
-              console.log(group.data);
-              return (
-                <Table
-                  key={i}
-                  columns={columns}
-                  dataSource={group.data.data}
-                  onChange={onChange}
-                />
-              );
-            })}
+            <Flex gap="large">
+              {columns.map((column) => {
+                return (
+                  <Column
+                    key={column.title}
+                    flex={column.flex}
+                    align="center"
+                    header="true"
+                  >
+                    {column.title}
+                  </Column>
+                );
+              })}
+            </Flex>
 
-            <PrimaryButton
-              onClick={() => fetchNextPage()}
-              disabled={!hasNextPage || isFetchingNextPage}
-            >
-              {isFetchingNextPage
-                ? "Loading more..."
-                : hasNextPage
-                ? "Load More"
-                : "Nothing more to load"}
-            </PrimaryButton>
+            {needList?.pages.map((group) => {
+              if (group.data.length <= 0) {
+                return <div key="no Data">No Data</div>;
+              }
+
+              return group.data.map((need) => {
+                return (
+                  <StyledRow
+                    key={need.needs_key}
+                    onClick={() => detailClick(need.needs_key)}
+                    gap="large"
+                  >
+                    <Column flex={columns[0].flex} align="center">
+                      {need.needs_number}
+                    </Column>
+
+                    <Column flex={columns[1].flex} align="center">
+                      {need.deal_scale ? need.deal_scale : "-"}
+                    </Column>
+
+                    <Column flex={columns[2].flex} align="center">
+                      {need.industry}
+                    </Column>
+
+                    <Column flex={columns[3].flex} align="center">
+                      {need.status_nm}
+                    </Column>
+
+                    <Column flex={columns[4].flex} align="center">
+                      {need.ins_date}
+                    </Column>
+                  </StyledRow>
+                );
+              });
+            })}
 
             <div>
               {isFetching && !isFetchingNextPage ? "Fetching..." : null}
             </div>
           </>
         )}
-      </div>
+      </StyledTable>
+
+      <Flex align="center" justify="center">
+        <PrimaryButton
+          clickEvent={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isFetchingNextPage
+            ? "Loading more..."
+            : hasNextPage
+            ? "더보기"
+            : "Nothing more to load"}
+        </PrimaryButton>
+      </Flex>
     </div>
   );
 };

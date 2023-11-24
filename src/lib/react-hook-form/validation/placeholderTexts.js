@@ -1,4 +1,5 @@
 export const emailPH = "이메일";
+export const currentPasswordPH = "현재 비밀번호";
 export const newPasswordPH = "새 비밀번호";
 export const passwordPH = "비밀번호";
 export const passwordConfirmPH = "비밀번호 확인";
