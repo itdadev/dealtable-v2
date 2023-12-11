@@ -1,31 +1,41 @@
-import React, { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useMutation } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Alert } from "antd";
 
 import {
   CustomForm,
   PhoneVerificationFields,
   SelectAllCheckBoxes,
-  TextInput,
 } from "@/components/ui/form";
 import { PrimaryButton } from "@/components/ui/buttons";
 import { FieldGroup, FormTitle } from "@/components/ui/form/CustomForm";
-import {
-  corpNamePH,
-  emailPH,
-  namePH,
-  passwordConfirmPH,
-  passwordPH,
-  positionPH,
-} from "@/lib/react-hook-form/validation/placeholderTexts";
-import { zodJoin } from "@/lib/react-hook-form/validation/zodValidation";
-import { useMutation } from "react-query";
-import axios from "axios";
 import { JOIN_API_URL } from "@/constants/apiUrls";
+import {
+  CompanyNameField,
+  ConfirmPasswordField,
+  EmailField,
+  PasswordField,
+  UserNameField,
+  UserPositionField,
+} from "@/components/ui/fields/Fields";
+import { zodJoin } from "@/lib/react-hook-form/validation/zodValidation";
 
 const Join = () => {
   const navigate = useNavigate();
+
+  const [userData, setUserData] = useState({});
+
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state !== null && state.userData) {
+      setUserData(state.userData);
+    }
+  }, [state]);
 
   const termOptions = [
     { label: "이용 약관 동의 [필수]", value: "use_term" },
@@ -58,6 +68,7 @@ const Join = () => {
       company_name: "",
       user_position: "",
       phone_verified: false,
+      user_key: "",
     },
   });
 
@@ -71,47 +82,65 @@ const Join = () => {
         if (error.response.status === 400) {
           // Email Exist Already
           setError("email", { message: "이미 가입된 이메일입니다." });
+
           setFocus("email");
         }
       },
     }
   );
 
+  useEffect(() => {
+    if (userData?.user_key) {
+      setValue("email", userData?.email);
+      setValue("user_name", userData?.user_name);
+      setValue("phone", userData?.phone);
+      setValue("company_name", userData?.company_name);
+      setValue("user_position", userData?.user_position);
+      setValue("user_key", userData?.user_key);
+    }
+  }, [setValue, userData]);
+
   const joinSubmit = useCallback(
     (data) => {
+      if (
+        !checkedList.includes("use_term") ||
+        !checkedList.includes("privacy_policy")
+      ) {
+        return;
+      }
+
       userJoinFunction(data);
     },
-    [userJoinFunction]
+    [checkedList, userJoinFunction]
   );
 
   return (
     <CustomForm submitEvent={handleSubmit(joinSubmit)}>
       <FormTitle>회원가입</FormTitle>
 
+      {userData?.reject_reason && (
+        <Alert
+          message="계정의 회원가입이 아래의 사유로 승인되지 않았습니다. 회원가입을 다시 진행해주세요."
+          description={userData?.reject_reason}
+          type="warning"
+          showIcon
+        />
+      )}
+
       <FieldGroup>
         <header>계정 정보</header>
 
-        <TextInput name="email" control={control} placeholder={emailPH} />
+        <EmailField control={control} />
 
-        <TextInput
-          name="user_pw"
-          control={control}
-          type="password"
-          placeholder={passwordPH}
-        />
+        <PasswordField control={control} />
 
-        <TextInput
-          name="password_confirm"
-          control={control}
-          type="password"
-          placeholder={passwordConfirmPH}
-        />
+        <ConfirmPasswordField control={control} />
       </FieldGroup>
 
       <FieldGroup>
         <header>사용자 정보</header>
 
-        <TextInput name="user_name" control={control} placeholder={namePH} />
+        <UserNameField control={control} />
 
         <PhoneVerificationFields
           control={control}
@@ -127,17 +156,9 @@ const Join = () => {
       <FieldGroup>
         <header>기업 정보</header>
 
-        <TextInput
-          name="company_name"
-          control={control}
-          placeholder={corpNamePH}
-        />
+        <CompanyNameField control={control} />
 
-        <TextInput
-          name="user_position"
-          control={control}
-          placeholder={positionPH}
-        />
+        <UserPositionField control={control} />
       </FieldGroup>
 
       <SelectAllCheckBoxes

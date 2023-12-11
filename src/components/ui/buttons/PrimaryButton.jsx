@@ -8,8 +8,6 @@ export const defaultButtonStyle = {
   alignItems: "center",
   justifyContent: "center",
   gap: "0 4.5rem",
-  padding: "1.5rem 6rem",
-  fontSize: "1.8rem",
   height: "auto",
 };
 
@@ -17,6 +15,9 @@ const Container = styled(Button)(({ fullwidth }) => ({
   ...defaultButtonStyle,
   width: fullwidth === "true" ? "100%" : "fit-content",
   color: "white",
+  borderRadius: "50rem",
+  padding: "1.2rem 2.4rem",
+  fontSize: "1.6rem",
 }));
 
 const PrimaryButton = ({

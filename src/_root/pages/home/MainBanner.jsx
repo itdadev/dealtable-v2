@@ -4,16 +4,23 @@ import styled from "@emotion/styled";
 import GoDownArrow from "@/components/ui/GoDownArrow";
 
 import { HomeSectionTextWrapper } from "./Home";
+import { mq } from "@/lib/react-responsive/mediaQuery";
 
 const ArrowTextContainer = styled.div(() => ({
   position: "relative",
-  left: "-4rem",
   display: "flex",
-  alignItems: "center",
-  marginTop: "9.6rem",
-  gap: "0 2.4rem",
+  flexDirection: "column-reverse",
+  marginTop: "3rem",
+  gap: "6.8rem 2.4rem",
   color: "white",
   fontSize: "1.6rem",
+
+  [mq("desktop")]: {
+    flexDirection: "row",
+    left: "-4rem",
+    alignItems: "center",
+    marginTop: "9.6rem",
+  },
 }));
 
 const MainBanner = ({ swiper }) => {

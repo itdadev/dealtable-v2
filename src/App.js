@@ -31,14 +31,14 @@ import {
 } from "./_auth/pages/account";
 import { Faq } from "./_root/pages/faq";
 import { Notice } from "./_root/pages/notice";
-
-// fullpage.js : https://github.com/alvarotrigo/fullPage.js
-<link rel="stylesheet" type="text/css" href="fullpage.css" />;
+import { Footer, Header } from "./components/shared";
 
 function App() {
   return (
     <ThemeProvider theme={AppTheme}>
       <ConfigProvider theme={AntdTheme}>
+        <Header />
+
         <Routes>
           <Route element={<AuthLayout />}>
             {/* Private Routes - only accessible after login */}
@@ -70,6 +70,8 @@ function App() {
             <Route path="/notice" element={<Notice />} />
           </Route>
         </Routes>
+
+        <Footer showFooter={true} />
       </ConfigProvider>
     </ThemeProvider>
   );

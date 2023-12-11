@@ -1,8 +1,9 @@
 import React from "react";
+import { useMediaQuery } from "react-responsive";
+import styled from "@emotion/styled";
 
 import { image } from "@/theme";
 import { BorderButton } from "@/components/ui/buttons";
-import styled from "@emotion/styled";
 
 const Container = styled.div(() => ({
   display: "flex",
@@ -13,9 +14,15 @@ const Container = styled.div(() => ({
 }));
 
 const HomeStart = () => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
   return (
     <Container>
-      <object data={image.whiteLogo.default} alt="" height={95}>
+      <object
+        data={image.whiteLogo.default}
+        alt=""
+        height={isDesktop ? 95 : 30}
+      >
         Dealtable
       </object>
 

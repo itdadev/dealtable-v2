@@ -1,11 +1,18 @@
 import React from "react";
-import { HomeSectionDescContainer, HomeSectionTextWrapper } from "./Home";
+
+import { BorderButton } from "@/components/ui/buttons";
+
+import {
+  ButtonWrapper,
+  HomeSectionDescContainer,
+  HomeSectionTextWrapper,
+} from "./Home";
 
 const HomeService = () => {
   return (
-    <>
+    <ButtonWrapper>
       <HomeSectionTextWrapper>
-        <header>Service</header>
+        <header>Members</header>
       </HomeSectionTextWrapper>
 
       <HomeSectionDescContainer>
@@ -15,7 +22,9 @@ const HomeService = () => {
 
         <div>서비스입니다.</div>
       </HomeSectionDescContainer>
-    </>
+
+      <BorderButton linkTo="/login">시작하기</BorderButton>
+    </ButtonWrapper>
   );
 };
 

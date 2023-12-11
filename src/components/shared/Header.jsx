@@ -1,37 +1,51 @@
-import React, { useCallback } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import React, { useCallback, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 import styled from "@emotion/styled";
 import { Flex } from "antd";
 
 import { image } from "@/theme";
 import { headerContainerZIndex } from "@/constants/zIndex";
 import { useUserContext } from "@/context/AuthContext";
+import { IsDefault, IsDesktop, mq } from "@/lib/react-responsive/mediaQuery";
 
-const HeaderContainer = styled.header(({ theme }) => ({
+const HeaderContainer = styled.header(({ theme, active }) => ({
   position: "fixed",
   zIndex: headerContainerZIndex,
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
   width: "100vw",
-  height: "10rem",
-  padding: "0 4rem",
+  height: "6rem",
+  padding: "0 2rem",
   borderBottom: `1px solid ${theme.color.opacityWhite20}`,
+  background: active ? theme.color.primary : "transparent",
+  transition: "background 0.3s",
+
+  [mq("desktop")]: {
+    height: "10rem",
+    padding: "0 4rem",
+  },
 }));
 
-const HeaderNavContainer = styled.nav(({ theme }) => ({
-  position: "absolute",
-  left: "50%",
-  transform: "translateX(-50%)",
+const MobileMenuContainer = styled.div(({ theme, active }) => ({
+  position: "fixed",
+  background: theme.color.primary,
+  width: "100vw",
+  height: "calc(100vh - 6rem)",
+  bottom: 0,
+  left: active ? 0 : "100vw",
+  transition: "all 0.3s",
+  zIndex: headerContainerZIndex,
+}));
+
+const MobileMenuWrapper = styled.div(() => ({
   display: "flex",
-  alignItems: "center",
-  gap: "0 8.8rem",
-  width: "100%",
-  maxWidth: "92rem",
-  color: "white",
-  fontSize: "2.4rem",
-  fontWeight: theme.fontWeight.regular,
-  margin: "0 auto",
+  flexDirection: "column",
+  gap: "12rem 0",
+  justifyContent: "flex-end",
+  height: "100%",
+  padding: "0 0 8rem 3rem",
 }));
 
 const HeaderLanguageContainer = styled.div(() => ({
@@ -43,16 +57,52 @@ const HeaderLanguageContainer = styled.div(() => ({
   whiteSpace: "nowrap",
 }));
 
+const HamburgerButton = styled.div(() => ({
+  position: "relative",
+  width: "1rem",
+  height: "1.2rem",
+  transition: "all 0.3s",
+  cursor: "pointer",
+  padding: "0.6rem 1.4rem 0.6rem 1.4rem",
+}));
+
+const HamburgerLine = styled.img(({ top = 0, opacity = 1, rotate }) => ({
+  position: "absolute",
+  display: "block",
+  width: "100%",
+  height: "2px",
+  transition: "transform 0.3s",
+  right: 0,
+  top: top,
+  opacity: opacity,
+  transform: rotate,
+}));
+
+const HeaderLogo = styled.object(() => ({
+  width: "12rem",
+
+  [mq("tablet")]: {
+    width: "15rem",
+  },
+
+  [mq("desktop")]: {
+    width: "20rem",
+  },
+}));
+
 const Header = () => {
-  const navigate = useNavigate();
   const { isAuthenticated, logoutUser } = useUserContext();
 
-  const navArr = [
-    { id: 1, label: "Need", linkTo: "/need" },
-    { id: 2, label: "Service", linkTo: "/service" },
-    { id: 3, label: "Feature", linkTo: "/feature" },
-    { id: 4, label: "Connect", linkTo: "/connect" },
-  ];
+  const navigate = useNavigate();
+
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
+  const [active, setActive] = useState(false);
+
+  const menuModalHandler = useCallback(
+    () => setActive((prev) => !prev),
+    [setActive]
+  );
 
   const logout = useCallback(() => {
     logoutUser();
@@ -61,32 +111,73 @@ const Header = () => {
   }, [logoutUser, navigate]);
 
   return (
-    <HeaderContainer>
-      <object data={image.whiteLogo.default} type="" width={200}>
+    <HeaderContainer active={active}>
+      <HeaderLogo
+        data={image.whiteLogo.default}
+        type=""
+        width={isDesktop ? 200 : 100}
+      >
         DEAL TABLE
-      </object>
+      </HeaderLogo>
 
-      <HeaderNavContainer>
-        {navArr.map((nav) => {
-          return (
-            <NavLink key={nav.id} to={nav.linkTo}>
-              {nav.label}
-            </NavLink>
-          );
-        })}
-      </HeaderNavContainer>
+      <IsDesktop>
+        <HeaderLanguageContainer>
+          {isAuthenticated ? (
+            <Flex gap="small">
+              <Link to="/account">내 프로필</Link>
 
-      <HeaderLanguageContainer>
-        {isAuthenticated ? (
-          <Flex gap="small">
-            <Link to="/account">내 프로필</Link>
+              <button onClick={logout}>로그아웃</button>
+            </Flex>
+          ) : (
+            <Link to="/login">로그인</Link>
+          )}
+        </HeaderLanguageContainer>
+      </IsDesktop>
 
-            <button onClick={logout}>로그아웃</button>
-          </Flex>
-        ) : (
-          <Link to="/login">로그인</Link>
-        )}
-      </HeaderLanguageContainer>
+      <IsDefault>
+        <HamburgerButton onClick={menuModalHandler}>
+          <HamburgerLine
+            src={image.hamburgerLine.default}
+            alt=""
+            active={active}
+            opacity={active ? 0 : 1}
+          />
+
+          <HamburgerLine
+            src={image.hamburgerLine.default}
+            alt=""
+            active={active}
+            top="50%"
+            opacity={1}
+            rotate={active ? "rotate(45deg)" : "0"}
+          />
+
+          <HamburgerLine
+            src={image.hamburgerLine.default}
+            alt=""
+            active={active}
+            top={active ? "50%" : "100%"}
+            opacity={1}
+            rotate={active ? "rotate(-45deg)" : "0"}
+          />
+        </HamburgerButton>
+      </IsDefault>
+
+      <MobileMenuContainer active={active}>
+        <MobileMenuWrapper>
+          <HeaderLanguageContainer>
+            {isAuthenticated ? (
+              <Flex gap="small">
+                <Link to="/account">내 프로필</Link>
+
+                <button onClick={logout}>로그아웃</button>
+              </Flex>
+            ) : (
+              <Link to="/login">로그인</Link>
+            )}
+          </HeaderLanguageContainer>
+        </MobileMenuWrapper>
+      </MobileMenuContainer>
     </HeaderContainer>
   );
 };

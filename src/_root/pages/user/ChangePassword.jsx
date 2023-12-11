@@ -1,21 +1,21 @@
 import React, { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useMutation } from "react-query";
 import { useForm } from "react-hook-form";
 import styled from "@emotion/styled";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Divider } from "antd";
 
-import { CustomForm, TextInput } from "@/components/ui/form";
+import { CustomForm } from "@/components/ui/form";
 import { FieldGroup } from "@/components/ui/form/CustomForm";
 import { PrimaryButton } from "@/components/ui/buttons";
-import { zodChangePassword } from "@/lib/react-hook-form/validation/zodValidation";
-import {
-  newPasswordPH,
-  passwordConfirmPH,
-} from "@/lib/react-hook-form/validation/placeholderTexts";
-import { useMutation } from "react-query";
-import axios from "axios";
 import { CHANGE_PW_API_URL } from "@/constants/apiUrls";
+import {
+  ConfirmPasswordField,
+  NewPasswordField,
+} from "@/components/ui/fields/Fields";
+import { zodChangePassword } from "@/lib/react-hook-form/validation/zodValidation";
 
 const FoundEmailContainer = styled.div(() => ({
   background: "lightblue",
@@ -29,11 +29,7 @@ const ChangePassword = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { control, handleSubmit } = useForm({
     resolver: zodResolver(zodChangePassword),
     mode: "onSubmit",
     defaultValues: {
@@ -41,7 +37,6 @@ const ChangePassword = () => {
       password_confirm: "",
     },
   });
-  console.log(errors);
 
   const { mutate: changePasswordFunction } = useMutation(
     (data) =>
@@ -94,19 +89,9 @@ const ChangePassword = () => {
       <FieldGroup>
         <header>비밀번호 변경하기</header>
 
-        <TextInput
-          name="user_pw"
-          control={control}
-          type="password"
-          placeholder={newPasswordPH}
-        />
+        <NewPasswordField control={control} />
 
-        <TextInput
-          name="password_confirm"
-          control={control}
-          type="password"
-          placeholder={passwordConfirmPH}
-        />
+        <ConfirmPasswordField control={control} />
 
         <PrimaryButton fullwidth buttonType="submit">
           비밀번호 변경하기

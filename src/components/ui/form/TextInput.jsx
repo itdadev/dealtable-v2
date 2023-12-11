@@ -1,10 +1,10 @@
 import React from "react";
 import { Controller } from "react-hook-form";
-import { Input } from "antd";
+import { Flex, Input } from "antd";
 
 import { FieldContainer, FieldErrorMessage } from "./CustomForm";
 
-const TextInput = (props) => {
+const TextInput = ({ children, ...props }) => {
   return (
     <Controller
       name={props.name}
@@ -12,23 +12,38 @@ const TextInput = (props) => {
       render={({ field, formState: { errors } }) => {
         return (
           <FieldContainer>
-            <Input
-              {...field}
-              {...props}
-              status={errors[props.name] ? "error" : ""}
-              size="large"
-              type={props.type ? props.type : "text"}
-            />
+            <label htmlFor={props.name}>
+              {props.label}
 
-            {props.customerror && (
-              <FieldErrorMessage>{props.customerror}</FieldErrorMessage>
-            )}
+              <sup>
+                {props.labelrequired === "true" && !props.readOnly && "*"}
+              </sup>
+            </label>
 
-            {errors[props.name] && (
-              <FieldErrorMessage>
-                {errors[props.name].message}
-              </FieldErrorMessage>
-            )}
+            <Flex gap="small">
+              <Flex style={{ width: "100%" }} vertical gap="2">
+                <Input
+                  {...field}
+                  {...props}
+                  id={props.name}
+                  status={errors[props.name] ? "error" : ""}
+                  size="large"
+                  type={props.type ? props.type : "text"}
+                />
+
+                {props.customerror && (
+                  <FieldErrorMessage>{props.customerror}</FieldErrorMessage>
+                )}
+
+                {errors[props.name] && (
+                  <FieldErrorMessage>
+                    {errors[props.name].message}
+                  </FieldErrorMessage>
+                )}
+              </Flex>
+
+              {children}
+            </Flex>
           </FieldContainer>
         );
       }}

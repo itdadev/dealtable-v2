@@ -70,6 +70,7 @@ export const zodJoin = z
     phone_verified: z.boolean().refine((value) => value === true, {
       message: verificationCodeIncomplete,
     }),
+    user_key: z.optional(z.number()),
   })
   .refine((data) => data.user_pw === data.password_confirm, {
     message: passwordConfirmInvalid,
@@ -118,7 +119,7 @@ export const zodChangeMyPassword = z
 export const zodDeleteAccount = z.object({
   user_pw: z
     .string()
-    .min(1, newPasswordRequired)
+    .min(1, currentPasswordRequired)
     .regex(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,15}$/, passwordFormat),
 });
 

@@ -5,16 +5,12 @@ import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import {
-  CustomForm,
-  PhoneVerificationFields,
-  TextInput,
-} from "@/components/ui/form";
+import { CustomForm, PhoneVerificationFields } from "@/components/ui/form";
 import { FormTitle } from "@/components/ui/form/CustomForm";
+import { UserNameField } from "@/components/ui/fields/Fields";
 import { PrimaryButton } from "@/components/ui/buttons";
 import { FIND_ACCOUNT_API_URL } from "@/constants/apiUrls";
 import { zodFindAccount } from "@/lib/react-hook-form/validation/zodValidation";
-import { namePH } from "@/lib/react-hook-form/validation/placeholderTexts";
 
 const FindAccount = () => {
   const navigate = useNavigate();
@@ -77,7 +73,7 @@ const FindAccount = () => {
     <CustomForm submitEvent={handleSubmit(findAccountSubmit)}>
       <FormTitle>이메일 찾기 / 비밀번호 변경</FormTitle>
 
-      <TextInput name="user_name" control={control} placeholder={namePH} />
+      <UserNameField control={control} />
 
       <PhoneVerificationFields
         control={control}

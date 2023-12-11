@@ -4,11 +4,17 @@ export const AntdTheme = {
   token: {
     // Seed Token
     colorPrimary: color.primary,
-    borderRadius: 0,
+    colorLink: color.primary,
+    borderRadius: 5,
+    colorTextBase: color.baseBlack,
   },
   components: {
     Button: {
       colorLinkHover: "white",
+    },
+    Input: {
+      paddingInlineLG: 16,
+      paddingBlockLG: 16,
     },
   },
 };

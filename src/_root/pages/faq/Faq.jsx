@@ -5,8 +5,8 @@ import Search from "antd/es/input/Search";
 import styled from "@emotion/styled";
 import { Flex, Spin } from "antd";
 
-import { PrimaryButton } from "@/components/ui/buttons";
 import { FAQ_LIST_API_URL, FAQ_LIST_LOAD_SIZE } from "@/constants/apiUrls";
+import LoadMoreButton from "@/components/ui/buttons/LoadMoreButton";
 
 const FaqContainer = styled.div(() => ({
   maxWidth: "60vw",
@@ -64,7 +64,7 @@ const Faq = () => {
 
           {faqList?.pages.map((group) => {
             if (group.data.length <= 0) {
-              return <div key="no Data">No Data</div>;
+              return <div key="no Data">자주묻는 질문이 없습니다.</div>;
             }
 
             return group.data.map((faq) => {
@@ -86,18 +86,11 @@ const Faq = () => {
 
       <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
 
-      <Flex align="center" justify="center">
-        <PrimaryButton
-          clickEvent={() => fetchNextPage()}
-          disabled={!hasNextPage || isFetchingNextPage}
-        >
-          {isFetchingNextPage
-            ? "Loading more..."
-            : hasNextPage
-            ? "더보기"
-            : "Nothing more to load"}
-        </PrimaryButton>
-      </Flex>
+      <LoadMoreButton
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </FaqContainer>
   );
 };

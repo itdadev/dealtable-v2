@@ -1,10 +1,16 @@
 import React from "react";
 
-import { HomeSectionDescWithLine, HomeSectionTextWrapper } from "./Home";
+import { BorderButton } from "@/components/ui/buttons";
+
+import {
+  ButtonWrapper,
+  HomeSectionDescWithLine,
+  HomeSectionTextWrapper,
+} from "./Home";
 
 const HomeEasy = () => {
   return (
-    <>
+    <ButtonWrapper smallGap>
       <HomeSectionTextWrapper>
         <header>Easy</header>
       </HomeSectionTextWrapper>
@@ -20,7 +26,9 @@ const HomeEasy = () => {
           <div>입력하면 직접 탐색할 필요없이 매칭을 받을 수 있습니다.</div>
         </div>
       </HomeSectionDescWithLine>
-    </>
+
+      <BorderButton linkTo="/login">시작하기</BorderButton>
+    </ButtonWrapper>
   );
 };
 

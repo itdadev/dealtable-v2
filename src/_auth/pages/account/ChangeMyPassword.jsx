@@ -1,21 +1,21 @@
 import React, { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { CustomForm, TextInput } from "@/components/ui/form";
+import { CustomForm } from "@/components/ui/form";
+import { CHANGE_USER_PW_API_URL } from "@/constants/apiUrls";
+import {
+  ConfirmPasswordField,
+  CurrentPasswordField,
+  NewPasswordField,
+} from "@/components/ui/fields/Fields";
 import { FieldGroup, FormTitle } from "@/components/ui/form/CustomForm";
+import { useUserContext } from "@/context/AuthContext";
 import { PrimaryButton } from "@/components/ui/buttons";
 import { zodChangeMyPassword } from "@/lib/react-hook-form/validation/zodValidation";
-import {
-  currentPasswordPH,
-  newPasswordPH,
-  passwordConfirmPH,
-} from "@/lib/react-hook-form/validation/placeholderTexts";
-import { useMutation } from "react-query";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
-import { CHANGE_USER_PW_API_URL } from "@/constants/apiUrls";
-import { useNavigate } from "react-router-dom";
-import { useUserContext } from "@/context/AuthContext";
 
 const ChangeMyPassword = () => {
   const navigate = useNavigate();
@@ -46,6 +46,12 @@ const ChangeMyPassword = () => {
             message: "현재 비밀번호와 일치하지 않습니다.",
           });
         }
+
+        if (error.response.status === 409) {
+          setError("user_pw", {
+            message: "현재 비밀번호와 변경하려는 비밀 번호가 같습니다.",
+          });
+        }
       },
     }
   );
@@ -62,26 +68,11 @@ const ChangeMyPassword = () => {
       <FieldGroup>
         <FormTitle>비밀번호 변경하기</FormTitle>
 
-        <TextInput
-          name="user_pw"
-          control={control}
-          type="password"
-          placeholder={currentPasswordPH}
-        />
+        <CurrentPasswordField control={control} />
 
-        <TextInput
-          name="new_pw"
-          control={control}
-          type="password"
-          placeholder={newPasswordPH}
-        />
+        <NewPasswordField control={control} />
 
-        <TextInput
-          name="password_confirm"
-          control={control}
-          type="password"
-          placeholder={passwordConfirmPH}
-        />
+        <ConfirmPasswordField control={control} />
       </FieldGroup>
 
       <PrimaryButton fullwidth buttonType="submit">

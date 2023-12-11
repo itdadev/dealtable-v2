@@ -5,26 +5,25 @@ import { useMutation, useQuery } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Flex, Spin, notification } from "antd";
 
-import {
-  CustomForm,
-  PhoneVerificationFields,
-  TextInput,
-} from "@/components/ui/form";
+import { CustomForm, PhoneVerificationFields } from "@/components/ui/form";
 import { FieldGroup, FormTitle } from "@/components/ui/form/CustomForm";
 import { MUTATE_USER_INFO_API_URL } from "@/constants/apiUrls";
+import {
+  CompanyNameField,
+  EmailField,
+  PhoneField,
+  UserNameField,
+  UserPositionField,
+} from "@/components/ui/fields/Fields";
+import { useUserContext } from "@/context/AuthContext";
 import { PrimaryButton } from "@/components/ui/buttons";
 import { zodEditAccount } from "@/lib/react-hook-form/validation/zodValidation";
-import {
-  corpNamePH,
-  emailPH,
-  namePH,
-  phoneNumPH,
-  positionPH,
-} from "@/lib/react-hook-form/validation/placeholderTexts";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
 
 const Account = ({ edit }) => {
   const { state } = useLocation();
+
+  const { logoutUser } = useUserContext();
 
   const [phoneChanged, setPhoneChanged] = useState(false);
 
@@ -101,9 +100,26 @@ const Account = ({ edit }) => {
   }, [setValue, userDetail]);
 
   const { mutate: editUserAccountFunction } = useMutation(
-    (data) => Interceptor.patch(MUTATE_USER_INFO_API_URL, data),
+    async (data) => {
+      const { data: result, status } = await Interceptor.patch(
+        MUTATE_USER_INFO_API_URL,
+        data
+      );
+
+      if (status === 200) {
+        return result;
+      }
+    },
     {
-      onSuccess: () => {
+      onSuccess: (result) => {
+        if (result.data.logout) {
+          logoutUser();
+
+          navigate("/login", { state: { mutateStatus: "editAccount" } });
+
+          return;
+        }
+
         navigate("/account", { state: { mutateStatus: "account" } });
       },
       onError: (error) => {
@@ -136,6 +152,7 @@ const Account = ({ edit }) => {
   return (
     <CustomForm submitEvent={handleSubmit(changeAccountSubmit)}>
       {contextHolder}
+
       <FormTitle>계정 관리</FormTitle>
 
       <Flex justify="flex-end" gap="small">
@@ -151,23 +168,13 @@ const Account = ({ edit }) => {
           <FieldGroup>
             <header>계정 정보</header>
 
-            <TextInput
-              name="email"
-              control={control}
-              placeholder={emailPH}
-              readOnly
-            />
+            <EmailField control={control} readOnly={true} />
           </FieldGroup>
 
           <FieldGroup>
             <header>사용자 정보</header>
 
-            <TextInput
-              name="user_name"
-              control={control}
-              placeholder={namePH}
-              readOnly={!edit}
-            />
+            <UserNameField control={control} readOnly={!edit} />
 
             {edit ? (
               <PhoneVerificationFields
@@ -181,31 +188,16 @@ const Account = ({ edit }) => {
                 initalPhoneValue={userDetail?.phone}
               />
             ) : (
-              <TextInput
-                name="phone"
-                control={control}
-                placeholder={phoneNumPH}
-                readOnly={!edit}
-              />
+              <PhoneField control={control} readOnly={!edit} />
             )}
           </FieldGroup>
 
           <FieldGroup>
             <header>기업 정보 변경</header>
 
-            <TextInput
-              name="company_name"
-              control={control}
-              placeholder={corpNamePH}
-              readOnly={!edit}
-            />
+            <CompanyNameField readOnly={!edit} control={control} />
 
-            <TextInput
-              name="user_position"
-              control={control}
-              placeholder={positionPH}
-              readOnly={!edit}
-            />
+            <UserPositionField readOnly={!edit} control={control} />
           </FieldGroup>
         </>
       )}

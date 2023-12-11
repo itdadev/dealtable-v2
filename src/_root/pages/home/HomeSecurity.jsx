@@ -2,20 +2,29 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import {
+  ButtonWrapper,
   HomeSectionDescWithLine,
   HomeSectionSmallDesc,
   HomeSectionTextWrapper,
 } from "./Home";
+import { mq } from "@/lib/react-responsive/mediaQuery";
+import { BorderButton } from "@/components/ui/buttons";
 
 const TextBox = styled.div(() => ({
   display: "flex",
   flexDirection: "column",
   gap: "7.2rem",
+
+  fontSize: "2rem",
+
+  [mq("desktop")]: {
+    fontSize: "3.2rem",
+  },
 }));
 
 const HomeSecurity = () => {
   return (
-    <>
+    <ButtonWrapper smallGap>
       <HomeSectionTextWrapper>
         <header>Security</header>
       </HomeSectionTextWrapper>
@@ -41,7 +50,9 @@ const HomeSecurity = () => {
           </div>
         </TextBox>
       </HomeSectionDescWithLine>
-    </>
+
+      <BorderButton linkTo="/login">시작하기</BorderButton>
+    </ButtonWrapper>
   );
 };
 

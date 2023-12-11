@@ -46,8 +46,8 @@ const SelectAllCheckBoxes = ({
 
         <FieldErrorMessage>
           {isSubmitted &&
-            !checkedList.includes("use_term") &&
-            !checkedList.includes("privacy_policy") &&
+            (!checkedList.includes("use_term") ||
+              !checkedList.includes("privacy_policy")) &&
             termsRequired}
         </FieldErrorMessage>
       </div>

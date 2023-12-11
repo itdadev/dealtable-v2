@@ -5,6 +5,7 @@ import { Flex, Spin, notification } from "antd";
 import styled from "@emotion/styled";
 
 import { PrimaryButton } from "@/components/ui/buttons";
+import LoadMoreButton from "@/components/ui/buttons/LoadMoreButton";
 import { NEEDS_LIST_API_URL, NEED_LIST_LOAD_SIZE } from "@/constants/apiUrls";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
 
@@ -67,6 +68,14 @@ const Need = () => {
       api.success({
         message: "인수 니즈 임시 저장",
         description: "인수 니즈가 성공적으로 임시 저장되었습니다.",
+        duration: 3,
+      });
+    }
+
+    if (state?.mutateStatus === "edit") {
+      api.success({
+        message: "인수 니즈 수정",
+        description: "인수 니즈가 성공적으로 수정되었습니다.",
         duration: 3,
       });
     }
@@ -151,7 +160,7 @@ const Need = () => {
 
             {needList?.pages.map((group) => {
               if (group.data.length <= 0) {
-                return <div key="no Data">No Data</div>;
+                return <div key="no Data">작성하신 인수 니즈가 없습니다.</div>;
               }
 
               return group.data.map((need) => {
@@ -192,18 +201,11 @@ const Need = () => {
         )}
       </StyledTable>
 
-      <Flex align="center" justify="center">
-        <PrimaryButton
-          clickEvent={() => fetchNextPage()}
-          disabled={!hasNextPage || isFetchingNextPage}
-        >
-          {isFetchingNextPage
-            ? "Loading more..."
-            : hasNextPage
-            ? "더보기"
-            : "Nothing more to load"}
-        </PrimaryButton>
-      </Flex>
+      <LoadMoreButton
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </div>
   );
 };

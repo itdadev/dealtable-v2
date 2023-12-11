@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Flex, Modal, Spin } from "antd";
 import styled from "@emotion/styled";
 
-import { CustomForm, TextAreaInput, TextInput } from "@/components/ui/form";
+import { CustomForm } from "@/components/ui/form";
 import { FieldGroup, FormTitle } from "@/components/ui/form/CustomForm";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
 import {
@@ -15,12 +15,12 @@ import {
   TERMINATE_NEEDS_API_URL,
 } from "@/constants/apiUrls";
 import {
-  dealScalePH,
-  industryPH,
-  keyConditionPH,
-  revenuePH,
-  salesPH,
-} from "@/lib/react-hook-form/validation/placeholderTexts";
+  DealScaleField,
+  IndustryField,
+  KeyConditionField,
+  RevenueField,
+  SalesField,
+} from "@/components/ui/fields/Fields";
 import { zodNeedsAdd } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
 import { returnNull } from "@/util/ModifyData";
@@ -114,10 +114,13 @@ const AddNeed = () => {
         complete: true,
         sales: returnNull(data?.sales),
         revenue: returnNull(data?.revenue),
+        needs_key: needsKey,
       }),
     {
       onSuccess: () => {
-        navigate("/need/add-complete");
+        queryClient.removeQueries("needList");
+
+        navigate("/need", { state: { mutateStatus: "edit" } });
       },
       onError: (error) => {
         console.log(error);
@@ -133,12 +136,13 @@ const AddNeed = () => {
         complete: false,
         sales: returnNull(data?.sales),
         revenue: returnNull(data?.revenue),
+        needs_key: needsKey,
       }),
     {
       onSuccess: () => {
         queryClient.removeQueries("needList");
 
-        navigate("/need");
+        navigate("/need", { state: { mutateStatus: "edit" } });
       },
       onError: (error) => {
         console.log(error);
@@ -253,6 +257,8 @@ const AddNeed = () => {
   const doneComplete = useCallback(() => {
     if (needsKey) {
       editNeedsFunction(watch());
+
+      return;
     }
 
     addNeedsFunction(watch());
@@ -261,6 +267,8 @@ const AddNeed = () => {
   const doneTempo = useCallback(() => {
     if (needsKey) {
       tempoEditNeedsFunction(watch());
+
+      return;
     }
 
     tempoAddNeedsFunction(watch());
@@ -334,39 +342,15 @@ const AddNeed = () => {
         <Spin />
       ) : (
         <FieldGroup>
-          <TextAreaInput
-            name="industry"
-            control={control}
-            placeholder={industryPH}
-            maxLength={200}
-          />
+          <IndustryField name="industry" control={control} maxLength={200} />
 
-          <TextInput
-            name="deal_scale"
-            control={control}
-            placeholder={dealScalePH}
-          />
+          <DealScaleField name="deal_scale" control={control} />
 
-          <TextInput
-            type="number"
-            name="sales"
-            control={control}
-            placeholder={salesPH}
-          />
+          <SalesField control={control} />
 
-          <TextInput
-            type="number"
-            name="revenue"
-            control={control}
-            placeholder={revenuePH}
-          />
+          <RevenueField control={control} />
 
-          <TextAreaInput
-            name="key_condition"
-            control={control}
-            placeholder={keyConditionPH}
-            maxLength={700}
-          />
+          <KeyConditionField control={control} maxLength={700} />
         </FieldGroup>
       )}
 

@@ -9,10 +9,7 @@ import {
   FIND_SEND_CODE_API_URL,
   SEND_CODE_API_URL,
 } from "@/constants/apiUrls";
-import {
-  phoneNumPH,
-  verificationCodePH,
-} from "@/lib/react-hook-form/validation/placeholderTexts";
+import { verificationCodePH } from "@/lib/react-hook-form/validation/placeholderTexts";
 import {
   differentPhoneRequired,
   phoneAlreadyExists,
@@ -21,6 +18,7 @@ import {
 } from "@/lib/react-hook-form/validation/inputErrorMessage";
 
 import { FieldErrorMessage } from "./CustomForm";
+import { PhoneField } from "../fields/Fields";
 import { TextInput } from ".";
 
 export const CODE_EXPIRE_TIME = 5 * 60 * 1000;
@@ -173,32 +171,27 @@ const PhoneVerificationFields = ({
   return (
     <>
       <Flex>
-        <TextInput
-          controls={false}
-          name="phone"
-          control={control}
-          type="number"
-          placeholder={phoneNumPH}
-          readOnly={!phoneActive || codeVerified}
-        />
-
-        <Button
-          type="primary"
-          size="large"
-          onClick={() => sendCodeFunction(watch("phone"))}
-          disabled={codeVerified}
-        >
-          {codeSent && !codeVerified
-            ? "전화번호 다시 입력"
-            : codeVerified
-            ? "인증 완료"
-            : "인증번호 전송"}
-        </Button>
+        <PhoneField control={control} readOnly={!phoneActive || codeVerified}>
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => sendCodeFunction(watch("phone"))}
+            disabled={codeVerified}
+          >
+            {codeSent && !codeVerified
+              ? "전화번호 다시 입력"
+              : codeVerified
+              ? "인증 완료"
+              : "인증번호 전송"}
+          </Button>
+        </PhoneField>
       </Flex>
 
       <Flex>
         <TextInput
           name="auth_code"
+          label="인증 번호"
+          labelrequired="true"
           control={control}
           readOnly={codeVerified}
           placeholder={verificationCodePH}
@@ -220,25 +213,25 @@ const PhoneVerificationFields = ({
               />
             </FieldErrorMessage>
           }
-        />
-
-        <Button
-          type="primary"
-          size="large"
-          disabled={(!codeActive && !codeExpired) || codeVerified}
-          onClick={() =>
-            verifyCodeFunction({
-              phone: watch("phone"),
-              auth_code: watch("auth_code"),
-            })
-          }
         >
-          {codeExpired
-            ? "재전송"
-            : codeVerified
-            ? "인증 완료"
-            : "인증번호 확인"}
-        </Button>
+          <Button
+            type="primary"
+            size="large"
+            disabled={(!codeActive && !codeExpired) || codeVerified}
+            onClick={() =>
+              verifyCodeFunction({
+                phone: watch("phone"),
+                auth_code: watch("auth_code"),
+              })
+            }
+          >
+            {codeExpired
+              ? "재전송"
+              : codeVerified
+              ? "인증 완료"
+              : "인증번호 확인"}
+          </Button>
+        </TextInput>
       </Flex>
     </>
   );
