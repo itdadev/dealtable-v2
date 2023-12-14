@@ -25,30 +25,34 @@ export const BackgroundImageWrapper = styled.div(({ url }) => ({
   position: "relative",
   width: "100vw",
   height: "100vh",
-  maxHeight: "100vh",
-  overflow: "hidden",
   backgroundImage: `url(${url})`,
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   backgroundAttachment: "fixed",
+
+  [mq("desktop")]: {
+    maxHeight: "100vh",
+    overflow: "hidden",
+  },
 }));
 
-export const HomeSectionTextContainer = styled.div(({ theme }) => ({
+export const HomeSectionTextContainer = styled.div(({ theme, home }) => ({
   position: "absolute",
-  bottom: 0,
-  width: "100%",
-  maxWidth: "calc(100% - 4rem)",
-  borderRight: `1px solid ${theme.color.opacityWhite20}`,
-  borderLeft: `1px solid ${theme.color.opacityWhite20}`,
-  height: "100%",
-  maxHeight: "calc(100% - 6rem)",
-  margin: "0 2rem",
-  paddingTop: "15rem",
   zIndex: borderZIndex,
+  bottom: 0,
   display: "flex",
   flexDirection: "column",
   justifyContent: "flex-start",
   gap: "0.6rem 0",
+
+  width: "100%",
+  maxWidth: "calc(100% - 4rem)",
+  height: "100%",
+  maxHeight: "calc(100% - 6rem)",
+  margin: "0 2rem",
+  paddingTop: home ? "16rem" : 0,
+  borderRight: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
+  borderLeft: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
 
   [mq("desktop")]: {
     left: "50%",
@@ -88,6 +92,7 @@ export const HomeSectionTextWrapper = styled.div(({ theme }) => ({
     left: "-1.6rem",
     fontSize: "5.4rem",
     fontWeight: theme.fontWeight.extraBold,
+    fontFamily: theme.fontFamily.secondary,
   },
 
   [mq("desktop")]: {
@@ -254,7 +259,7 @@ const Home = () => {
             return (
               <SwiperSlide key={section.id}>
                 <BackgroundImageWrapper url={section.image} className="section">
-                  <HomeSectionTextContainer>
+                  <HomeSectionTextContainer home>
                     {section.contents}
                   </HomeSectionTextContainer>
 

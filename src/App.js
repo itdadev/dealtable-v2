@@ -31,7 +31,7 @@ import {
 } from "./_auth/pages/account";
 import { Faq } from "./_root/pages/faq";
 import { Notice } from "./_root/pages/notice";
-import { Footer, Header } from "./components/shared";
+import { Header } from "./components/shared";
 
 function App() {
   return (
@@ -71,7 +71,7 @@ function App() {
           </Route>
         </Routes>
 
-        <Footer showFooter={true} />
+        {/* <Footer showFooter={true} /> */}
       </ConfigProvider>
     </ThemeProvider>
   );

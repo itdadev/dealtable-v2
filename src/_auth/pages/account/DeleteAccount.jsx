@@ -6,13 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Modal } from "antd";
 
 import { CustomForm } from "@/components/ui/form";
-import { FieldGroup, FormTitle } from "@/components/ui/form/CustomForm";
+import { FieldGroup, FormDescription } from "@/components/ui/form/CustomForm";
 import { DELETE_USER_API_URL } from "@/constants/apiUrls";
 import { PrimaryButton } from "@/components/ui/buttons";
 import { useUserContext } from "@/context/AuthContext";
 import { CurrentPasswordField } from "@/components/ui/fields/Fields";
 import { zodDeleteAccount } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
+import { ButtonWrapper } from "@/_root/pages/user/JoinComplete";
 
 const DeleteAccount = () => {
   const navigate = useNavigate();
@@ -80,14 +81,14 @@ const DeleteAccount = () => {
       </Modal>
 
       <FieldGroup>
-        <FormTitle>회원 탈퇴하기</FormTitle>
+        <FormDescription>회원 탈퇴하기</FormDescription>
 
         <CurrentPasswordField control={control} />
       </FieldGroup>
 
-      <PrimaryButton fullwidth buttonType="submit">
-        탈퇴하기
-      </PrimaryButton>
+      <ButtonWrapper>
+        <PrimaryButton buttonType="submit">탈퇴하기</PrimaryButton>
+      </ButtonWrapper>
     </CustomForm>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Button } from "antd";
+import { mq } from "@/lib/react-responsive/mediaQuery";
 
 export const defaultButtonStyle = {
   position: "relative",
@@ -8,16 +9,22 @@ export const defaultButtonStyle = {
   alignItems: "center",
   justifyContent: "center",
   gap: "0 4.5rem",
+  fontSize: "1.4rem",
   height: "auto",
+  lineHeight: 1,
 };
 
-const Container = styled(Button)(({ fullwidth }) => ({
+const Container = styled(Button)(({ fullwidth, theme }) => ({
   ...defaultButtonStyle,
   width: fullwidth === "true" ? "100%" : "fit-content",
   color: "white",
   borderRadius: "50rem",
-  padding: "1.2rem 2.4rem",
-  fontSize: "1.6rem",
+  fontWeight: theme.fontWeight.regular,
+  padding: "1.2rem 1.6rem",
+
+  [mq("desktop")]: {
+    padding: "1.2rem 2.4rem",
+  },
 }));
 
 const PrimaryButton = ({

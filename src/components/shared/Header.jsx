@@ -78,7 +78,7 @@ const HamburgerLine = styled.img(({ top = 0, opacity = 1, rotate }) => ({
   transform: rotate,
 }));
 
-const HeaderLogo = styled.object(() => ({
+const HeaderLogo = styled.img(() => ({
   width: "12rem",
 
   [mq("tablet")]: {
@@ -112,13 +112,13 @@ const Header = () => {
 
   return (
     <HeaderContainer active={active}>
-      <HeaderLogo
-        data={image.whiteLogo.default}
-        type=""
-        width={isDesktop ? 200 : 100}
-      >
-        DEAL TABLE
-      </HeaderLogo>
+      <Link to="/">
+        <HeaderLogo
+          src={image.whiteLogo.default}
+          type=""
+          width={isDesktop ? 200 : 100}
+        />
+      </Link>
 
       <IsDesktop>
         <HeaderLanguageContainer>

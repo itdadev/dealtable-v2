@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import {
   BackgroundImageWrapper,
@@ -10,28 +11,31 @@ import { contentZIndex } from "@/constants/zIndex";
 import { mq } from "@/lib/react-responsive/mediaQuery";
 
 import { NormalOverlay } from "..";
-import { Link } from "react-router-dom";
 
 const FormContainer = styled.div(({ width = "100rem" }) => ({
   position: "relative",
   zIndex: contentZIndex,
-  width: "100%",
-  maxWidth: "90%",
-  margin: "0 auto",
+  margin: "2rem 0",
 
   [mq("tablet")]: {
     maxWidth: "80%",
   },
 
   [mq("desktop")]: {
+    width: "fit-content",
     minWidth: "48rem",
     maxWidth: width,
+    margin: "8rem auto",
   },
 }));
 
 export const FormDescription = styled.p(() => ({
-  fontSize: "2.4rem",
+  fontSize: "2.2rem",
   marginBottom: "2.2rem",
+
+  [mq("desktop")]: {
+    fontSize: "2.4rem",
+  },
 }));
 
 const Container = styled.form(({ theme, wide }) => ({
@@ -40,16 +44,22 @@ const Container = styled.form(({ theme, wide }) => ({
   alignItems: "center",
   gap: "1rem",
   width: "100%",
-  maxWidth: wide ? "92rem" : "60rem",
-  margin: "8rem auto",
-  padding: `6.4rem 4.8rem`,
+  maxHeight: "calc(100vh - 10rem)",
+  margin: "auto",
+  padding: "2rem",
   boxShadow: theme.shadow.primary,
   background: "white",
-  maxHeight: "calc(100vh - 25rem)",
   overflow: "auto",
 
   "& > *": {
     width: "100%",
+  },
+
+  [mq("desktop")]: {
+    minWidth: wide ? "92rem" : "60rem",
+    maxWidth: wide ? "92rem" : "60rem",
+    maxHeight: "calc(100vh - 25rem)",
+    padding: "6.4rem 4.8rem",
   },
 }));
 
@@ -59,26 +69,42 @@ export const FieldContainer = styled.div(({ theme }) => ({
   flexDirection: "column",
   gap: "0.4rem 0",
   width: "100%",
-  minHeight: "10rem",
+  minHeight: "10.2rem",
 
   label: {
-    fontSize: "1.6rem",
+    fontSize: "1.4rem",
 
     sup: {
       color: theme.color.error,
       marginLeft: "0.2rem",
     },
   },
+
+  [mq("desktop")]: {
+    label: {
+      fontSize: "1.6rem",
+    },
+  },
 }));
 
-export const TextAresFieldContainer = styled.div(() => ({
-  minHeight: "15rem",
+export const TextAresFieldContainer = styled.div(({ theme }) => ({
+  minHeight: "16rem",
   width: "100%",
-  maxWidth: "58rem",
   flex: 1,
   display: "flex",
   flexDirection: "column",
   gap: "0.4rem 0",
+
+  label: {
+    sup: {
+      color: theme.color.error,
+      marginLeft: "0.2rem",
+    },
+  },
+
+  [mq("desktop")]: {
+    fontSize: "1.6rem",
+  },
 }));
 
 export const FieldErrorMessage = styled.div(({ theme, custom }) => ({
@@ -92,16 +118,24 @@ export const FieldErrorMessage = styled.div(({ theme, custom }) => ({
 export const FieldGroup = styled.div(() => ({
   display: "flex",
   flexDirection: "column",
-  marginBottom: "6rem",
+  marginBottom: "3.6rem",
 
   header: {
-    marginBottom: "2.4rem",
-    fontSize: "2.4rem",
+    marginBottom: "1.6rem",
+    fontSize: "2rem",
+  },
+
+  [mq("desktop")]: {
+    marginBottom: "6.4rem",
+
+    header: {
+      marginBottom: "2.4rem",
+      fontSize: "2.4rem",
+    },
   },
 }));
 
 export const FormTitle = styled.h1(({ theme }) => ({
-  position: "relative",
   marginBottom: "6rem",
   textAlign: "center",
   fontSize: "2.4rem",
@@ -114,11 +148,30 @@ export const FormTitle = styled.h1(({ theme }) => ({
   },
 }));
 
+export const FixedButtonContainer = styled.div(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  marginTop: "3rem",
+  gap: "0 0.8rem",
+  background: "white",
+
+  [mq("desktop")]: {
+    position: "absolute",
+    left: 0,
+    bottom: 0,
+    marginTop: 0,
+    padding: "2.4rem 2rem",
+    boxShadow: theme.shadow.secondary,
+  },
+}));
+
 const LinkToHome = styled(Link)(() => ({
   marginBottom: "2.2rem",
 }));
 
-const CustomForm = ({ children, submitEvent, width, wide }) => {
+const CustomForm = ({ children, submitEvent, width, wide, noLogo }) => {
   return (
     <BackgroundImageWrapper url={image.homeSectionBg06}>
       <NormalOverlay />
@@ -126,9 +179,15 @@ const CustomForm = ({ children, submitEvent, width, wide }) => {
       <HomeSectionTextContainer>
         <FormContainer width={width}>
           <Container onSubmit={submitEvent} wide={wide}>
-            <LinkToHome to="/">
-              <img src={image.basicLogo.default} alt="DEALTABLE" width={150} />
-            </LinkToHome>
+            {!noLogo && (
+              <LinkToHome to="/">
+                <img
+                  src={image.basicLogo.default}
+                  alt="DEALTABLE"
+                  width={150}
+                />
+              </LinkToHome>
+            )}
 
             {children}
           </Container>

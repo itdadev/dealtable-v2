@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Flex, Spin, notification } from "antd";
+import { Flex, Spin, notification } from "antd";
+import styled from "@emotion/styled";
 
 import { CustomForm, PhoneVerificationFields } from "@/components/ui/form";
-import { FieldGroup, FormTitle } from "@/components/ui/form/CustomForm";
+import { FieldGroup, FormDescription } from "@/components/ui/form/CustomForm";
 import { MUTATE_USER_INFO_API_URL } from "@/constants/apiUrls";
 import {
   CompanyNameField,
@@ -16,9 +17,14 @@ import {
   UserPositionField,
 } from "@/components/ui/fields/Fields";
 import { useUserContext } from "@/context/AuthContext";
-import { PrimaryButton } from "@/components/ui/buttons";
+import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
 import { zodEditAccount } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
+
+const LinkText = styled(Link)(({ theme }) => ({
+  color: theme.color.grey,
+  fontSize: "1.6rem",
+}));
 
 const Account = ({ edit }) => {
   const { state } = useLocation();
@@ -153,21 +159,13 @@ const Account = ({ edit }) => {
     <CustomForm submitEvent={handleSubmit(changeAccountSubmit)}>
       {contextHolder}
 
-      <FormTitle>계정 관리</FormTitle>
-
-      <Flex justify="flex-end" gap="small">
-        {!edit && <Button href="/change-account">기본 정보 변경</Button>}
-
-        <Button href="/change-my-password">비밀번호 변경</Button>
-      </Flex>
+      <FormDescription>계정 관리</FormDescription>
 
       {isLoading ? (
         <Spin />
       ) : (
         <>
           <FieldGroup>
-            <header>계정 정보</header>
-
             <EmailField control={control} readOnly={true} />
           </FieldGroup>
 
@@ -203,16 +201,28 @@ const Account = ({ edit }) => {
       )}
 
       {edit && (
-        <PrimaryButton buttonType="submit" fullwidth>
-          계정 정보 변경
-        </PrimaryButton>
+        <Flex align="center" justify="space-between">
+          <LinkText to="/change-my-password">비밀번호 변경</LinkText>
+
+          <PrimaryButton buttonType="submit">계정 정보 변경</PrimaryButton>
+        </Flex>
       )}
 
       {!edit && (
-        <Flex justify="flex-end" gap="small">
-          <Button danger href="/delete-account">
+        <Flex align="center" justify="space-between" gap="small">
+          <LinkText danger to="/delete-account">
             탈퇴하기
-          </Button>
+          </LinkText>
+
+          <Flex gap="small">
+            <SecondaryButton linkTo="/change-my-password">
+              비밀번호 변경
+            </SecondaryButton>
+
+            <PrimaryButton linkTo="/change-account">
+              기본 정보 변경
+            </PrimaryButton>
+          </Flex>
         </Flex>
       )}
     </CustomForm>

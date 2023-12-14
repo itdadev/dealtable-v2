@@ -37,7 +37,7 @@ export const zodFindAccount = z.object({
 
 export const zodChangePassword = z
   .object({
-    user_pw: z
+    new_pw: z
       .string()
       .min(1, newPasswordRequired)
       .regex(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,15}$/, passwordFormat),
@@ -46,7 +46,7 @@ export const zodChangePassword = z
       .min(1, passwordConfirmRequired)
       .regex(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,15}$/, passwordFormat),
   })
-  .refine((data) => data.user_pw === data.password_confirm, {
+  .refine((data) => data.new_pw === data.password_confirm, {
     message: passwordConfirmInvalid,
     path: ["password_confirm"],
   });

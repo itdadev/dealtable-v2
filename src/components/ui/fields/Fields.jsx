@@ -20,6 +20,7 @@ import {
 
 import { TextAreaInput, TextInput } from "../form";
 import PassswordInput from "../form/PasswordInput";
+import { formatWon } from "@/util/ModifyData";
 
 export const EmailField = ({ control, readOnly }) => {
   return (
@@ -64,8 +65,7 @@ export const ConfirmPasswordField = ({ control, readOnly = false }) => {
     <PassswordInput
       name="password_confirm"
       label="비밀번호 확인"
-      labelReqlabelRequired="true"
-      uired
+      labelrequired="true"
       control={control}
       type="password"
       placeholder={passwordConfirmPH}
@@ -180,21 +180,22 @@ export const PhoneField = ({ control, readOnly = false, children }) => {
   );
 };
 
-export const IndustryField = ({ control, maxLength, readOnly = false }) => {
+export const IndustryField = ({ control, readOnly = false, defaultValue }) => {
   return (
     <TextAreaInput
       name="industry"
       label="산업군"
       labelrequired="true"
-      control={control}
+      control={control ? control : undefined}
       placeholder={industryPH}
       readOnly={readOnly}
-      maxLength={maxLength}
+      maxLength={200}
+      defaultValue={defaultValue}
     />
   );
 };
 
-export const DealScaleField = ({ control, readOnly = false }) => {
+export const DealScaleField = ({ control, readOnly = false, defaultValue }) => {
   return (
     <TextInput
       name="deal_scale"
@@ -203,38 +204,44 @@ export const DealScaleField = ({ control, readOnly = false }) => {
       control={control}
       placeholder={dealScalePH}
       readOnly={readOnly}
+      defaultValue={defaultValue}
     />
   );
 };
 
-export const SalesField = ({ control, readOnly = false }) => {
+export const SalesField = ({ control, readOnly = false, defaultValue }) => {
   return (
     <TextInput
       name="sales"
       label="매출"
-      type="number"
       control={control}
       placeholder={salesPH}
       readOnly={readOnly}
-      onInput={(e) => console.log(e)}
+      defaultValue={defaultValue}
+      onInput={formatWon}
     />
   );
 };
 
-export const RevenueField = ({ control, readOnly = false }) => {
+export const RevenueField = ({ control, readOnly = false, defaultValue }) => {
   return (
     <TextInput
       name="revenue"
       label="영업 이익"
-      type="number"
       control={control}
       placeholder={revenuePH}
       readOnly={readOnly}
+      defaultValue={defaultValue}
+      onInput={formatWon}
     />
   );
 };
 
-export const KeyConditionField = ({ control, readOnly = false, maxLength }) => {
+export const KeyConditionField = ({
+  control,
+  readOnly = false,
+  defaultValue,
+}) => {
   return (
     <TextAreaInput
       name="key_condition"
@@ -242,7 +249,8 @@ export const KeyConditionField = ({ control, readOnly = false, maxLength }) => {
       control={control}
       placeholder={keyConditionPH}
       readOnly={readOnly}
-      maxLength={maxLength}
+      maxLength={700}
+      defaultValue={defaultValue}
     />
   );
 };

@@ -32,16 +32,26 @@ const style = css`
   .fadeInOut-enter {
     opacity: 0;
   }
+
   .fadeInOut-enter-active {
     opacity: 1;
     transition: opacity 200ms;
   }
+
   .fadeInOut-exit {
     opacity: 1;
   }
+
   .fadeInOut-exit-active {
     opacity: 0;
     transition: opacity 200ms;
+  }
+
+  // Antd
+  .ant-input-data-count {
+    top: -2.2rem;
+    font-size: 1.4rem;
+    color: #666 !important;
   }
 `;
 

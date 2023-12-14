@@ -16,5 +16,13 @@ export const AntdTheme = {
       paddingInlineLG: 16,
       paddingBlockLG: 16,
     },
+    Flex: {
+      fontSize: "inherit",
+    },
+    Modal: {
+      borderRadiusLG: 0,
+      fontWeightStrong: 400,
+      titleFontSize: 22,
+    },
   },
 };

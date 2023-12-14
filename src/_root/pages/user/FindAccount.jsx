@@ -6,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { CustomForm, PhoneVerificationFields } from "@/components/ui/form";
-import { FormTitle } from "@/components/ui/form/CustomForm";
+import { FormDescription } from "@/components/ui/form/CustomForm";
 import { UserNameField } from "@/components/ui/fields/Fields";
 import { PrimaryButton } from "@/components/ui/buttons";
 import { FIND_ACCOUNT_API_URL } from "@/constants/apiUrls";
 import { zodFindAccount } from "@/lib/react-hook-form/validation/zodValidation";
+import { ButtonWrapper } from "./JoinComplete";
 
 const FindAccount = () => {
   const navigate = useNavigate();
@@ -63,7 +64,6 @@ const FindAccount = () => {
 
   const findAccountSubmit = useCallback(
     (data) => {
-      console.log(data);
       findAccountFunction(data);
     },
     [findAccountFunction]
@@ -71,7 +71,7 @@ const FindAccount = () => {
 
   return (
     <CustomForm submitEvent={handleSubmit(findAccountSubmit)}>
-      <FormTitle>이메일 찾기 / 비밀번호 변경</FormTitle>
+      <FormDescription>이메일과 비밀번호를 변경하세요.</FormDescription>
 
       <UserNameField control={control} />
 
@@ -86,9 +86,9 @@ const FindAccount = () => {
         findAccount
       />
 
-      <PrimaryButton buttonType="submit" fullwidth>
-        계정 찾기
-      </PrimaryButton>
+      <ButtonWrapper>
+        <PrimaryButton buttonType="submit">계정 찾기</PrimaryButton>
+      </ButtonWrapper>
     </CustomForm>
   );
 };

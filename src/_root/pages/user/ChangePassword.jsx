@@ -5,11 +5,15 @@ import { useMutation } from "react-query";
 import { useForm } from "react-hook-form";
 import styled from "@emotion/styled";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Divider } from "antd";
+import { Divider, Flex } from "antd";
 
 import { CustomForm } from "@/components/ui/form";
-import { FieldGroup } from "@/components/ui/form/CustomForm";
-import { PrimaryButton } from "@/components/ui/buttons";
+import {
+  FieldGroup,
+  FixedButtonContainer,
+  FormDescription,
+} from "@/components/ui/form/CustomForm";
+import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
 import { CHANGE_PW_API_URL } from "@/constants/apiUrls";
 import {
   ConfirmPasswordField,
@@ -17,16 +21,14 @@ import {
 } from "@/components/ui/fields/Fields";
 import { zodChangePassword } from "@/lib/react-hook-form/validation/zodValidation";
 
-const FoundEmailContainer = styled.div(() => ({
-  background: "lightblue",
-  margin: "2rem 0",
-  padding: "2rem",
-  textAlign: "center",
-  fontSize: "2rem",
+const FoundEmailContainer = styled(Flex)(() => ({
+  padding: "2rem 0 0",
+  fontSize: "1.8rem",
 }));
 
 const ChangePassword = () => {
   const { state } = useLocation();
+
   const navigate = useNavigate();
 
   const { control, handleSubmit } = useForm({
@@ -72,17 +74,13 @@ const ChangePassword = () => {
 
   return (
     <CustomForm submitEvent={handleSubmit(changePasswordSubmit)}>
-      <FieldGroup>
-        <header>입력하신 정보와 일치하는 이메일입니다.</header>
+      <div>
+        <FormDescription>가입하신 이메일은 아래와 같습니다.</FormDescription>
 
-        <p>가입하신 이메일은 아래와 같습니다.</p>
-
-        <FoundEmailContainer>{state?.foundEmail}</FoundEmailContainer>
-
-        <PrimaryButton clickEvent={linktoLogin} fullwidth>
-          로그인 하기
-        </PrimaryButton>
-      </FieldGroup>
+        <FoundEmailContainer align="center" justify="space-between">
+          {state?.foundEmail}
+        </FoundEmailContainer>
+      </div>
 
       <Divider />
 
@@ -93,9 +91,17 @@ const ChangePassword = () => {
 
         <ConfirmPasswordField control={control} />
 
-        <PrimaryButton fullwidth buttonType="submit">
-          비밀번호 변경하기
-        </PrimaryButton>
+        <FixedButtonContainer>
+          <SecondaryButton
+            buttonType="button"
+            type="secondary"
+            clickEvent={linktoLogin}
+          >
+            로그인 하기
+          </SecondaryButton>
+
+          <PrimaryButton buttonType="submit">비밀번호 변경하기</PrimaryButton>
+        </FixedButtonContainer>
       </FieldGroup>
     </CustomForm>
   );

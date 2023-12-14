@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Flex } from "antd";
+import { Flex } from "antd";
 import axios from "axios";
 import { useMutation } from "react-query";
 import Countdown, { zeroPad } from "react-countdown";
+import styled from "@emotion/styled";
 
 import {
   CHECK_CODE_API_URL,
@@ -23,6 +24,16 @@ import { TextInput } from ".";
 
 export const CODE_EXPIRE_TIME = 5 * 60 * 1000;
 
+const SendButton = styled.div(({ theme }) => ({
+  color: theme.color.primary,
+  wordBreak: "keep-all",
+  whiteSpace: "nowrap",
+  display: "flex",
+  alignItems: "center",
+  cursor: "pointer",
+  height: "5.8rem",
+}));
+
 const PhoneVerificationFields = ({
   watch,
   clearErrors,
@@ -31,7 +42,7 @@ const PhoneVerificationFields = ({
   resetField,
   control,
   errors,
-  initalPhoneValue,
+  initialPhoneValue,
   findAccount,
 }) => {
   const [targetDate, setTargetDate] = useState(
@@ -61,40 +72,34 @@ const PhoneVerificationFields = ({
 
   const { mutate: sendCodeFunction } = useMutation(
     (data) => {
+      if (codeSent) {
+        // CASE: 전화번호 다시 입력
+        return "resend";
+      }
+
       if (data === "") {
         // 전화 번호 입력 안하고 인증 코드 전송 눌렀을 때
         return phoneRequired;
       }
 
-      if (initalPhoneValue && data === initalPhoneValue) {
+      if (initialPhoneValue && data === initialPhoneValue) {
         // 회원 정보 수정시 기존의 유저 번호와 동일한 번호를 입력했을 때
 
         return differentPhoneRequired;
-      } else {
-        const { status } = axios.post(
-          findAccount ? FIND_SEND_CODE_API_URL : SEND_CODE_API_URL,
-          {
-            phone: data,
-          }
-        );
-
-        if (status === 200) {
-          return "";
-        }
       }
+
+      const res = axios.post(
+        findAccount ? FIND_SEND_CODE_API_URL : SEND_CODE_API_URL,
+        {
+          phone: data,
+        }
+      );
+
+      return res;
     },
     {
       onSuccess: (data) => {
-        if (data !== "" && !!data) {
-          setError("phone", { message: data });
-
-          return;
-        }
-
-        clearErrors("phone");
-
-        if (codeSent) {
-          // CASE: 전화번호 다시 입력
+        if (data === "resend") {
           setPhoneActive(true);
           setCodeSent(false);
           setCodeActive(false);
@@ -104,6 +109,14 @@ const PhoneVerificationFields = ({
 
           return;
         }
+
+        if (typeof data === "string" && !!data && data !== "resend") {
+          setError("phone", { message: data });
+
+          return;
+        }
+
+        clearErrors("phone");
 
         // CASE: 전화번호 처음 입력
         startTimer();
@@ -122,7 +135,7 @@ const PhoneVerificationFields = ({
   const { mutate: verifyCodeFunction } = useMutation(
     (data) => axios.post(CHECK_CODE_API_URL, { ...data }),
     {
-      onSuccess: (data) => {
+      onSuccess: () => {
         // CASE: 코드 인증 완료
         resetTimer();
         setCodeVerified(true);
@@ -131,7 +144,7 @@ const PhoneVerificationFields = ({
         setValue("phone_verified", true, { shouldValidate: true });
       },
       onError: (error) => {
-        if (error?.response?.status === 400) {
+        if (error?.response.status === 400) {
           setError("auth_code", { message: verificationCodeInvaid });
 
           setCodeVerified(false);
@@ -172,10 +185,12 @@ const PhoneVerificationFields = ({
     <>
       <Flex>
         <PhoneField control={control} readOnly={!phoneActive || codeVerified}>
-          <Button
+          <SendButton
             type="primary"
             size="large"
-            onClick={() => sendCodeFunction(watch("phone"))}
+            onClick={() => {
+              sendCodeFunction(watch("phone"));
+            }}
             disabled={codeVerified}
           >
             {codeSent && !codeVerified
@@ -183,7 +198,7 @@ const PhoneVerificationFields = ({
               : codeVerified
               ? "인증 완료"
               : "인증번호 전송"}
-          </Button>
+          </SendButton>
         </PhoneField>
       </Flex>
 
@@ -193,7 +208,7 @@ const PhoneVerificationFields = ({
           label="인증 번호"
           labelrequired="true"
           control={control}
-          readOnly={codeVerified}
+          readOnly={codeVerified || !codeSent}
           placeholder={verificationCodePH}
           customerror={
             errors.phone_verified ? errors.phone_verified?.message : ""
@@ -214,9 +229,7 @@ const PhoneVerificationFields = ({
             </FieldErrorMessage>
           }
         >
-          <Button
-            type="primary"
-            size="large"
+          <SendButton
             disabled={(!codeActive && !codeExpired) || codeVerified}
             onClick={() =>
               verifyCodeFunction({
@@ -230,7 +243,7 @@ const PhoneVerificationFields = ({
               : codeVerified
               ? "인증 완료"
               : "인증번호 확인"}
-          </Button>
+          </SendButton>
         </TextInput>
       </Flex>
     </>

@@ -11,11 +11,12 @@ import {
   CurrentPasswordField,
   NewPasswordField,
 } from "@/components/ui/fields/Fields";
-import { FieldGroup, FormTitle } from "@/components/ui/form/CustomForm";
+import { FieldGroup, FormDescription } from "@/components/ui/form/CustomForm";
 import { useUserContext } from "@/context/AuthContext";
 import { PrimaryButton } from "@/components/ui/buttons";
 import { zodChangeMyPassword } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
+import { ButtonWrapper } from "@/_root/pages/user/JoinComplete";
 
 const ChangeMyPassword = () => {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ const ChangeMyPassword = () => {
   return (
     <CustomForm submitEvent={handleSubmit(changePasswordSubmit)}>
       <FieldGroup>
-        <FormTitle>비밀번호 변경하기</FormTitle>
+        <FormDescription>비밀번호 변경하기</FormDescription>
 
         <CurrentPasswordField control={control} />
 
@@ -75,9 +76,9 @@ const ChangeMyPassword = () => {
         <ConfirmPasswordField control={control} />
       </FieldGroup>
 
-      <PrimaryButton fullwidth buttonType="submit">
-        비밀번호 변경하기
-      </PrimaryButton>
+      <ButtonWrapper>
+        <PrimaryButton buttonType="submit">비밀번호 변경하기</PrimaryButton>
+      </ButtonWrapper>
     </CustomForm>
   );
 };

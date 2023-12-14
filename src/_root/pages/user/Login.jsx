@@ -69,7 +69,7 @@ const Login = () => {
         }
 
         setIsAuthenticated(true);
-        navigate("/");
+        navigate("/need");
       },
       onError: (error) => {
         console.log(error);

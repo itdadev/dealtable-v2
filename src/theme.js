@@ -19,8 +19,13 @@ export const image = {
 export const color = {
   // NOTE: colors for all pages
   primary: "#2B2F65",
+  primaryPoint: "#141CBE",
+  secondary: "#BD9B60",
+  exampleButton: "#C4C2B8",
   baseBlack: "#111",
   grey: "#666666",
+  readOnlyText: "#777",
+  lightGrey: "#EEEEEE",
   disableGrey: "#FAFAFD",
   error: "#ff4d4f",
   inactiveGrey: "#808080",
@@ -32,7 +37,8 @@ export const AppTheme = {
   color,
   fontWeight: {
     thin: 100,
-    light: 200,
+    extraLight: 200,
+    light: 300,
     regular: 400,
     medium: 500,
     semiBold: 600,
@@ -42,10 +48,15 @@ export const AppTheme = {
   },
   shadow: {
     primary: "0 0.1rem 0.8rem rgba(0, 0, 0, 0.08)",
+    secondary: "0 -1rem 1rem rgba(0, 0, 0, 0.08)",
   },
   radius: {
     primary: "0.5rem",
     secondary: "1rem",
+  },
+  fontFamily: {
+    primary: "'Noto Sans KR', sans-serif",
+    secondary: "'Montserrat', sans-serif",
   },
 };
 

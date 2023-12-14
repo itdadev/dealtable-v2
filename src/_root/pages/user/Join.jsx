@@ -12,7 +12,10 @@ import {
   SelectAllCheckBoxes,
 } from "@/components/ui/form";
 import { PrimaryButton } from "@/components/ui/buttons";
-import { FieldGroup, FormTitle } from "@/components/ui/form/CustomForm";
+import {
+  FieldGroup,
+  FixedButtonContainer,
+} from "@/components/ui/form/CustomForm";
 import { JOIN_API_URL } from "@/constants/apiUrls";
 import {
   CompanyNameField,
@@ -116,8 +119,6 @@ const Join = () => {
 
   return (
     <CustomForm submitEvent={handleSubmit(joinSubmit)}>
-      <FormTitle>회원가입</FormTitle>
-
       {userData?.reject_reason && (
         <Alert
           message="계정의 회원가입이 아래의 사유로 승인되지 않았습니다. 회원가입을 다시 진행해주세요."
@@ -169,9 +170,9 @@ const Join = () => {
         isSubmitted={isSubmitted}
       />
 
-      <PrimaryButton buttonType="submit" fullwidth>
-        회원가입 신청
-      </PrimaryButton>
+      <FixedButtonContainer>
+        <PrimaryButton buttonType="submit">회원가입 신청</PrimaryButton>
+      </FixedButtonContainer>
     </CustomForm>
   );
 };

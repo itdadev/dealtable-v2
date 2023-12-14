@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Flex, Modal, Spin } from "antd";
+import { Flex, Modal, Spin } from "antd";
 import styled from "@emotion/styled";
 
 import { CustomForm } from "@/components/ui/form";
-import { FieldGroup, FormTitle } from "@/components/ui/form/CustomForm";
+import { FieldGroup } from "@/components/ui/form/CustomForm";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
 import {
   MUTATE_NEEDS_API_URL,
@@ -23,14 +23,37 @@ import {
 } from "@/components/ui/fields/Fields";
 import { zodNeedsAdd } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
-import { returnNull } from "@/util/ModifyData";
+import { addComma, returnNull } from "@/util/ModifyData";
+import { useMediaQuery } from "react-responsive";
+import { NeedExampleModal } from "@/components/ui/modal";
 
-const DeleteButton = styled(Button)(() => ({
-  width: "fit-content",
-  alignSelf: "flex-start",
+const LinkText = styled.button(({ theme }) => ({
+  color: theme.color.grey,
+  fontSize: "1.6rem",
+}));
+
+const FormTitle = styled(Flex)(() => ({
+  fontSize: "2.2rem",
+  marginBottom: "2rem",
+}));
+
+const StatusName = styled.span(({ theme }) => ({
+  fontSize: "1.4rem",
+  color: theme.color.secondary,
+}));
+
+const ExampleButton = styled.button(({ theme }) => ({
+  padding: "0.6rem 1.2rem",
+  background: theme.color.exampleButton,
+  color: "white",
+  fontSize: "1.4rem",
 }));
 
 const AddNeed = () => {
+  const [exampleModalOpen, setExampleModalOpen] = useState(false);
+
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();
@@ -78,8 +101,8 @@ const AddNeed = () => {
     if (needDetail) {
       setValue("industry", needDetail?.industry);
       setValue("deal_scale", needDetail?.deal_scale);
-      setValue("sales", needDetail?.sales);
-      setValue("revenue", needDetail?.revenue);
+      setValue("sales", addComma(needDetail?.sales));
+      setValue("revenue", addComma(needDetail?.revenue));
       setValue("key_condition", needDetail?.key_condition);
     }
   }, [needDetail, setValue]);
@@ -103,6 +126,28 @@ const AddNeed = () => {
 
       default:
         return "생성";
+    }
+  }, [needDetail?.status]);
+
+  const isReadOnly = useMemo(() => {
+    switch (needDetail?.status) {
+      case "0":
+        return false;
+
+      case "1":
+        return false;
+
+      case "2":
+        return true;
+
+      case "3":
+        return true;
+
+      case "4":
+        return true;
+
+      default:
+        return false;
     }
   }, [needDetail?.status]);
 
@@ -193,7 +238,7 @@ const AddNeed = () => {
   );
 
   const { mutate: deleteNeedsFunction } = useMutation(
-    (data) =>
+    () =>
       // 니즈 삭제하기
       Interceptor.delete(MUTATE_NEEDS_API_URL, {
         data: { needs_key: needsKey },
@@ -211,7 +256,7 @@ const AddNeed = () => {
   );
 
   const { mutate: terminateNeedsFunction } = useMutation(
-    (data) =>
+    () =>
       // 니즈 종료하기
       Interceptor.patch(TERMINATE_NEEDS_API_URL, { needs_key: needsKey }),
     {
@@ -241,17 +286,11 @@ const AddNeed = () => {
   }, []);
 
   const deleteConfirm = useCallback(() => {
-    setConfirmModal((prev) => ({
-      ...prev,
-      delete: true,
-    }));
+    setConfirmModal({ delete: true });
   }, []);
 
   const terminateConfirm = useCallback(() => {
-    setConfirmModal((prev) => ({
-      ...prev,
-      terminate: true,
-    }));
+    setConfirmModal({ terminate: true });
   }, []);
 
   const doneComplete = useCallback(() => {
@@ -283,8 +322,24 @@ const AddNeed = () => {
     });
   };
 
+  const showExampleModal = () => {
+    setExampleModalOpen(true);
+  };
+  const okExampleModal = () => {
+    setExampleModalOpen(false);
+  };
+  const closeExampleModal = () => {
+    setExampleModalOpen(false);
+  };
+
   return (
-    <CustomForm submitEvent={handleSubmit(joinSubmit)}>
+    <CustomForm wide submitEvent={handleSubmit(joinSubmit)} noLogo>
+      <NeedExampleModal
+        open={exampleModalOpen}
+        onOk={okExampleModal}
+        onCancel={closeExampleModal}
+      />
+
       <Modal
         title={`인수 니즈 ${needsKey ? "수정" : "생성"}`}
         open={confirmModal.complete}
@@ -329,58 +384,67 @@ const AddNeed = () => {
         인수 니즈를 종료하시겠습니까?
       </Modal>
 
-      <FormTitle>
-        인수 니즈
-        <p>{needDetail?.status_nm}</p>
-      </FormTitle>
+      <FormTitle align="center" justify="space-between">
+        <Flex
+          align={isDesktop ? "center" : "flex-start"}
+          gap={isDesktop ? "large" : "small"}
+          vertical={!isDesktop}
+        >
+          <p>인수 니즈 {needsKey ? "수정" : "생성"}</p>
 
-      <DeleteButton type="dashed" danger size="small" onClick={deleteConfirm}>
-        삭제
-      </DeleteButton>
+          <StatusName>
+            {needDetail ? needDetail?.status_nm : "작성중"}
+          </StatusName>
+        </Flex>
+
+        <ExampleButton type="button" onClick={showExampleModal}>
+          작성 예시 보기
+        </ExampleButton>
+      </FormTitle>
 
       {isLoading ? (
         <Spin />
       ) : (
         <FieldGroup>
-          <IndustryField name="industry" control={control} maxLength={200} />
+          <IndustryField control={control} readOnly={isReadOnly} />
 
-          <DealScaleField name="deal_scale" control={control} />
+          <DealScaleField control={control} readOnly={isReadOnly} />
 
-          <SalesField control={control} />
+          <SalesField control={control} readOnly={isReadOnly} />
 
-          <RevenueField control={control} />
+          <RevenueField control={control} readOnly={isReadOnly} />
 
-          <KeyConditionField control={control} maxLength={700} />
+          <KeyConditionField control={control} readOnly={isReadOnly} />
         </FieldGroup>
       )}
 
-      <Flex gap="small">
+      <Flex align="center" justify="space-between" gap="small">
+        <LinkText type="button" onClick={deleteConfirm}>
+          삭제
+        </LinkText>
+
         {(statusNm === "작성중" || !needsKey) && (
-          <>
-            <SecondaryButton fullwidth clickEvent={tempoAdd}>
+          <Flex gap="small">
+            <SecondaryButton buttonType="button" clickEvent={tempoAdd}>
               임시저장
             </SecondaryButton>
 
-            <PrimaryButton fullwidth buttonType="submit">
-              생성하기
-            </PrimaryButton>
-          </>
+            <PrimaryButton buttonType="submit">생성하기</PrimaryButton>
+          </Flex>
         )}
 
         {(statusNm === "작성 완료" ||
           statusNm === "탐색중" ||
           statusNm === "탐색 완료") && (
-          <>
-            <SecondaryButton fullwidth clickEvent={terminateConfirm}>
+          <Flex gap="small">
+            <SecondaryButton clickEvent={terminateConfirm}>
               종료하기
             </SecondaryButton>
 
             {statusNm === "탐색중" || statusNm === "탐색 완료" ? null : (
-              <PrimaryButton fullwidth buttonType="submit">
-                수정하기
-              </PrimaryButton>
+              <PrimaryButton buttonType="submit">수정하기</PrimaryButton>
             )}
-          </>
+          </Flex>
         )}
       </Flex>
     </CustomForm>
