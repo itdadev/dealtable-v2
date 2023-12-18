@@ -24,3 +24,4 @@ export const NOTICE_LIST_API_URL = "/api/v1/notice";
 // load sizes
 export const NEED_LIST_LOAD_SIZE = 5;
 export const FAQ_LIST_LOAD_SIZE = 5;
+export const NOTICE_LIST_LOAD_SIZE = 5;
