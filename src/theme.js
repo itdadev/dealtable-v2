@@ -15,6 +15,9 @@ export const image = {
   rightLinkArrow: require("./assets/icons/right-link-arrow.svg"),
   hamburgerLine: require("./assets/icons/hamburger-line.svg"),
   search: require("./assets/icons/search.svg"),
+  filterOff: require("./assets/icons/filter-off.svg"),
+  filterAsc: require("./assets/icons/filter-asc.svg"),
+  filterDesc: require("./assets/icons/filter-desc.svg"),
 };
 
 export const color = {

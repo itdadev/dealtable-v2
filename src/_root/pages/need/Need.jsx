@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useInfiniteQuery } from "react-query";
 import { Flex, Spin, notification } from "antd";
@@ -10,6 +10,7 @@ import { NEEDS_LIST_API_URL, NEED_LIST_LOAD_SIZE } from "@/constants/apiUrls";
 import { CustomForm } from "@/components/ui/form";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
 import { IsDesktop, mq } from "@/lib/react-responsive/mediaQuery";
+import { image } from "@/theme";
 
 const StyledTable = styled.div(({ theme }) => ({
   maxWidth: "80vw",
@@ -74,6 +75,7 @@ const Column = styled.div(({ flex, header, theme, point }) => ({
   display: "flex",
   lineHeight: 2,
   color: point === "true" ? theme.color.primaryPoint : "inherit",
+  gap: "0 1.2rem",
 
   [mq("desktop")]: {
     flex: flex,
@@ -103,13 +105,44 @@ const TotalCnt = styled(Flex)(() => ({
   },
 }));
 
+const ToggleButton = styled.img(() => ({
+  cursor: "pointer",
+}));
+
+const FilterToggle = ({ switchStatus, setSwitchStatus, type }) => {
+  if (switchStatus === "asc") {
+    return (
+      <ToggleButton
+        src={image.filterAsc.default}
+        alt="필터 오름차순"
+        onClick={() => setSwitchStatus((prev) => ({ ...prev, [type]: "desc" }))}
+      />
+    );
+  }
+
+  if (switchStatus === "desc") {
+    return (
+      <ToggleButton
+        src={image.filterDesc.default}
+        alt="필터 내림차순"
+        onClick={() => setSwitchStatus((prev) => ({ ...prev, [type]: "asc" }))}
+      />
+    );
+  }
+};
+
 const Need = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
+  const [switchStatus, setSwitchStatus] = useState({
+    status: "asc",
+    date: "asc",
+  });
+
   const getNeedList = async ({ pageParam = 1 }) => {
     const { status, data } = await Interceptor?.get(
-      `${NEEDS_LIST_API_URL}?page=${pageParam}&size=${NEED_LIST_LOAD_SIZE}`
+      `${NEEDS_LIST_API_URL}?page=${pageParam}&size=${NEED_LIST_LOAD_SIZE}&order_status=${switchStatus.status}&order_ins_date=${switchStatus.date}`
     );
 
     if (status === 200) {
@@ -161,7 +194,7 @@ const Need = () => {
     isFetching,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["needList"],
+    queryKey: ["needList", switchStatus],
     queryFn: getNeedList,
     getNextPageParam: (lastPage, pages) => {
       return pages.length < lastPage.totalCnt / NEED_LIST_LOAD_SIZE
@@ -187,10 +220,24 @@ const Need = () => {
     {
       title: "진행 상태",
       flex: 1,
+      after: (
+        <FilterToggle
+          switchStatus={switchStatus.status}
+          setSwitchStatus={setSwitchStatus}
+          type="status"
+        />
+      ),
     },
     {
       title: "작성일",
       flex: "1 1 6rem",
+      after: (
+        <FilterToggle
+          switchStatus={switchStatus.date}
+          setSwitchStatus={setSwitchStatus}
+          type="date"
+        />
+      ),
     },
   ];
 
@@ -235,6 +282,8 @@ const Need = () => {
                       header="true"
                     >
                       {column.title}
+
+                      {column.after}
                     </Column>
                   );
                 })}
