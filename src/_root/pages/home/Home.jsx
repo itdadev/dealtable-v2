@@ -51,8 +51,6 @@ export const HomeSectionTextContainer = styled.div(({ theme, home }) => ({
   maxHeight: "calc(100% - 6rem)",
   margin: "0 2rem",
   paddingTop: home ? "16rem" : 0,
-  borderRight: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
-  borderLeft: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
 
   [mq("desktop")]: {
     left: "50%",
@@ -63,6 +61,8 @@ export const HomeSectionTextContainer = styled.div(({ theme, home }) => ({
     margin: 0,
     paddingTop: 0,
     gap: 0,
+    borderRight: `1px solid ${theme.color.opacityWhite20}`,
+    borderLeft: `1px solid ${theme.color.opacityWhite20}`,
 
     ":after": {
       content: '""',

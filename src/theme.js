@@ -14,6 +14,7 @@ export const image = {
   homeArrowDown: require("./assets/icons/home-arrow-down.svg"),
   rightLinkArrow: require("./assets/icons/right-link-arrow.svg"),
   hamburgerLine: require("./assets/icons/hamburger-line.svg"),
+  search: require("./assets/icons/search.svg"),
 };
 
 export const color = {

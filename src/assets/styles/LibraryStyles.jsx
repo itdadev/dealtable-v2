@@ -53,6 +53,10 @@ const style = css`
     font-size: 1.4rem;
     color: #666 !important;
   }
+
+  .ant-collapse-content {
+    border: none !important;
+  }
 `;
 
 function LibraryStyles() {

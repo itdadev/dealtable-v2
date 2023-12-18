@@ -42,7 +42,11 @@ const ChangePassword = () => {
 
   const { mutate: changePasswordFunction } = useMutation(
     (data) =>
-      axios.post(CHANGE_PW_API_URL, { ...data, enc_email: state?.encEmail }),
+      axios.post(CHANGE_PW_API_URL, {
+        ...data,
+        enc_email: state?.encEmail,
+        user_pw: data?.new_pw,
+      }),
     {
       onSuccess: () => {
         navigate("/login", {
