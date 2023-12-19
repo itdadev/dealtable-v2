@@ -1,7 +1,9 @@
 import { css, Global } from "@emotion/react";
 const style = css`
   @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+  @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
 
   html {
     font-size: 62.5%;
@@ -31,7 +33,7 @@ const style = css`
     font-weight: 400;
     padding: 0 !important;
     margin: 0;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'NanumSquare', sans-serif;
     word-break: keep-all;
     background: #fafafd;
     min-height: 100vh;
@@ -107,6 +109,11 @@ const style = css`
     list-style: none;
   }
 
+  ol > li {
+    list-style: inherit;
+    margin-left: 1.8rem
+  }
+
   button {
     color: inherit;
     font: inherit;
@@ -129,6 +136,24 @@ const style = css`
   textarea:read-only {
     background: #FAFAFD;
     color: #777;
+  }
+
+  .ellipsis-1 {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display:block;
+  }
+
+  .ellipsis-2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 `;
 

@@ -14,6 +14,7 @@ import { verificationCodePH } from "@/lib/react-hook-form/validation/placeholder
 import {
   differentPhoneRequired,
   phoneAlreadyExists,
+  phoneDoesntExists,
   phoneRequired,
   verificationCodeInvaid,
 } from "@/lib/react-hook-form/validation/inputErrorMessage";
@@ -126,7 +127,9 @@ const PhoneVerificationFields = ({
       },
       onError: (error) => {
         if (error.response.status === 400) {
-          setError("phone", { message: phoneAlreadyExists });
+          setError("phone", {
+            message: findAccount ? phoneDoesntExists : phoneAlreadyExists,
+          });
         }
       },
     }
@@ -166,6 +169,7 @@ const PhoneVerificationFields = ({
         setCodeActive(false);
       }
     });
+
     return () => subscription.unsubscribe();
   }, [watch]);
 

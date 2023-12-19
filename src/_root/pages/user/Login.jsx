@@ -3,9 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useMutation } from "react-query";
-import { Alert, Flex, Result, notification } from "antd";
+import { Alert, Divider, Flex, Result, notification } from "antd";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { zodLogin } from "@/lib/react-hook-form/validation/zodValidation";
 
 import { PrimaryButton } from "@/components/ui/buttons";
 import { CustomForm, SingleCheckBox } from "@/components/ui/form";
@@ -18,6 +17,9 @@ import {
 import { EmailField, PasswordField } from "@/components/ui/fields/Fields";
 import { FormDescription } from "@/components/ui/form/CustomForm";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { AntdAlert } from "@/components/ui";
+
+import { zodLogin } from "@/lib/react-hook-form/validation/zodValidation";
 
 const Login = () => {
   const [api, contextHolder] = notification.useNotification();
@@ -133,36 +135,7 @@ const Login = () => {
         />
       )}
 
-      <FormDescription>
-        가입 또는 로그인을 위해 이메일을 입력하세요.
-      </FormDescription>
-
-      {alertMessages.editAccount && (
-        <Alert
-          message="회원 정보의 주요 사항을 수정하셔서 관리자가 해당 계정의 승인 절차를 진행 중입니다."
-          description="영업일 기준 3~5일 이내로 승인이 완료됩니다."
-          type="warning"
-          showIcon
-        />
-      )}
-
-      {alertMessages.peding && (
-        <Alert
-          message="관리자가 해당 계정의 승인 절차를 진행 중입니다. "
-          description="영업일 기준 3~5일 이내로 승인이 완료됩니다."
-          type="warning"
-          showIcon
-        />
-      )}
-
-      {alertMessages.invalid && (
-        <Alert
-          message="로그인 실패"
-          description="이메일 또는 비밀번호를 확인해주세요."
-          type="error"
-          showIcon
-        />
-      )}
+      <FormDescription>로그인을 위해 이메일을 입력하세요.</FormDescription>
 
       <div>
         <EmailField control={control} />
@@ -176,9 +149,34 @@ const Login = () => {
         label="로그인 상태 유지"
       />
 
+      {alertMessages.editAccount && (
+        <Alert
+          message="회원 정보의 주요 사항을 수정하셔서 관리자가 해당 계정의 승인 절차를 진행 중입니다."
+          description="영업일 기준 3~5일 이내로 승인이 완료됩니다."
+          type="warning"
+        />
+      )}
+
+      {alertMessages.peding && (
+        <Alert
+          message="관리자가 해당 계정의 승인 절차를 진행 중입니다. "
+          description="영업일 기준 3~5일 이내로 승인이 완료됩니다."
+          type="warning"
+        />
+      )}
+
+      {alertMessages.invalid && (
+        <AntdAlert
+          message="계정 혹은 비밀번호가 일치하지 않습니다. 입력한 내용을 다시한번 확인해주세요"
+          type="error"
+        />
+      )}
+
       <Flex align="center" justify="space-between">
-        <Flex align="center" gap="middle">
+        <Flex align="center">
           <Link to="/join">회원가입</Link>
+
+          <Divider type="vertical" />
 
           <Link to="/find-account">이메일/비밀번호 찾기</Link>
         </Flex>

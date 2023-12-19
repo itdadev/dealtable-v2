@@ -13,6 +13,8 @@ import {
   passwordFormat,
   passwordRequired,
   phoneRequired,
+  privacyPolicyRequired,
+  useTermRequired,
   verificationCodeIncomplete,
   verificationCodeRequired,
 } from "./inputErrorMessage";
@@ -70,7 +72,13 @@ export const zodJoin = z
     phone_verified: z.boolean().refine((value) => value === true, {
       message: verificationCodeIncomplete,
     }),
-    user_key: z.optional(z.number()),
+    user_key: z.optional(z.string()),
+    use_term: z.boolean().refine((value) => value === true, {
+      message: useTermRequired,
+    }),
+    privacy_policy: z.boolean().refine((value) => value === true, {
+      message: privacyPolicyRequired,
+    }),
   })
   .refine((data) => data.user_pw === data.password_confirm, {
     message: passwordConfirmInvalid,

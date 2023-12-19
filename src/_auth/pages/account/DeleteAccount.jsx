@@ -23,7 +23,7 @@ const DeleteAccount = () => {
 
   const [confirmModal, setConfirmModal] = useState(false);
 
-  const { control, handleSubmit, watch } = useForm({
+  const { control, handleSubmit, watch, setError } = useForm({
     resolver: zodResolver(zodDeleteAccount),
     mode: "onSubmit",
     defaultValues: {
@@ -38,8 +38,12 @@ const DeleteAccount = () => {
   }
 
   const { mutate: deleteUserFunction } = useMutation(
-    () => {
-      Interceptor.delete(DELETE_USER_API_URL, { data: password });
+    async () => {
+      const res = await Interceptor.delete(DELETE_USER_API_URL, {
+        data: password,
+      });
+
+      return res;
     },
     {
       onSuccess: () => {
@@ -49,7 +53,13 @@ const DeleteAccount = () => {
         });
       },
       onError: (error) => {
-        console.log(error);
+        if (error.response.status === 400) {
+          setConfirmModal(false);
+
+          setError("user_pw", {
+            message: "현재 비밀번호와 일치하지 않습니다.",
+          });
+        }
       },
     }
   );

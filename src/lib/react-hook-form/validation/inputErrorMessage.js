@@ -15,8 +15,10 @@ export const verificationCodeRequired = "인증 번호를 입력해주세요.";
 export const verificationCodeInvaid = "인증 번호를 확인해주세요.";
 export const verificationCodeIncomplete = "인증을 완료해주세요.";
 export const phoneAlreadyExists = "이미 가입된 전화번호입니다.";
+export const phoneDoesntExists = "회원 목록에 존재하지 않는 전화번호입니다.";
 export const corpNameRequired = "기업명을 입력해주세요.";
-export const termsRequired = "이용약관과 개인정보 처리방침에 동의해주세요.";
+export const useTermRequired = "이용약관에 동의해주세요.";
+export const privacyPolicyRequired = "개인정보 처리방침에 동의해주세요.";
 
 export const industryRequired = "산업군을 입력해주세요.";
 export const dealScaleRequired = "딜규모를 입력해주세요.";

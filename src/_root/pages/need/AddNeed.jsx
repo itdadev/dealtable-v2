@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Flex, Modal, Spin } from "antd";
 import styled from "@emotion/styled";
+import { useMediaQuery } from "react-responsive";
 
 import { CustomForm } from "@/components/ui/form";
 import { FieldGroup } from "@/components/ui/form/CustomForm";
@@ -21,11 +22,14 @@ import {
   RevenueField,
   SalesField,
 } from "@/components/ui/fields/Fields";
+import { NeedExampleModal } from "@/components/ui/modal";
+import {
+  ModalContents,
+  ModalDescription,
+} from "@/components/ui/modal/TermModal";
 import { zodNeedsAdd } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
 import { addComma, returnNull } from "@/util/ModifyData";
-import { useMediaQuery } from "react-responsive";
-import { NeedExampleModal } from "@/components/ui/modal";
 
 const LinkText = styled.button(({ theme }) => ({
   color: theme.color.grey,
@@ -347,6 +351,7 @@ const AddNeed = () => {
         onCancel={handleCancel}
         okText={needsKey ? "수정" : "생성"}
         cancelText="취소"
+        centered
       >
         인수 니즈를 {needsKey ? "수정" : "생성"}하시겠습니까?
       </Modal>
@@ -358,19 +363,28 @@ const AddNeed = () => {
         onCancel={handleCancel}
         okText="임시저장"
         cancelText="취소"
+        centered
       >
         인수 니즈를 임시로 저장하시겠습니까?
       </Modal>
 
       <Modal
-        title="인수 니즈 삭제"
+        title="삭제하기"
         open={confirmModal.delete}
         onOk={deleteNeedsFunction}
         onCancel={handleCancel}
         okText="삭제"
         cancelText="취소"
+        centered
       >
-        인수 니즈를 삭제하시겠습니까?
+        <ModalDescription>
+          작성중이신 인수 니즈 요청서를 삭제하시겠습니까?
+        </ModalDescription>
+
+        <ModalContents>
+          작성중인 글은 30일 동안 유지되며 기간내에 계정을 정상적으로 사용할 수
+          있습니다. 기간이 지나면 계정과 데이터가 영구적으로 삭제됩니다.
+        </ModalContents>
       </Modal>
 
       <Modal

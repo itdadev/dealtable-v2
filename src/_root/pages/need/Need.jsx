@@ -20,7 +20,6 @@ const StyledTable = styled.div(({ theme }) => ({
 
 const StyledRow = styled(Flex)(({ theme }) => ({
   position: "relative",
-  textAlign: "center",
   color: theme.color.baseBlack,
   flexDirection: "column",
   justifyContent: "flex-start",
@@ -54,6 +53,7 @@ const StyledRow = styled(Flex)(({ theme }) => ({
     flexDirection: "row",
     padding: 0,
     color: theme.color.grey,
+    textAlign: "center",
 
     "&>div:first-of-type": {
       fontSize: "1.6rem",
@@ -73,9 +73,12 @@ const StyledRow = styled(Flex)(({ theme }) => ({
 const Column = styled.div(({ flex, header, theme, point }) => ({
   flex: "1",
   display: "flex",
-  lineHeight: 2,
+  lineHeight: 1.8,
   color: point === "true" ? theme.color.primaryPoint : "inherit",
   gap: "0 1.2rem",
+  whiteSpace: header === "true" ? "nowrap" : "break-word",
+  textOverflow: "ellipsis",
+  overflow: "hidden",
 
   [mq("desktop")]: {
     flex: flex,
@@ -83,7 +86,6 @@ const Column = styled.div(({ flex, header, theme, point }) => ({
     justifyContent: "center",
     minHeight: "8rem",
     padding: "1rem",
-    whiteSpace: header === "true" ? "nowrap" : "break-word",
     cursor: header === "true" ? "default" : "pointer",
     fontWeight:
       header === "true" ? theme.fontWeight.medium : theme.fontWeight.regular,
@@ -110,22 +112,22 @@ const ToggleButton = styled.img(() => ({
 }));
 
 const FilterToggle = ({ switchStatus, setSwitchStatus, type }) => {
-  if (switchStatus === "asc") {
+  if (switchStatus === "asc" || switchStatus === undefined) {
     return (
       <ToggleButton
         src={image.filterAsc.default}
         alt="필터 오름차순"
-        onClick={() => setSwitchStatus((prev) => ({ ...prev, [type]: "desc" }))}
+        onClick={() => setSwitchStatus({ [type]: "desc" })}
       />
     );
   }
 
-  if (switchStatus === "desc") {
+  if (switchStatus === "desc" || switchStatus === undefined) {
     return (
       <ToggleButton
         src={image.filterDesc.default}
         alt="필터 내림차순"
-        onClick={() => setSwitchStatus((prev) => ({ ...prev, [type]: "asc" }))}
+        onClick={() => setSwitchStatus({ [type]: "asc" })}
       />
     );
   }
@@ -137,12 +139,14 @@ const Need = () => {
 
   const [switchStatus, setSwitchStatus] = useState({
     status: "asc",
-    date: "asc",
+    date: "desc",
   });
 
   const getNeedList = async ({ pageParam = 1 }) => {
     const { status, data } = await Interceptor?.get(
-      `${NEEDS_LIST_API_URL}?page=${pageParam}&size=${NEED_LIST_LOAD_SIZE}&order_status=${switchStatus.status}&order_ins_date=${switchStatus.date}`
+      `${NEEDS_LIST_API_URL}?page=${pageParam}&size=${NEED_LIST_LOAD_SIZE}&order_status=${
+        switchStatus.status ? switchStatus.status : ""
+      }&order_ins_date=${switchStatus.date ? switchStatus.date : ""}`
     );
 
     if (status === 200) {
@@ -216,6 +220,7 @@ const Need = () => {
     {
       title: "산업 및 업종",
       flex: 5,
+      ellipsis: 2,
     },
     {
       title: "진행 상태",
@@ -252,6 +257,7 @@ const Need = () => {
     window.history.replaceState({}, document.title);
   }, []);
 
+  console.log(needList?.pages?.[0].totalCnt);
   return (
     <CustomForm wide noLogo>
       {contextHolder}
@@ -260,7 +266,16 @@ const Need = () => {
         <TotalCnt vertical>
           <Title>인수 니즈</Title>
 
-          <div>티켓 {needList?.pages?.[0].totalCnt}장</div>
+          <Flex gap="small">
+            <span>티켓</span>
+
+            <span>
+              {needList?.pages?.[0].totalCnt
+                ? needList?.pages?.[0].totalCnt
+                : "0"}
+              장
+            </span>
+          </Flex>
         </TotalCnt>
 
         <PrimaryButton linkTo="/need/add">인수 니즈 생성</PrimaryButton>
@@ -304,11 +319,15 @@ const Need = () => {
                     <Column flex={columns[0].flex}>{need.needs_number}</Column>
 
                     <Column flex={columns[1].flex}>
-                      {need.deal_scale ? need.deal_scale : "-"}
+                      <div className="ellipsis-2">
+                        {need.deal_scale ? need.deal_scale : "-"}
+                      </div>
                     </Column>
 
                     <Column flex={columns[2].flex}>
-                      {need.industry ? need.industry : "-"}
+                      <div className="ellipsis-2">
+                        {need.industry ? need.industry : "-"}
+                      </div>
                     </Column>
 
                     <Column

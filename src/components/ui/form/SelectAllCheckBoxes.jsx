@@ -1,65 +1,102 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { Checkbox, Divider } from "antd";
+import { Checkbox, Divider, Flex } from "antd";
 
 import { FieldErrorMessage, FieldGroup } from "./CustomForm";
-import { termsRequired } from "@/lib/react-hook-form/validation/inputErrorMessage";
-
-const CheckBoxGroup = styled(Checkbox.Group)(() => ({
-  flexDirection: "column",
-  gap: "1rem",
-}));
+import { SingleCheckBox } from ".";
 
 const TermDivider = styled(Divider)(() => ({
   marginBlock: "1.2rem",
 }));
 
+const TermLink = styled.button(({ theme }) => ({
+  color: theme.color.grey,
+  fontSize: "1.2rem",
+  textDecoration: "underline",
+  lineHeight: "1.4rem",
+}));
+
 const SelectAllCheckBoxes = ({
   title,
-  setCheckedList,
   options,
-  checkedList,
-  isSubmitted,
+  control,
+  setValue,
+  watch,
+  errors,
+  handleTermModal,
 }) => {
-  const checkAll = options.length === checkedList.length;
-
-  const completeOptions = options.map((option) => {
-    return option.value;
-  });
-
-  const onCheckSingleChange = (list) => {
-    setCheckedList(list);
-  };
+  const [allChecked, setAllChecked] = useState(false);
 
   const onCheckAllChange = (e) => {
-    setCheckedList(e.target.checked ? completeOptions : []);
+    if (e.target.checked) {
+      options.forEach((element) => {
+        setValue(element.value, true);
+      });
+    } else {
+      options.forEach((element) => {
+        setValue(element.value, false);
+      });
+    }
   };
+
+  useEffect(() => {
+    const subscription = watch((value, { name }) => {
+      const result = options.every((option) => value[option.value] === true);
+
+      setAllChecked(result);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [options, watch]);
+
+  const handleModalOpen = useCallback(
+    (type) => {
+      handleTermModal(type);
+    },
+    [handleTermModal]
+  );
 
   return (
     <FieldGroup>
       <header>{title}</header>
 
       <div>
-        <Checkbox onChange={onCheckAllChange} checked={checkAll}>
+        <Checkbox onChange={onCheckAllChange} checked={allChecked}>
           전체 동의
         </Checkbox>
-
-        <FieldErrorMessage>
-          {isSubmitted &&
-            (!checkedList.includes("use_term") ||
-              !checkedList.includes("privacy_policy")) &&
-            termsRequired}
-        </FieldErrorMessage>
       </div>
+
+      {options.map((option) => {
+        return (
+          errors[option.value] && (
+            <FieldErrorMessage key={option.value}>
+              {errors[option.value].message}
+            </FieldErrorMessage>
+          )
+        );
+      })}
 
       <TermDivider />
 
-      <CheckBoxGroup
-        name="terms"
-        options={options}
-        value={checkedList}
-        onChange={onCheckSingleChange}
-      />
+      {options.map((option) => {
+        return (
+          <Flex align="center" key={option.value}>
+            <SingleCheckBox
+              name={option.value}
+              control={control}
+              label={option.label}
+              noError
+            />
+
+            <TermLink
+              type="button"
+              onClick={() => handleModalOpen(option.value)}
+            >
+              보기
+            </TermLink>
+          </Flex>
+        );
+      })}
     </FieldGroup>
   );
 };

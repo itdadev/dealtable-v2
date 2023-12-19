@@ -4,7 +4,7 @@ import { Checkbox } from "antd";
 
 import { FieldErrorMessage } from "./CustomForm";
 
-const SingleCheckBox = ({ name, control, label }) => {
+const SingleCheckBox = ({ name, control, label, noError }) => {
   return (
     <div>
       <Controller
@@ -17,7 +17,7 @@ const SingleCheckBox = ({ name, control, label }) => {
                 {label}
               </Checkbox>
 
-              {errors[name] && (
+              {errors[name] && !noError && (
                 <FieldErrorMessage>{errors[name].message}</FieldErrorMessage>
               )}
             </>

@@ -7,7 +7,10 @@ export const AntdTheme = {
     colorLink: color.primary,
     borderRadius: 5,
     colorTextBase: color.baseBlack,
-    fontFamily: "'Noto Sans KR', sans-serif",
+    fontFamily: "'NanumSquare', sans-serif",
+    colorError: color.error,
+    colorErrorBg: "#F6F6F6",
+    colorErrorBorder: "#F6F6F6",
   },
   components: {
     Button: {
@@ -30,6 +33,10 @@ export const AntdTheme = {
       headerPadding: "2.4rem 0",
       contentPadding: "1.6rem",
       contentBg: color.disableGrey,
+    },
+    Alert: {
+      defaultPadding: 12,
+      borderRadiusLG: 0,
     },
   },
 };

@@ -31,7 +31,7 @@ export const color = {
   readOnlyText: "#777",
   lightGrey: "#EEEEEE",
   disableGrey: "#FAFAFD",
-  error: "#ff4d4f",
+  error: "#D80000",
   inactiveGrey: "#808080",
   opacityWhite20: "rgba(255, 255, 255, 0.2)",
 };
@@ -59,7 +59,7 @@ export const AppTheme = {
     secondary: "1rem",
   },
   fontFamily: {
-    primary: "'Noto Sans KR', sans-serif",
+    primary: "'NanumSquare', sans-serif",
     secondary: "'Montserrat', sans-serif",
   },
 };

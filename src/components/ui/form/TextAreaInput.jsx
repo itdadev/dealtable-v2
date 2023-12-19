@@ -24,6 +24,12 @@ const TextAreaInput = (props) => {
               rows={4}
               id={props.name}
               showCount
+              styles={{
+                padding: "1.6rem",
+                resize: "none",
+                fontSize: "1.6rem",
+                backgroundColor: props.readOnly ? "#FAFAFD" : "white",
+              }}
               style={{
                 resize: "none",
                 fontSize: "1.6rem",

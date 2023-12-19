@@ -36,8 +36,6 @@ const FindAccount = () => {
     },
   });
 
-  console.log(errors);
-
   const { mutate: findAccountFunction } = useMutation(
     async (data) => {
       const { status, data: result } = await axios.post(

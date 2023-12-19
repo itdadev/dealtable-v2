@@ -45,7 +45,8 @@ const HomeSecurity = () => {
             <div>NDA 계약 체결</div>
 
             <HomeSectionSmallDesc>
-              내가 선택한 상대방에게만 Deal 정보가 공개됩니다.
+              매칭 된 상대방의 정보를 확인하기 위해서는 전자NDA계약 동의가
+              필수입니다.
             </HomeSectionSmallDesc>
           </div>
         </TextBox>

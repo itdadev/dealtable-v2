@@ -26,9 +26,12 @@ import {
   UserPositionField,
 } from "@/components/ui/fields/Fields";
 import { zodJoin } from "@/lib/react-hook-form/validation/zodValidation";
+import { TermModal } from "@/components/ui/modal";
 
 const Join = () => {
   const navigate = useNavigate();
+
+  const [termModalOpen, setTermModalOpen] = useState("");
 
   const [userData, setUserData] = useState({});
 
@@ -41,12 +44,16 @@ const Join = () => {
   }, [state]);
 
   const termOptions = [
-    { label: "이용 약관 동의 [필수]", value: "use_term" },
-    { label: "개인정보 처리 방침 동의 [필수]", value: "privacy_policy" },
-    { label: "개인정보 처리 방침 동의 [선택]", value: "personal_info" },
+    {
+      label: "이용 약관 동의 [필수]",
+      value: "use_term",
+    },
+    {
+      label: "개인정보 처리 방침 동의 [필수]",
+      value: "privacy_policy",
+    },
+    { label: "개인정보 제공 및 사용 [선택]", value: "personal_info" },
   ];
-
-  const [checkedList, setCheckedList] = useState([]);
 
   const {
     control,
@@ -57,7 +64,7 @@ const Join = () => {
     resetField,
     setValue,
     setFocus,
-    formState: { isSubmitted, errors },
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(zodJoin),
     mode: "onSubmit",
@@ -72,6 +79,9 @@ const Join = () => {
       user_position: "",
       phone_verified: false,
       user_key: "",
+      use_term: false,
+      personal_info: false,
+      privacy_policy: false,
     },
   });
 
@@ -99,32 +109,34 @@ const Join = () => {
       setValue("phone", userData?.phone);
       setValue("company_name", userData?.company_name);
       setValue("user_position", userData?.user_position);
-      setValue("user_key", userData?.user_key);
+      setValue("user_key", JSON.stringify(userData?.user_key));
     }
   }, [setValue, userData]);
 
   const joinSubmit = useCallback(
     (data) => {
-      if (
-        !checkedList.includes("use_term") ||
-        !checkedList.includes("privacy_policy")
-      ) {
-        return;
-      }
-
       userJoinFunction(data);
     },
-    [checkedList, userJoinFunction]
+    [userJoinFunction]
   );
+
+  const handleTermModal = useCallback((type) => {
+    setTermModalOpen(type);
+  }, []);
+
+  const onCancel = useCallback(() => {
+    setTermModalOpen("");
+  }, []);
 
   return (
     <CustomForm submitEvent={handleSubmit(joinSubmit)}>
+      <TermModal onCancel={onCancel} termModalOpen={termModalOpen} />
+
       {userData?.reject_reason && (
         <Alert
           message="계정의 회원가입이 아래의 사유로 승인되지 않았습니다. 회원가입을 다시 진행해주세요."
           description={userData?.reject_reason}
-          type="warning"
-          showIcon
+          type="error"
         />
       )}
 
@@ -164,10 +176,12 @@ const Join = () => {
 
       <SelectAllCheckBoxes
         title="약관 동의"
-        setCheckedList={setCheckedList}
         options={termOptions}
-        checkedList={checkedList}
-        isSubmitted={isSubmitted}
+        control={control}
+        setValue={setValue}
+        watch={watch}
+        errors={errors}
+        handleTermModal={handleTermModal}
       />
 
       <FixedButtonContainer>
