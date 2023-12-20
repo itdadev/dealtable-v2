@@ -1,6 +1,5 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useQueryClient } from "react-query";
 import dayjs from "dayjs";
 
 import {
@@ -11,9 +10,6 @@ import { REFRESH_TOKEN_API_URL } from "@/constants/apiUrls";
 import { useUserContext } from "@/context/AuthContext";
 
 const useRefreshToken = async (config) => {
-  const queryClient = useQueryClient();
-  const { setIsAuthenticated } = useUserContext();
-
   const isAutoLogin =
     localStorage.getItem(LOCAL_STORAGE_AUTO_LOGIN) &&
     localStorage.getItem(LOCAL_STORAGE_AUTO_LOGIN) === "true";
@@ -40,15 +36,6 @@ const useRefreshToken = async (config) => {
     const { data } = await axios.post(REFRESH_TOKEN_API_URL, body);
 
     token = data.data;
-
-    if (token === undefined) {
-      queryClient.removeQueries("userData");
-
-      setIsAuthenticated(false);
-
-      localStorage.removeItem(LOCAL_STORAGE_TOKENS);
-      sessionStorage.removeItem(LOCAL_STORAGE_TOKENS);
-    }
 
     if (isAutoLogin) {
       localStorage.setItem(LOCAL_STORAGE_AUTO_LOGIN, true);

@@ -85,6 +85,10 @@ const Join = () => {
     },
   });
 
+  useEffect(() => {
+    window.history.replaceState({}, document.title);
+  }, []);
+
   const { mutate: userJoinFunction } = useMutation(
     (data) => axios.post(JOIN_API_URL, data),
     {
@@ -143,7 +147,7 @@ const Join = () => {
       <FieldGroup>
         <header>계정 정보</header>
 
-        <EmailField control={control} />
+        <EmailField control={control} readOnly={userData?.user_key} />
 
         <PasswordField control={control} />
 

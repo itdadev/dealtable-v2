@@ -70,7 +70,7 @@ const Faq = () => {
 
   const [searchKeyword, setSearchKeyword] = useState("");
 
-  const getFawList = async ({ pageParam = 1 }) => {
+  const getFaqList = async ({ pageParam = 1 }) => {
     const { status, data } = await axios?.get(
       `${FAQ_LIST_API_URL}?page=${pageParam}&size=${FAQ_LIST_LOAD_SIZE}&keyword=${searchKeyword}`
     );
@@ -89,7 +89,7 @@ const Faq = () => {
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["faqList", searchKeyword],
-    queryFn: getFawList,
+    queryFn: getFaqList,
     getNextPageParam: (lastPage, pages) => {
       return pages.length < lastPage.totalCnt / FAQ_LIST_LOAD_SIZE
         ? pages.length + 1
