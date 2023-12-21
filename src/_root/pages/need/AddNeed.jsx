@@ -352,6 +352,8 @@ const AddNeed = () => {
         okText={needsKey ? "수정" : "생성"}
         cancelText="취소"
         centered
+        okButtonProps={{ shape: "round" }}
+        cancelButtonProps={{ shape: "round" }}
       >
         인수 니즈를 {needsKey ? "수정" : "생성"}하시겠습니까?
       </Modal>
@@ -364,6 +366,8 @@ const AddNeed = () => {
         okText="임시저장"
         cancelText="취소"
         centered
+        okButtonProps={{ shape: "round" }}
+        cancelButtonProps={{ shape: "round" }}
       >
         인수 니즈를 임시로 저장하시겠습니까?
       </Modal>
@@ -376,6 +380,8 @@ const AddNeed = () => {
         okText="삭제"
         cancelText="취소"
         centered
+        okButtonProps={{ shape: "round" }}
+        cancelButtonProps={{ shape: "round" }}
       >
         <ModalDescription>
           작성중이신 인수 니즈 요청서를 삭제하시겠습니까?
@@ -394,6 +400,8 @@ const AddNeed = () => {
         onCancel={handleCancel}
         okText="종료"
         cancelText="취소"
+        okButtonProps={{ shape: "round" }}
+        cancelButtonProps={{ shape: "round" }}
       >
         인수 니즈를 종료하시겠습니까?
       </Modal>
@@ -404,16 +412,18 @@ const AddNeed = () => {
           gap={isDesktop ? "large" : "small"}
           vertical={!isDesktop}
         >
-          <p>인수 니즈 {needsKey ? "수정" : "생성"}</p>
+          <p>인수 니즈 요청</p>
 
           <StatusName>
             {needDetail ? needDetail?.status_nm : "작성중"}
           </StatusName>
         </Flex>
 
-        <ExampleButton type="button" onClick={showExampleModal}>
-          작성 예시 보기
-        </ExampleButton>
+        {(statusNm === "작성중" || statusNm === "작성 완료") && (
+          <ExampleButton type="button" onClick={showExampleModal}>
+            작성 예시 보기
+          </ExampleButton>
+        )}
       </FormTitle>
 
       {isLoading ? (
@@ -451,13 +461,13 @@ const AddNeed = () => {
           statusNm === "탐색중" ||
           statusNm === "탐색 완료") && (
           <Flex gap="small">
-            <SecondaryButton clickEvent={terminateConfirm}>
-              종료하기
-            </SecondaryButton>
-
             {statusNm === "탐색중" || statusNm === "탐색 완료" ? null : (
-              <PrimaryButton buttonType="submit">수정하기</PrimaryButton>
+              <SecondaryButton buttonType="submit">수정하기</SecondaryButton>
             )}
+
+            <PrimaryButton clickEvent={terminateConfirm}>
+              종료하기
+            </PrimaryButton>
           </Flex>
         )}
       </Flex>

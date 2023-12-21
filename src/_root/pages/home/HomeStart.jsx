@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 
 import { image } from "@/theme";
 import { BorderButton } from "@/components/ui/buttons";
+import { StartText } from "@/util/language-setting/texts/TranslatedTexts";
 
 const Container = styled.div(() => ({
   display: "flex",
@@ -26,7 +27,9 @@ const HomeStart = () => {
         Dealtable
       </object>
 
-      <BorderButton linkTo="/login">시작하기</BorderButton>
+      <BorderButton linkTo="/login">
+        <StartText />
+      </BorderButton>
     </Container>
   );
 };

@@ -209,10 +209,13 @@ const Account = ({ edit }) => {
       )}
 
       {!edit && (
-        <Flex align="center" justify="space-between" gap="small">
-          <LinkText danger to="/delete-account">
-            탈퇴하기
-          </LinkText>
+        <Flex
+          align="center"
+          justify="space-between"
+          gap="16px"
+          wrap="wrap-reverse"
+        >
+          <LinkText to="/delete-account">탈퇴하기</LinkText>
 
           <Flex gap="small">
             <SecondaryButton linkTo="/change-my-password">

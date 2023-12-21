@@ -74,7 +74,6 @@ const Login = () => {
         navigate("/need");
       },
       onError: (error) => {
-        console.log(error);
         if (error.response.status === 400) {
           setAlertMessages(() => ({ invalid: true }));
         }

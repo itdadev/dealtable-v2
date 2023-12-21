@@ -2,9 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import GoDownArrow from "@/components/ui/GoDownArrow";
+import { mq } from "@/lib/react-responsive/mediaQuery";
 
 import { HomeSectionTextWrapper } from "./Home";
-import { mq } from "@/lib/react-responsive/mediaQuery";
 
 const ArrowTextContainer = styled.div(() => ({
   position: "relative",

@@ -86,6 +86,8 @@ const DeleteAccount = () => {
         onCancel={handleCancel}
         okText="탈퇴하기"
         cancelText="취소"
+        okButtonProps={{ shape: "round" }}
+        cancelButtonProps={{ shape: "round" }}
       >
         서비스에서 탈퇴하시겠습니까? 지금까지 생성한 니즈가 삭제됩니다.
       </Modal>

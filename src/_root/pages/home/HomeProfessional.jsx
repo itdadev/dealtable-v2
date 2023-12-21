@@ -1,10 +1,19 @@
 import React from "react";
+
+import { BorderButton } from "@/components/ui/buttons";
+import {
+  Home5Text1,
+  Home5Text2,
+  Home5Text3,
+  Home5Text4,
+  StartText,
+} from "@/util/language-setting/texts/TranslatedTexts";
+
 import {
   ButtonWrapper,
   HomeSectionDescContainer,
   HomeSectionTextWrapper,
 } from "./Home";
-import { BorderButton } from "@/components/ui/buttons";
 
 const HomeProfessional = () => {
   return (
@@ -14,16 +23,26 @@ const HomeProfessional = () => {
       </HomeSectionTextWrapper>
 
       <HomeSectionDescContainer>
-        <div>DEALTABLE은 매각 및 인수 주관/자문, 기업가치평가 등</div>
+        <div>
+          <Home5Text1 />
+        </div>
 
-        <div>Deal 전문 서비스를 제공하며 10만개 이상의</div>
+        <div>
+          <Home5Text2 />
+        </div>
 
-        <div>기업DB를 축적한 중소기업 전문</div>
+        <div>
+          <Home5Text3 />
+        </div>
 
-        <div>Deal Advisory, MMP가 만들고 운영합니다.</div>
+        <div>
+          <Home5Text4 />
+        </div>
       </HomeSectionDescContainer>
 
-      <BorderButton linkTo="/login">시작하기</BorderButton>
+      <BorderButton linkTo="/login">
+        <StartText />
+      </BorderButton>
     </ButtonWrapper>
   );
 };

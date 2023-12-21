@@ -14,6 +14,12 @@ import LoadMoreButton from "@/components/ui/buttons/LoadMoreButton";
 import { CustomForm } from "@/components/ui/form";
 import { FormDescription } from "@/components/ui/form/CustomForm";
 import { mq } from "@/lib/react-responsive/mediaQuery";
+import {
+  NoNoticeText,
+  NoticeText,
+} from "@/util/language-setting/texts/TranslatedTexts";
+
+import { Nodata } from "../need/Need";
 
 const Category = styled.div(({ theme }) => ({
   fontSize: "1.4rem",
@@ -136,14 +142,18 @@ const Notice = () => {
 
   return (
     <CustomForm noLogo wide>
-      <FormDescription>공지사항</FormDescription>
+      <FormDescription>
+        <NoticeText />
+      </FormDescription>
 
       {isLoading ? (
         <Spin />
       ) : (
         <>
           {noticeItems?.length === 0 ? (
-            <div>공지사항이 없습니다.</div>
+            <Nodata>
+              <NoNoticeText />
+            </Nodata>
           ) : (
             <ContentIn
               accordion

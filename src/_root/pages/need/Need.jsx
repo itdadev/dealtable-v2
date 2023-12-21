@@ -18,6 +18,12 @@ const StyledTable = styled.div(({ theme }) => ({
   borderBottom: `1px solid ${theme.color.lightGrey}`,
 }));
 
+export const Nodata = styled.div(({ theme }) => ({
+  padding: "2rem",
+  textAlign: "center",
+  color: theme.color.grey,
+}));
+
 const StyledRow = styled(Flex)(({ theme }) => ({
   position: "relative",
   color: theme.color.baseBlack,
@@ -257,7 +263,6 @@ const Need = () => {
     window.history.replaceState({}, document.title);
   }, []);
 
-  console.log(needList?.pages?.[0].totalCnt);
   return (
     <CustomForm wide noLogo>
       {contextHolder}
@@ -307,7 +312,9 @@ const Need = () => {
 
             {needList?.pages.map((group) => {
               if (group.data.length <= 0) {
-                return <div key="no Data">작성하신 인수 니즈가 없습니다.</div>;
+                return (
+                  <Nodata key="no Data">작성하신 인수 니즈가 없습니다.</Nodata>
+                );
               }
 
               return group.data.map((need) => {

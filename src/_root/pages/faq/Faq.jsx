@@ -4,6 +4,7 @@ import { useInfiniteQuery } from "react-query";
 import { Collapse, Flex, Input, Spin } from "antd";
 import styled from "@emotion/styled";
 import { useMediaQuery } from "react-responsive";
+import { useIntl } from "react-intl";
 
 import { color, image } from "@/theme";
 import { FAQ_LIST_API_URL, FAQ_LIST_LOAD_SIZE } from "@/constants/apiUrls";
@@ -11,6 +12,9 @@ import LoadMoreButton from "@/components/ui/buttons/LoadMoreButton";
 import { CustomForm } from "@/components/ui/form";
 import { FormDescription } from "@/components/ui/form/CustomForm";
 import { mq } from "@/lib/react-responsive/mediaQuery";
+
+import { Nodata } from "../need/Need";
+import { NoFaqText } from "@/util/language-setting/texts/TranslatedTexts";
 
 const Category = styled.div(({ theme }) => ({
   fontSize: "1.4rem",
@@ -64,6 +68,8 @@ const StyledInput = styled(Input)(({ theme }) => ({
 }));
 
 const Faq = () => {
+  const intl = useIntl();
+
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   const [activeKey, setActiveKey] = useState([]);
@@ -154,7 +160,9 @@ const Faq = () => {
         <>
           <Flex gap="large">
             <StyledInput
-              placeholder="검색어를 입력해주세요."
+              placeholder={intl.formatMessage({
+                id: "lang-enter-keyword",
+              })}
               allowClear
               onChange={(e) => onSearch(e.target.value)}
               prefix={<img src={image.search.default} alt="검색" />}
@@ -163,7 +171,9 @@ const Faq = () => {
           </Flex>
 
           {faqItems?.length === 0 ? (
-            <div>FAQ가 없습니다.</div>
+            <Nodata>
+              <NoFaqText />
+            </Nodata>
           ) : (
             <ContentIn
               accordion

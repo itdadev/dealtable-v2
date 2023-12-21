@@ -9,6 +9,13 @@ import {
 } from "./Home";
 import { mq } from "@/lib/react-responsive/mediaQuery";
 import { BorderButton } from "@/components/ui/buttons";
+import {
+  Home4Text1Contents,
+  Home4Text1Title,
+  Home4Text2Contents,
+  Home4Text2Title,
+  StartText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const TextBox = styled.div(() => ({
   display: "flex",
@@ -34,25 +41,30 @@ const HomeSecurity = () => {
 
         <TextBox>
           <div>
-            <div>공개 제한</div>
+            <div>
+              <Home4Text1Title />
+            </div>
 
             <HomeSectionSmallDesc>
-              내가 선택한 상대방에게만 Deal 정보가 공개됩니다.
+              <Home4Text1Contents />
             </HomeSectionSmallDesc>
           </div>
 
           <div>
-            <div>NDA 계약 체결</div>
+            <div>
+              <Home4Text2Title />
+            </div>
 
             <HomeSectionSmallDesc>
-              매칭 된 상대방의 정보를 확인하기 위해서는 전자NDA계약 동의가
-              필수입니다.
+              <Home4Text2Contents />
             </HomeSectionSmallDesc>
           </div>
         </TextBox>
       </HomeSectionDescWithLine>
 
-      <BorderButton linkTo="/login">시작하기</BorderButton>
+      <BorderButton linkTo="/login">
+        <StartText />
+      </BorderButton>
     </ButtonWrapper>
   );
 };

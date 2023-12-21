@@ -205,6 +205,7 @@ export const DealScaleField = ({ control, readOnly = false, defaultValue }) => {
       placeholder={dealScalePH}
       readOnly={readOnly}
       defaultValue={defaultValue}
+      maxLength={50}
     />
   );
 };

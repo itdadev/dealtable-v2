@@ -7,6 +7,12 @@ import {
   HomeSectionDescWithLine,
   HomeSectionTextWrapper,
 } from "./Home";
+import {
+  Home3Text1,
+  Home3Text2,
+  Home3Text3,
+  StartText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const HomeEasy = () => {
   return (
@@ -19,15 +25,23 @@ const HomeEasy = () => {
         <hr />
 
         <div>
-          <div>팔고 싶은 회사,</div>
+          <div>
+            <Home3Text1 />
+          </div>
 
-          <div>사고 싶은 회사의 정보만</div>
+          <div>
+            <Home3Text2 />
+          </div>
 
-          <div>입력하면 직접 탐색할 필요없이 매칭을 받을 수 있습니다.</div>
+          <div>
+            <Home3Text3 />
+          </div>
         </div>
       </HomeSectionDescWithLine>
 
-      <BorderButton linkTo="/login">시작하기</BorderButton>
+      <BorderButton linkTo="/login">
+        <StartText />
+      </BorderButton>
     </ButtonWrapper>
   );
 };

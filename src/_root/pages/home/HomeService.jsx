@@ -1,6 +1,12 @@
 import React from "react";
 
 import { BorderButton } from "@/components/ui/buttons";
+import {
+  Home2Text1,
+  Home2Text2,
+  Home2Text3,
+  StartText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 import {
   ButtonWrapper,
@@ -16,14 +22,22 @@ const HomeService = () => {
       </HomeSectionTextWrapper>
 
       <HomeSectionDescContainer>
-        <div>DEALTABLE은</div>
+        <div>
+          <Home2Text1 />
+        </div>
 
-        <div>최적의 M&A 상대를 매칭해드리는</div>
+        <div>
+          <Home2Text2 />
+        </div>
 
-        <div>서비스입니다.</div>
+        <div>
+          <Home2Text3 />
+        </div>
       </HomeSectionDescContainer>
 
-      <BorderButton linkTo="/login">시작하기</BorderButton>
+      <BorderButton linkTo="/login">
+        <StartText />
+      </BorderButton>
     </ButtonWrapper>
   );
 };
