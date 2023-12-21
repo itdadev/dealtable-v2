@@ -35,7 +35,7 @@ const style = css`
 
   .fadeInOut-enter-active {
     opacity: 1;
-    transition: opacity 200ms;
+    transition: opacity 0.3s;
   }
 
   .fadeInOut-exit {
@@ -44,7 +44,7 @@ const style = css`
 
   .fadeInOut-exit-active {
     opacity: 0;
-    transition: opacity 200ms;
+    transition: opacity 0.3s;
   }
 
   // Antd

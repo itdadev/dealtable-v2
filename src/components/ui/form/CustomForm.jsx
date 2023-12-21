@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import {
   BackgroundImageWrapper,
@@ -8,6 +8,7 @@ import {
 
 import { image } from "@/theme";
 import { contentZIndex } from "@/constants/zIndex";
+import { useUserContext } from "@/context/AuthContext";
 import { mq } from "@/lib/react-responsive/mediaQuery";
 
 import { NormalOverlay } from "..";
@@ -171,16 +172,38 @@ const LinkToHome = styled(Link)(() => ({
   marginBottom: "2.2rem",
 }));
 
-const CustomForm = ({ children, submitEvent, width, wide, noLogo }) => {
+const GotoBack = styled.button(() => ({
+  color: "white",
+  marginBottom: "1rem",
+}));
+
+const CustomForm = ({
+  children,
+  submitEvent,
+  width,
+  wide,
+  noLogo,
+  noGoBack,
+}) => {
+  const { isAuthenticated } = useUserContext();
+
+  const navigate = useNavigate();
+
+  const goBack = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
+
   return (
     <BackgroundImageWrapper url={image.homeSectionBg06}>
       <NormalOverlay />
 
       <HomeSectionTextContainer>
         <FormContainer width={width}>
+          {!noGoBack && <GotoBack onClick={goBack}>뒤로가기</GotoBack>}
+
           <Container onSubmit={submitEvent} wide={wide}>
             {!noLogo && (
-              <LinkToHome to="/">
+              <LinkToHome to={isAuthenticated ? "/need" : "/"}>
                 <img
                   src={image.basicLogo.default}
                   alt="DEALTABLE"

@@ -290,7 +290,7 @@ const Need = () => {
   }, []);
 
   return (
-    <CustomForm wide noLogo>
+    <CustomForm wide noLogo noGoBack>
       {contextHolder}
 
       <Flex align="center" justify="space-between">

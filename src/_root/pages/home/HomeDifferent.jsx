@@ -14,10 +14,36 @@ import {
   HomeSectionTextWrapper,
 } from "./Home";
 
-const HomeDifferent = () => {
+const HomeDifferent = ({ active }) => {
+  // const [springs, api] = useSpring(() => ({
+  //   from: { x: -1000 },
+  // }));
+
+  // useEffect(() => {
+  //   if (active) {
+  //     api.start({
+  //       from: {
+  //         x: -1000,
+  //       },
+  //       to: {
+  //         x: 0,
+  //       },
+  //       config: { duration: 1200 },
+  //     });
+  //   }
+  // }, [active, api]);
+
   return (
     <ButtonWrapper>
       <HomeSectionTextWrapper>
+        {/* <animated.header
+          style={{
+            ...springs,
+          }}
+        >
+          Different
+        </animated.header> */}
+
         <header>Different</header>
       </HomeSectionTextWrapper>
 

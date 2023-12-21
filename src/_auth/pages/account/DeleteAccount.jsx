@@ -35,7 +35,7 @@ const DeleteAccount = () => {
   function logout() {
     logoutUser();
 
-    navigate("/login");
+    navigate("/");
   }
 
   const { mutate: deleteUserFunction } = useMutation(

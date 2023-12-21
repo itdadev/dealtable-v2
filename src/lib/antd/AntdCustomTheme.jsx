@@ -15,6 +15,7 @@ export const AntdTheme = {
   components: {
     Button: {
       colorLinkHover: "white",
+      primaryShadow: "none",
     },
     Input: {
       paddingInlineLG: 16,

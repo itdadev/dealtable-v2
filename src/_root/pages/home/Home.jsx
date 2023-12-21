@@ -14,6 +14,7 @@ import { FadeInOut } from "@/lib/react-transition-group/FadeInOut";
 import {
   HomeDifferent,
   HomeEasy,
+  HomeMembers,
   HomeProfessional,
   HomeSecurity,
   HomeService,
@@ -26,9 +27,9 @@ export const BackgroundImageWrapper = styled.div(({ url }) => ({
   width: "100vw",
   height: "100vh",
   backgroundImage: `url(${url})`,
+  backgroundAttachment: "fixed",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
-  backgroundAttachment: "fixed",
 
   [mq("desktop")]: {
     maxHeight: "100vh",
@@ -51,6 +52,8 @@ export const HomeSectionTextContainer = styled.div(({ theme, home }) => ({
   maxHeight: "calc(100% - 6rem)",
   margin: "0 2rem",
   paddingTop: home ? "16rem" : 0,
+  borderRight: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
+  borderLeft: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
 
   [mq("desktop")]: {
     left: "50%",
@@ -101,7 +104,7 @@ export const HomeSectionTextWrapper = styled.div(({ theme }) => ({
 
     header: {
       left: "-4rem",
-      fontSize: "14rem",
+      fontSize: "12rem",
     },
   },
 }));
@@ -110,9 +113,10 @@ export const HomeSectionDescContainer = styled.div(() => ({
   fontSize: "1.6rem",
   color: "white",
   lineHeight: 1.5,
+  marginTop: "2rem",
 
   [mq("desktop")]: {
-    fontSize: "3.2rem",
+    fontSize: "2.4rem",
   },
 }));
 
@@ -136,7 +140,7 @@ export const HomeSectionDescWithLine = styled.div(() => ({
   [mq("desktop")]: {
     flexDirection: "row",
     marginTop: "8rem",
-    fontSize: "3.2rem",
+    fontSize: "2.4rem",
 
     hr: {
       maxWidth: "44rem",
@@ -177,43 +181,48 @@ const Home = () => {
   const homeArr = [
     {
       id: 1,
-      contents: <MainBanner swiper={swiper} />,
+      contents: <MainBanner swiper={swiper} active={currentSliderIdx === 1} />,
       image: image.mainBanner01,
     },
     {
       id: 2,
-      contents: <HomeDifferent />,
+      contents: <HomeDifferent active={currentSliderIdx === 1} />,
       image: image.homeSectionBg01,
     },
     {
       id: 3,
-      contents: <HomeService />,
+      contents: <HomeService active={currentSliderIdx === 1} />,
       image: image.homeSectionBg02,
     },
     {
       id: 4,
-      contents: <HomeEasy />,
+      contents: <HomeMembers active={currentSliderIdx === 1} />,
       image: image.homeSectionBg03,
     },
     {
       id: 5,
-      contents: <HomeSecurity />,
+      contents: <HomeEasy active={currentSliderIdx === 1} />,
       image: image.homeSectionBg04,
     },
     {
       id: 6,
-      contents: <HomeProfessional />,
+      contents: <HomeSecurity active={currentSliderIdx === 1} />,
       image: image.homeSectionBg05,
     },
     {
       id: 7,
-      contents: <HomeStart />,
+      contents: <HomeProfessional active={currentSliderIdx === 1} />,
       image: image.homeSectionBg06,
+    },
+    {
+      id: 8,
+      contents: <HomeStart active={currentSliderIdx === 1} />,
+      image: image.homeSectionBg07,
     },
   ];
 
   useEffect(() => {
-    if (swiper && swiper?.realIndex === 6) {
+    if (swiper && swiper?.realIndex === 7) {
       swiper?.autoplay.stop();
 
       return;
@@ -248,6 +257,7 @@ const Home = () => {
           autoHeight={true}
           modules={[Mousewheel, Keyboard, Pagination, Autoplay]}
           className="mySwiper"
+          parallax
           onSlideChange={(swiper) => {
             setCurrentSliderIdx(swiper.realIndex);
           }}

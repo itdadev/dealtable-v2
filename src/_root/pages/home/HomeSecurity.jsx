@@ -10,10 +10,10 @@ import {
 import { mq } from "@/lib/react-responsive/mediaQuery";
 import { BorderButton } from "@/components/ui/buttons";
 import {
-  Home4Text1Contents,
-  Home4Text1Title,
-  Home4Text2Contents,
-  Home4Text2Title,
+  Home5Text1Contents,
+  Home5Text1Title,
+  Home5Text2Contents,
+  Home5Text2Title,
   StartText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 
@@ -25,7 +25,7 @@ const TextBox = styled.div(() => ({
   fontSize: "2rem",
 
   [mq("desktop")]: {
-    fontSize: "3.2rem",
+    fontSize: "2.8rem",
   },
 }));
 
@@ -42,21 +42,21 @@ const HomeSecurity = () => {
         <TextBox>
           <div>
             <div>
-              <Home4Text1Title />
+              <Home5Text1Title />
             </div>
 
             <HomeSectionSmallDesc>
-              <Home4Text1Contents />
+              <Home5Text1Contents />
             </HomeSectionSmallDesc>
           </div>
 
           <div>
             <div>
-              <Home4Text2Title />
+              <Home5Text2Title />
             </div>
 
             <HomeSectionSmallDesc>
-              <Home4Text2Contents />
+              <Home5Text2Contents />
             </HomeSectionSmallDesc>
           </div>
         </TextBox>

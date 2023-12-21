@@ -151,7 +151,7 @@ const Faq = () => {
   }, [activeKey, faqList?.pages, isDesktop]);
 
   return (
-    <CustomForm noLogo wide>
+    <CustomForm noLogo wide noGoBack>
       <FormDescription>FAQ</FormDescription>
 
       {isLoading ? (

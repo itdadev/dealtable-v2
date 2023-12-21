@@ -156,7 +156,10 @@ const Account = ({ edit }) => {
   }, []);
 
   return (
-    <CustomForm submitEvent={handleSubmit(changeAccountSubmit)}>
+    <CustomForm
+      submitEvent={handleSubmit(changeAccountSubmit)}
+      noGoBack={!edit}
+    >
       {contextHolder}
 
       <FormDescription>계정 관리</FormDescription>

@@ -13,7 +13,7 @@ const Description = styled.div(({ theme }) => ({
 
 const FindAccountFail = () => {
   return (
-    <CustomForm>
+    <CustomForm noGoBack>
       <div
         title="이메일 찾기 / 비밀번호 변경"
         subTitle="해당 정보로 가입된 계정을 찾을 수 없습니다.

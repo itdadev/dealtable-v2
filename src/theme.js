@@ -7,6 +7,7 @@ export const image = {
   homeSectionBg04: require("./assets/images/home-section-bg04.png"),
   homeSectionBg05: require("./assets/images/home-section-bg05.png"),
   homeSectionBg06: require("./assets/images/home-section-bg06.png"),
+  homeSectionBg07: require("./assets/images/home-section-bg07.png"),
 
   // NOTE: icons for all pages
   whiteLogo: require("./assets/icons/logo-white.svg"),

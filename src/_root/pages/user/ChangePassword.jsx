@@ -77,7 +77,7 @@ const ChangePassword = () => {
   );
 
   return (
-    <CustomForm submitEvent={handleSubmit(changePasswordSubmit)}>
+    <CustomForm submitEvent={handleSubmit(changePasswordSubmit)} noGoBack>
       <div>
         <FormDescription>가입하신 이메일은 아래와 같습니다.</FormDescription>
 

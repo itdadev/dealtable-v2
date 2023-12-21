@@ -141,7 +141,7 @@ const Notice = () => {
   }, [activeKey, isDesktop, noticeList?.pages]);
 
   return (
-    <CustomForm noLogo wide>
+    <CustomForm noLogo wide noGoBack>
       <FormDescription>
         <NoticeText />
       </FormDescription>

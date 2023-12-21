@@ -18,7 +18,7 @@ const HomeService = () => {
   return (
     <ButtonWrapper>
       <HomeSectionTextWrapper>
-        <header>Members</header>
+        <header>Service</header>
       </HomeSectionTextWrapper>
 
       <HomeSectionDescContainer>

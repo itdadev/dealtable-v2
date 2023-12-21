@@ -24,7 +24,7 @@ export const ButtonWrapper = styled.div(() => ({
 
 const JoinComplete = () => {
   return (
-    <CustomForm>
+    <CustomForm noGoBack>
       <div>
         <FormDescription>회원가입 신청완료</FormDescription>
 

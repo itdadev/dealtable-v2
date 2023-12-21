@@ -107,12 +107,12 @@ const Header = () => {
   const logout = useCallback(() => {
     logoutUser();
 
-    navigate("/login");
+    navigate("/");
   }, [logoutUser, navigate]);
 
   return (
     <HeaderContainer active={active}>
-      <Link to="/">
+      <Link to={isAuthenticated ? "/need" : "/"}>
         <HeaderLogo
           src={image.whiteLogo.default}
           type=""

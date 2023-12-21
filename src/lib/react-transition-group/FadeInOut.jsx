@@ -1,10 +1,8 @@
 import { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 
-const duration = 1000;
-
 const defaultStyle = {
-  transition: `all ${duration}ms ease-in-out`,
+  transition: `all 0.6s ease-in-out`,
   opacity: 0,
 };
 
@@ -26,7 +24,7 @@ export function FadeInOut({ in: inProp, children }) {
       in={inProp}
       classNames="fadeInOut"
       timeout={{
-        appear: 2000,
+        appear: 200,
         enter: 500,
         exit: 100,
       }}

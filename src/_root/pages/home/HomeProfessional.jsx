@@ -2,10 +2,10 @@ import React from "react";
 
 import { BorderButton } from "@/components/ui/buttons";
 import {
-  Home5Text1,
-  Home5Text2,
-  Home5Text3,
-  Home5Text4,
+  Home6Text1,
+  Home6Text2,
+  Home6Text3,
+  Home6Text4,
   StartText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 
@@ -24,19 +24,19 @@ const HomeProfessional = () => {
 
       <HomeSectionDescContainer>
         <div>
-          <Home5Text1 />
+          <Home6Text1 />
         </div>
 
         <div>
-          <Home5Text2 />
+          <Home6Text2 />
         </div>
 
         <div>
-          <Home5Text3 />
+          <Home6Text3 />
         </div>
 
         <div>
-          <Home5Text4 />
+          <Home6Text4 />
         </div>
       </HomeSectionDescContainer>
 

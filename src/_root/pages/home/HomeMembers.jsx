@@ -1,44 +1,39 @@
 import React from "react";
 
 import { BorderButton } from "@/components/ui/buttons";
-
 import {
-  Home4Text1,
-  Home4Text2,
-  Home4Text3,
+  Home3Text1,
+  Home3Text2,
+  Home3Text3,
   StartText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 
 import {
   ButtonWrapper,
-  HomeSectionDescWithLine,
+  HomeSectionDescContainer,
   HomeSectionTextWrapper,
 } from "./Home";
 
-const HomeEasy = () => {
+const HomeMembers = () => {
   return (
-    <ButtonWrapper smallGap>
+    <ButtonWrapper>
       <HomeSectionTextWrapper>
-        <header>Easy</header>
+        <header>Members</header>
       </HomeSectionTextWrapper>
 
-      <HomeSectionDescWithLine>
-        <hr />
+      <HomeSectionDescContainer>
+        <div>
+          <Home3Text1 />
+        </div>
 
         <div>
-          <div>
-            <Home4Text1 />
-          </div>
-
-          <div>
-            <Home4Text2 />
-          </div>
-
-          <div>
-            <Home4Text3 />
-          </div>
+          <Home3Text2 />
         </div>
-      </HomeSectionDescWithLine>
+
+        <div>
+          <Home3Text3 />
+        </div>
+      </HomeSectionDescContainer>
 
       <BorderButton linkTo="/login">
         <StartText />
@@ -47,4 +42,4 @@ const HomeEasy = () => {
   );
 };
 
-export default HomeEasy;
+export default HomeMembers;

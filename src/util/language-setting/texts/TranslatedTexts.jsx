@@ -70,58 +70,73 @@ export const Home2Text3 = () => {
 };
 
 export const Home3Text1 = () => {
-  // 팔고 싶은 회사,
+  // DEALTABLE은
   return <FormattedMessage id="lang-home-3-text-1" />;
 };
 
 export const Home3Text2 = () => {
-  // 사고 싶은 회사의 정보만
+  // 최적의 M&A 상대를 매칭해드리는
   return <FormattedMessage id="lang-home-3-text-2" />;
 };
 
 export const Home3Text3 = () => {
-  // 입력하면 직접 탐색할 필요없이 매칭을 받을 수 있습니다.
+  // 서비스입니다.
   return <FormattedMessage id="lang-home-3-text-3" />;
 };
 
-export const Home4Text1Title = () => {
+export const Home4Text1 = () => {
+  // 팔고 싶은 회사,
+  return <FormattedMessage id="lang-home-4-text-1" />;
+};
+
+export const Home4Text2 = () => {
+  // 사고 싶은 회사의 정보만
+  return <FormattedMessage id="lang-home-4-text-2" />;
+};
+
+export const Home4Text3 = () => {
+  // 입력하면 직접 탐색할 필요없이 매칭을 받을 수 있습니다.
+  return <FormattedMessage id="lang-home-4-text-3" />;
+};
+
+export const Home5Text1Title = () => {
   // 공개 제한
-  return <FormattedMessage id="lang-home-4-text-1-title" />;
+  return <FormattedMessage id="lang-home-5-text-1-title" />;
 };
 
-export const Home4Text1Contents = () => {
+export const Home5Text1Contents = () => {
   // 내가 선택한 상대방에게만 Deal 정보가 공개됩니다.
-  return <FormattedMessage id="lang-home-4-text-1-contents" />;
+  return <FormattedMessage id="lang-home-5-text-1-contents" />;
 };
 
-export const Home4Text2Title = () => {
+export const Home5Text2Title = () => {
   // NDA 계약 체결
-  return <FormattedMessage id="lang-home-4-text-2-title" />;
+  return <FormattedMessage id="lang-home-5-text-2-title" />;
 };
 
-export const Home4Text2Contents = () => {
+export const Home5Text2Contents = () => {
   // 매칭 된 상대방의 정보를 확인하기 위해서는 전자NDA계약 동의가 필수입니다.
-  return <FormattedMessage id="lang-home-4-text-2-contents" />;
+  return <FormattedMessage id="lang-home-5-text-2-contents" />;
 };
 
-export const Home5Text1 = () => {
+export const Home6Text1 = () => {
   // DEALTABLE은 매각 및 인수 주관/자문, 기업가치평가 등
-  return <FormattedMessage id="lang-home-5-text-1" />;
+  return <FormattedMessage id="lang-home-6-text-1" />;
 };
 
-export const Home5Text2 = () => {
+export const Home6Text2 = () => {
   // Deal 전문 서비스를 제공하며 10만개 이상의
-  return <FormattedMessage id="lang-home-5-text-2" />;
+  return <FormattedMessage id="lang-home-6-text-2" />;
 };
 
-export const Home5Text3 = () => {
+export const Home6Text3 = () => {
   // 기업DB를 축적한 중소기업 전문
-  return <FormattedMessage id="lang-home-5-text-3" />;
+  return <FormattedMessage id="lang-home-6-text-3" />;
 };
 
-export const Home5Text4 = () => {
+export const Home6Text4 = () => {
   // Deal Advisory, MMP가 만들고 운영합니다.
-  return <FormattedMessage id="lang-home-5-text-4" />;
+  return <FormattedMessage id="lang-home-6-text-4" />;
 };
 
 // NOTE: 인수 니즈
