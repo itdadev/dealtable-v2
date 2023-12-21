@@ -1,5 +1,4 @@
 import React from "react";
-import { Modal } from "antd";
 
 import { FieldGroup, FormDescription } from "../form/CustomForm";
 import {
@@ -9,10 +8,11 @@ import {
   RevenueField,
   SalesField,
 } from "../fields/Fields";
+import { ModalContainer } from ".";
 
 const NeedExampleModal = ({ open, onOk, onCancel }) => {
   return (
-    <Modal
+    <ModalContainer
       title={<FormDescription>작성 예시</FormDescription>}
       open={open}
       onOk={onOk}
@@ -38,7 +38,7 @@ const NeedExampleModal = ({ open, onOk, onCancel }) => {
           defaultValue="핵심 조건 예시 텍스트"
         />
       </FieldGroup>
-    </Modal>
+    </ModalContainer>
   );
 };
 

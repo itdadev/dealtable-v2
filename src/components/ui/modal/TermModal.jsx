@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { Modal } from "antd";
 import styled from "@emotion/styled";
 
 import {
@@ -7,7 +6,9 @@ import {
   PrivacyPolicyContents,
   UseTermContents,
 } from "@/util/TermsContents";
+
 import { FormDescription } from "../form/CustomForm";
+import { ModalContainer } from ".";
 
 export const ModalDescription = styled.div(() => ({
   margin: "4.8rem 0 1.8rem",
@@ -53,14 +54,14 @@ const TermModal = ({ onCancel, termModalOpen }) => {
   }, [termModalOpen]);
 
   return (
-    <Modal
+    <ModalContainer
       title={<FormDescription>{modalName}</FormDescription>}
       open={termModalOpen !== ""}
       onCancel={onCancel}
       footer={null}
     >
       {modalContents}
-    </Modal>
+    </ModalContainer>
   );
 };
 

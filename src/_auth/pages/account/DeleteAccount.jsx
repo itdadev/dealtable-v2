@@ -14,6 +14,7 @@ import { CurrentPasswordField } from "@/components/ui/fields/Fields";
 import { zodDeleteAccount } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
 import { ButtonWrapper } from "@/_root/pages/user/JoinComplete";
+import { ModalContainer } from "@/components/ui/modal";
 
 const DeleteAccount = () => {
   const navigate = useNavigate();
@@ -79,18 +80,16 @@ const DeleteAccount = () => {
 
   return (
     <CustomForm submitEvent={handleSubmit(deleteAccountSubmit)}>
-      <Modal
+      <ModalContainer
         title="회원 탈퇴하기"
         open={confirmModal}
         onOk={deleteComplete}
         onCancel={handleCancel}
         okText="탈퇴하기"
         cancelText="취소"
-        okButtonProps={{ shape: "round" }}
-        cancelButtonProps={{ shape: "round" }}
       >
         서비스에서 탈퇴하시겠습니까? 지금까지 생성한 니즈가 삭제됩니다.
-      </Modal>
+      </ModalContainer>
 
       <FieldGroup>
         <FormDescription>회원 탈퇴하기</FormDescription>
