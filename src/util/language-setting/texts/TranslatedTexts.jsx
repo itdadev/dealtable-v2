@@ -113,11 +113,252 @@ export const Home5Text2 = () => {
   // Deal 전문 서비스를 제공하며 10만개 이상의
   return <FormattedMessage id="lang-home-5-text-2" />;
 };
+
 export const Home5Text3 = () => {
   // 기업DB를 축적한 중소기업 전문
   return <FormattedMessage id="lang-home-5-text-3" />;
 };
+
 export const Home5Text4 = () => {
   // Deal Advisory, MMP가 만들고 운영합니다.
   return <FormattedMessage id="lang-home-5-text-4" />;
+};
+
+// NOTE: 인수 니즈
+export const DeleteText = () => {
+  // 삭제
+  return <FormattedMessage id="lang-delete" />;
+};
+
+export const DeleteLongText = () => {
+  // 삭제하기
+  return <FormattedMessage id="lang-delete-long" />;
+};
+
+export const CancelText = () => {
+  // 취소
+  return <FormattedMessage id="lang-cancle" />;
+};
+
+export const EditText = () => {
+  // 수정
+  return <FormattedMessage id="lang-edit" />;
+};
+
+export const EditLongText = () => {
+  // 수정하기
+  return <FormattedMessage id="lang-edit-long" />;
+};
+
+export const AddText = () => {
+  // 생성
+  return <FormattedMessage id="lang-add" />;
+};
+
+export const AddLongText = () => {
+  // 생성하기
+  return <FormattedMessage id="lang-add-long" />;
+};
+
+export const TempoAddText = () => {
+  // 임시저장
+  return <FormattedMessage id="lang-tempo-add" />;
+};
+
+export const TerminateText = () => {
+  // 종료하기
+  return <FormattedMessage id="lang-terminate" />;
+};
+
+export const TerminateLongText = () => {
+  // 종료하기
+  return <FormattedMessage id="lang-terminate-long" />;
+};
+
+export const NeedsAddModalTitleText = ({ text }) => {
+  // 인수 니즈 {text}
+  return (
+    <FormattedMessage id="lang-needs-add-modal-title" values={{ text: text }} />
+  );
+};
+
+export const NeedsAddEditQuestionText = ({ text }) => {
+  // 인수 니즈를 {text}하시겠습니까?
+  return (
+    <FormattedMessage
+      id="lang-needs-add-edit-question"
+      values={{ text: text }}
+    />
+  );
+};
+
+export const NeedsTempoText = () => {
+  // 인수 니즈 임시저장
+  return <FormattedMessage id="lang-needs-tempo" />;
+};
+
+export const NeedsTempoQuestionText = () => {
+  // 인수 니즈를 임시로 저장하시겠습니까?
+  return <FormattedMessage id="lang-needs-tempo-question" />;
+};
+
+export const NeedsDeleteQuestionText = () => {
+  // 작성중이신 인수 니즈 요청서를 삭제하시겠습니까?
+  return <FormattedMessage id="lang-needs-delete-question" />;
+};
+
+export const NeedsDeleteWarningText = () => {
+  // 작성중인 글은 30일 동안 유지되며 기간내에 계정을 정상적으로 사용할 수 있습니다. 기간이 지나면 계정과 데이터가 영구적으로 삭제됩니다.
+  return <FormattedMessage id="lang-needs-delete-warning" />;
+};
+
+export const NeedsTerminateText = () => {
+  // 인수 니즈 종료
+  return <FormattedMessage id="lang-needs-terminate" />;
+};
+
+export const NeedsTerminateQuestionText = () => {
+  // 인수 니즈를 종료하시겠습니까?
+  return <FormattedMessage id="lang-needs-terminate-question" />;
+};
+
+export const NeedsRequestText = () => {
+  // 인수 니즈 요청
+  return <FormattedMessage id="lang-needs-request" />;
+};
+
+export const ShowExampleText = () => {
+  // 작성 예시 보기
+  return <FormattedMessage id="lang-show-example" />;
+};
+
+export const WritingText = () => {
+  // 작성중
+  return <FormattedMessage id="lang-writing" />;
+};
+
+export const WrittenText = () => {
+  // 작성 완료
+  return <FormattedMessage id="lang-written" />;
+};
+
+export const ExploringText = () => {
+  // 탐색중
+  return <FormattedMessage id="lang-exploring" />;
+};
+
+export const ExploredText = () => {
+  // 탐색 완료
+  return <FormattedMessage id="lang-explored" />;
+};
+
+export const TerminatedText = () => {
+  // 종료
+  return <FormattedMessage id="lang-terminated" />;
+};
+
+export const NeedsAddCompleteText = () => {
+  // 인수 니즈 생성 완료
+  return <FormattedMessage id="lang-needs-add-complete" />;
+};
+
+export const NeedsAddComplete1Text = () => {
+  // 인수 니즈 생성이 완료되었습니다.
+  return <FormattedMessage id="lang-needs-add-complete-1" />;
+};
+
+export const NeedsAddComplete2Text = () => {
+  // 3~5일 이내로 검토 후 연락드리겠습니다.
+  return <FormattedMessage id="lang-needs-add-complete-2" />;
+};
+
+export const ToTheListText = () => {
+  // 목록으로
+  return <FormattedMessage id="lang-to-the-list" />;
+};
+
+// NOTE: 인수 니즈 : 목록
+export const NeedsDeleteText = () => {
+  // 인수 니즈 삭제
+  return <FormattedMessage id="lang-needs-delete" />;
+};
+
+export const NeedsDeleteCompleteText = () => {
+  // 인수 니즈가 성공적으로 삭제되었습니다.
+  return <FormattedMessage id="lang-needs-delete-complete" />;
+};
+
+export const NeedsDoneText = () => {
+  // 인수 니즈 종료
+  return <FormattedMessage id="lang-needs-done" />;
+};
+
+export const NeedsDoneCompleteText = () => {
+  // 인수 니즈가 성공적으로 종료되었습니다.
+  return <FormattedMessage id="lang-needs-done-complete" />;
+};
+
+export const NeedsTempoAddText = () => {
+  // 인수 니즈 임시 저장
+  return <FormattedMessage id="lang-needs-tempo-add" />;
+};
+
+export const NeedsTempoAddCompleteText = () => {
+  // 인수 니즈가 성공적으로 임시 저장되었습니다.
+  return <FormattedMessage id="needs-tempo-add-complete" />;
+};
+
+export const NeedsEditText = () => {
+  // 인수 니즈 수정
+  return <FormattedMessage id="lang-needs-edit" />;
+};
+
+export const NeedsEditCompleteText = () => {
+  // 인수 니즈가 성공적으로 수정되었습니다.
+  return <FormattedMessage id="lang-needs-edit-complete" />;
+};
+
+export const NumberText = () => {
+  // 번호
+  return <FormattedMessage id="lang-number" />;
+};
+
+export const DealScaleText = () => {
+  // 딜 규모
+  return <FormattedMessage id="lang-deal-scale" />;
+};
+
+export const IndustryText = () => {
+  // 산업 및 업종
+  return <FormattedMessage id="lang-industry" />;
+};
+
+export const StatusText = () => {
+  // 진행 상태
+  return <FormattedMessage id="lang-status" />;
+};
+
+export const InsDateText = () => {
+  // 작성일
+  return <FormattedMessage id="lang-ins-date" />;
+};
+
+export const NeedaTakeoverText = () => {
+  // 인수 니즈
+  return <FormattedMessage id="lang-needs-takeover" />;
+};
+
+export const TotalTicketText = ({ total }) => {
+  // 티켓 {total}장
+  return <FormattedMessage id="lang-total-ticket" values={{ total: total }} />;
+};
+
+export const NeedsAddText = () => {
+  // 인수 니즈 생성
+  return <FormattedMessage id="lang-needs-add" />;
+};
+
+export const NoNeedsDataText = () => {
+  // 작성하신 인수 니즈가 없습니다.
+  return <FormattedMessage id="lang-no-needs-data" />;
 };

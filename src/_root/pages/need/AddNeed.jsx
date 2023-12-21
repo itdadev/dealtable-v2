@@ -30,6 +30,28 @@ import {
 import { zodNeedsAdd } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
 import { addComma, returnNull } from "@/util/ModifyData";
+import {
+  AddLongText,
+  AddText,
+  DeleteLongText,
+  DeleteText,
+  EditLongText,
+  EditText,
+  NeedsAddEditQuestionText,
+  NeedsAddModalTitleText,
+  NeedsDeleteQuestionText,
+  NeedsDeleteWarningText,
+  NeedsRequestText,
+  NeedsTempoQuestionText,
+  NeedsTempoText,
+  NeedsTerminateQuestionText,
+  NeedsTerminateText,
+  ShowExampleText,
+  TempoAddText,
+  TerminateLongText,
+  TerminateText,
+  WritingText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const LinkText = styled.button(({ theme }) => ({
   color: theme.color.grey,
@@ -345,54 +367,55 @@ const AddNeed = () => {
       />
 
       <ModalContainer
-        title={`인수 니즈 ${needsKey ? "수정" : "생성"}`}
+        title={
+          <NeedsAddModalTitleText
+            text={needsKey ? <EditText /> : <AddText />}
+          />
+        }
         open={confirmModal.complete}
         onOk={doneComplete}
         onCancel={handleCancel}
-        okText={needsKey ? "수정" : "생성"}
-        cancelText="취소"
+        okText={needsKey ? <EditText /> : <AddText />}
       >
-        인수 니즈를 {needsKey ? "수정" : "생성"}하시겠습니까?
+        <NeedsAddEditQuestionText
+          text={needsKey ? <EditText /> : <AddText />}
+        />
       </ModalContainer>
 
       <ModalContainer
-        title="인수 니즈 임시저장"
+        title={<NeedsTempoText />}
         open={confirmModal.tempo}
         onOk={doneTempo}
         onCancel={handleCancel}
-        okText="임시저장"
-        cancelText="취소"
+        okText={<TempoAddText />}
       >
-        인수 니즈를 임시로 저장하시겠습니까?
+        <NeedsTempoQuestionText />
       </ModalContainer>
 
       <ModalContainer
-        title="삭제하기"
+        title={<DeleteLongText />}
         open={confirmModal.delete}
         onOk={deleteNeedsFunction}
         onCancel={handleCancel}
-        okText="삭제"
-        cancelText="취소"
+        okText={<DeleteText />}
       >
         <ModalDescription>
-          작성중이신 인수 니즈 요청서를 삭제하시겠습니까?
+          <NeedsDeleteQuestionText />
         </ModalDescription>
 
         <ModalContents>
-          작성중인 글은 30일 동안 유지되며 기간내에 계정을 정상적으로 사용할 수
-          있습니다. 기간이 지나면 계정과 데이터가 영구적으로 삭제됩니다.
+          <NeedsDeleteWarningText />
         </ModalContents>
       </ModalContainer>
 
       <ModalContainer
-        title="인수 니즈 종료"
+        title={<NeedsTerminateText />}
         open={confirmModal.terminate}
         onOk={terminateNeedsFunction}
         onCancel={handleCancel}
-        okText="종료"
-        cancelText="취소"
+        okText={<TerminateText />}
       >
-        인수 니즈를 종료하시겠습니까?
+        <NeedsTerminateQuestionText />
       </ModalContainer>
 
       <FormTitle align="center" justify="space-between">
@@ -401,16 +424,18 @@ const AddNeed = () => {
           gap={isDesktop ? "large" : "small"}
           vertical={!isDesktop}
         >
-          <p>인수 니즈 요청</p>
+          <p>
+            <NeedsRequestText />
+          </p>
 
           <StatusName>
-            {needDetail ? needDetail?.status_nm : "작성중"}
+            {needDetail ? needDetail?.status_nm : <WritingText />}
           </StatusName>
         </Flex>
 
         {(statusNm === "작성중" || statusNm === "작성 완료") && (
           <ExampleButton type="button" onClick={showExampleModal}>
-            작성 예시 보기
+            <ShowExampleText />
           </ExampleButton>
         )}
       </FormTitle>
@@ -433,16 +458,18 @@ const AddNeed = () => {
 
       <Flex align="center" justify="space-between" gap="small">
         <LinkText type="button" onClick={deleteConfirm}>
-          삭제
+          <DeleteText />
         </LinkText>
 
         {(statusNm === "작성중" || !needsKey) && (
           <Flex gap="small">
             <SecondaryButton buttonType="button" clickEvent={tempoAdd}>
-              임시저장
+              <TempoAddText />
             </SecondaryButton>
 
-            <PrimaryButton buttonType="submit">생성하기</PrimaryButton>
+            <PrimaryButton buttonType="submit">
+              <AddLongText />
+            </PrimaryButton>
           </Flex>
         )}
 
@@ -451,11 +478,13 @@ const AddNeed = () => {
           statusNm === "탐색 완료") && (
           <Flex gap="small">
             {statusNm === "탐색중" || statusNm === "탐색 완료" ? null : (
-              <SecondaryButton buttonType="submit">수정하기</SecondaryButton>
+              <SecondaryButton buttonType="submit">
+                <EditLongText />
+              </SecondaryButton>
             )}
 
             <PrimaryButton clickEvent={terminateConfirm}>
-              종료하기
+              <TerminateLongText />
             </PrimaryButton>
           </Flex>
         )}

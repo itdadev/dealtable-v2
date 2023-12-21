@@ -2,6 +2,7 @@ import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useInfiniteQuery } from "react-query";
 import { Flex, Spin, notification } from "antd";
+import { useIntl } from "react-intl";
 import styled from "@emotion/styled";
 
 import { PrimaryButton } from "@/components/ui/buttons";
@@ -11,6 +12,20 @@ import { CustomForm } from "@/components/ui/form";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
 import { IsDesktop, mq } from "@/lib/react-responsive/mediaQuery";
 import { image } from "@/theme";
+import {
+  NeedaTakeoverText,
+  NeedsAddText,
+  NeedsDeleteCompleteText,
+  NeedsDeleteText,
+  NeedsDoneCompleteText,
+  NeedsDoneText,
+  NeedsEditCompleteText,
+  NeedsEditText,
+  NeedsTempoAddCompleteText,
+  NeedsTempoAddText,
+  NoNeedsDataText,
+  TotalTicketText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const StyledTable = styled.div(({ theme }) => ({
   maxWidth: "80vw",
@@ -140,6 +155,8 @@ const FilterToggle = ({ switchStatus, setSwitchStatus, type }) => {
 };
 
 const Need = () => {
+  const intl = useIntl();
+
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -165,32 +182,32 @@ const Need = () => {
   useEffect(() => {
     if (state?.mutateStatus === "delete") {
       api.success({
-        message: "인수 니즈 삭제",
-        description: "인수 니즈가 성공적으로 삭제되었습니다.",
+        message: <NeedsDeleteText />,
+        description: <NeedsDeleteCompleteText />,
         duration: 3,
       });
     }
 
     if (state?.mutateStatus === "terminate") {
       api.success({
-        message: "인수 니즈 종료",
-        description: "인수 니즈가 성공적으로 종료되었습니다.",
+        message: <NeedsDoneText />,
+        description: <NeedsDoneCompleteText />,
         duration: 3,
       });
     }
 
     if (state?.mutateStatus === "tempo") {
       api.success({
-        message: "인수 니즈 임시 저장",
-        description: "인수 니즈가 성공적으로 임시 저장되었습니다.",
+        message: <NeedsTempoAddText />,
+        description: <NeedsTempoAddCompleteText />,
         duration: 3,
       });
     }
 
     if (state?.mutateStatus === "edit") {
       api.success({
-        message: "인수 니즈 수정",
-        description: "인수 니즈가 성공적으로 수정되었습니다.",
+        message: <NeedsEditText />,
+        description: <NeedsEditCompleteText />,
         duration: 3,
       });
     }
@@ -201,7 +218,6 @@ const Need = () => {
     isLoading,
     fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["needList", switchStatus],
@@ -215,21 +231,29 @@ const Need = () => {
 
   const columns = [
     {
-      title: "번호",
+      title: intl.formatMessage({
+        id: "lang-number",
+      }),
       flex: "1 1 8rem",
       width: "",
     },
     {
-      title: "딜 규모",
+      title: intl.formatMessage({
+        id: "lang-deal-scale",
+      }),
       flex: "1 1 5rem",
     },
     {
-      title: "산업 및 업종",
+      title: intl.formatMessage({
+        id: "lang-industry",
+      }),
       flex: 5,
       ellipsis: 2,
     },
     {
-      title: "진행 상태",
+      title: intl.formatMessage({
+        id: "lang-status",
+      }),
       flex: 1,
       after: (
         <FilterToggle
@@ -240,7 +264,9 @@ const Need = () => {
       ),
     },
     {
-      title: "작성일",
+      title: intl.formatMessage({
+        id: "lang-ins-date",
+      }),
       flex: "1 1 6rem",
       after: (
         <FilterToggle
@@ -269,21 +295,24 @@ const Need = () => {
 
       <Flex align="center" justify="space-between">
         <TotalCnt vertical>
-          <Title>인수 니즈</Title>
+          <Title>
+            <NeedaTakeoverText />
+          </Title>
 
           <Flex gap="small">
-            <span>티켓</span>
-
-            <span>
-              {needList?.pages?.[0].totalCnt
-                ? needList?.pages?.[0].totalCnt
-                : "0"}
-              장
-            </span>
+            <TotalTicketText
+              total={
+                needList?.pages?.[0].totalCnt
+                  ? needList?.pages?.[0].totalCnt
+                  : "0"
+              }
+            />
           </Flex>
         </TotalCnt>
 
-        <PrimaryButton linkTo="/need/add">인수 니즈 생성</PrimaryButton>
+        <PrimaryButton linkTo="/need/add">
+          <NeedsAddText />
+        </PrimaryButton>
       </Flex>
 
       <StyledTable>
@@ -313,7 +342,9 @@ const Need = () => {
             {needList?.pages.map((group) => {
               if (group.data.length <= 0) {
                 return (
-                  <Nodata key="no Data">작성하신 인수 니즈가 없습니다.</Nodata>
+                  <Nodata key="no Data">
+                    <NoNeedsDataText />
+                  </Nodata>
                 );
               }
 
@@ -349,10 +380,6 @@ const Need = () => {
                 );
               });
             })}
-
-            <div>
-              {isFetching && !isFetchingNextPage ? "Fetching..." : null}
-            </div>
           </>
         )}
       </StyledTable>
