@@ -22,7 +22,7 @@ const HomeStart = () => {
       <Container>
         <object
           data={image.whiteLogo.default}
-          alt=""
+          alt="Dealtable 로고"
           height={isDesktop ? 95 : 30}
         >
           Dealtable

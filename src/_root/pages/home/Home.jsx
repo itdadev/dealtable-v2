@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styled from "@emotion/styled";
@@ -262,12 +262,12 @@ const Home = () => {
         >
           {homeArr.map((section, idx) => {
             return (
-              <SwiperSlide key={section.id} style={{ height: "11.8rem" }}>
+              <SwiperSlide key={section.id}>
                 <div>
                   <BackgroundImageWrapper
+                    isFooter={idx === 7}
                     url={section.image}
                     className="section"
-                    isFooter={currentSliderIdx === 7}
                   >
                     <HomeSectionTextContainer home>
                       {section.contents}
@@ -276,13 +276,11 @@ const Home = () => {
                     <NormalOverlay />
                   </BackgroundImageWrapper>
 
-                  {/*{idx === 7 && <Footer showFooter />}*/}
+                  {idx === 7 && <Footer showFooter />}
                 </div>
               </SwiperSlide>
             );
           })}
-
-          <Footer showFooter />
         </Swiper>
       </div>
     </>

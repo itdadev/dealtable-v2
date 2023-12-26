@@ -6,13 +6,16 @@ const style = css`
     height: 100%;
   }
 
+  .swiper-container {
+    height: 300px;
+  }
+
   .swiper-pagination {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-righr: 1rem;
-    right: 1.6rem !important;
+    margin-right: 1rem;
   }
 
   .swiper-pagination-bullet-active {
