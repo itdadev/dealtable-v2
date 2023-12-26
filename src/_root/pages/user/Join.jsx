@@ -27,13 +27,24 @@ import {
 } from "@/components/ui/fields/Fields";
 import { zodJoin } from "@/lib/react-hook-form/validation/zodValidation";
 import { TermModal } from "@/components/ui/modal";
+import {
+  AccountInformationText,
+  CompanyInformationText,
+  JoinRequestText,
+  UserInformationText,
+} from "@/util/language-setting/texts/TranslatedTexts";
+import { useIntl } from "react-intl";
 
 const Join = () => {
+  const intl = useIntl();
+
   const navigate = useNavigate();
 
   const [termModalOpen, setTermModalOpen] = useState("");
 
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({
+    reject_reason: "",
+  });
 
   const { state } = useLocation();
 
@@ -93,7 +104,8 @@ const Join = () => {
   }, []);
 
   const { mutate: userJoinFunction } = useMutation(
-    (data) => axios.post(JOIN_API_URL, data),
+    (data) =>
+      axios.post(JOIN_API_URL, { ...data, news_agree_yn: data?.personal_info }),
     {
       onSuccess: () => {
         navigate("/join-complete");
@@ -122,6 +134,7 @@ const Join = () => {
 
   const joinSubmit = useCallback(
     (data) => {
+      console.log(data);
       userJoinFunction(data);
     },
     [userJoinFunction],
@@ -141,14 +154,18 @@ const Join = () => {
 
       {userData?.reject_reason && (
         <Alert
-          message="계정의 회원가입이 아래의 사유로 승인되지 않았습니다. 회원가입을 다시 진행해주세요."
+          message={intl.formatMessage({
+            id: "lang-join-reject-reason",
+          })}
           description={userData?.reject_reason}
           type="error"
         />
       )}
 
       <FieldGroup>
-        <header>계정 정보</header>
+        <header>
+          <AccountInformationText />
+        </header>
 
         <EmailField control={control} readOnly={userData?.user_key} />
 
@@ -158,7 +175,9 @@ const Join = () => {
       </FieldGroup>
 
       <FieldGroup>
-        <header>사용자 정보</header>
+        <header>
+          <UserInformationText />
+        </header>
 
         <UserNameField control={control} />
 
@@ -174,7 +193,9 @@ const Join = () => {
       </FieldGroup>
 
       <FieldGroup>
-        <header>기업 정보</header>
+        <header>
+          <CompanyInformationText />
+        </header>
 
         <CompanyNameField control={control} />
 
@@ -182,7 +203,9 @@ const Join = () => {
       </FieldGroup>
 
       <SelectAllCheckBoxes
-        title="약관 동의"
+        title={intl.formatMessage({
+          id: "lang-agree-term",
+        })}
         options={termOptions}
         control={control}
         setValue={setValue}
@@ -192,7 +215,9 @@ const Join = () => {
       />
 
       <FixedButtonContainer>
-        <PrimaryButton buttonType="submit">회원가입 신청</PrimaryButton>
+        <PrimaryButton buttonType="submit">
+          <JoinRequestText />
+        </PrimaryButton>
       </FixedButtonContainer>
     </CustomForm>
   );

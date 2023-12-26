@@ -79,6 +79,7 @@ export const zodJoin = z
     privacy_policy: z.boolean().refine((value) => value === true, {
       message: privacyPolicyRequired,
     }),
+    personal_info: z.boolean(),
   })
   .refine((data) => data.user_pw === data.password_confirm, {
     message: passwordConfirmInvalid,

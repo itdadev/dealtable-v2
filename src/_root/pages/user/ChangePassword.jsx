@@ -20,6 +20,11 @@ import {
   NewPasswordField,
 } from "@/components/ui/fields/Fields";
 import { zodChangePassword } from "@/lib/react-hook-form/validation/zodValidation";
+import {
+  ChangePasswordText,
+  FoundEmailAddressText,
+  LoginLongText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const FoundEmailContainer = styled(Flex)(() => ({
   padding: "2rem 0 0",
@@ -58,10 +63,10 @@ const ChangePassword = () => {
       onError: (error) => {
         console.log(error);
       },
-    }
+    },
   );
 
-  const linktoLogin = useCallback(() => {
+  const linkToLogin = useCallback(() => {
     navigate("/login", {
       state: {
         foundEmail: state?.foundEmail,
@@ -73,13 +78,15 @@ const ChangePassword = () => {
     (data) => {
       changePasswordFunction(data);
     },
-    [changePasswordFunction]
+    [changePasswordFunction],
   );
 
   return (
     <CustomForm submitEvent={handleSubmit(changePasswordSubmit)} noGoBack>
       <div>
-        <FormDescription>가입하신 이메일은 아래와 같습니다.</FormDescription>
+        <FormDescription>
+          <FoundEmailAddressText />
+        </FormDescription>
 
         <FoundEmailContainer align="center" justify="space-between">
           {state?.foundEmail}
@@ -89,7 +96,9 @@ const ChangePassword = () => {
       <Divider />
 
       <FieldGroup>
-        <header>비밀번호 변경하기</header>
+        <header>
+          <ChangePasswordText />
+        </header>
 
         <NewPasswordField control={control} />
 
@@ -99,12 +108,14 @@ const ChangePassword = () => {
           <SecondaryButton
             buttonType="button"
             type="secondary"
-            clickEvent={linktoLogin}
+            clickEvent={linkToLogin}
           >
-            로그인 하기
+            <LoginLongText />
           </SecondaryButton>
 
-          <PrimaryButton buttonType="submit">비밀번호 변경하기</PrimaryButton>
+          <PrimaryButton buttonType="submit">
+            <ChangePasswordText />
+          </PrimaryButton>
         </FixedButtonContainer>
       </FieldGroup>
     </CustomForm>

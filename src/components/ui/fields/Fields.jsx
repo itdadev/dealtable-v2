@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
-import { formatWon } from "@/util/ModifyData";
+import { formattedWon, formatWon, numberInputRex } from "@/util/ModifyData";
 import {
   corpNamePH,
   currentPasswordPH,
@@ -205,12 +205,19 @@ export const DealScaleField = ({ control, readOnly = false, defaultValue }) => {
       placeholder={dealScalePH}
       readOnly={readOnly}
       defaultValue={defaultValue}
-      maxLength={50}
+      onInput={(e) => formatWon(e)}
+      maxLength={15}
+      suffix="억원"
     />
   );
 };
 
-export const SalesField = ({ control, readOnly = false, defaultValue }) => {
+export const SalesField = ({
+  control,
+  readOnly = false,
+  defaultValue,
+  setValue,
+}) => {
   return (
     <TextInput
       name="sales"
@@ -219,9 +226,9 @@ export const SalesField = ({ control, readOnly = false, defaultValue }) => {
       placeholder={salesPH}
       readOnly={readOnly}
       defaultValue={defaultValue}
-      onInput={formatWon}
+      onInput={(e) => formatWon(e)}
       maxLength={15}
-      suffix="억"
+      suffix="억원"
     />
   );
 };
@@ -237,7 +244,7 @@ export const RevenueField = ({ control, readOnly = false, defaultValue }) => {
       defaultValue={defaultValue}
       onInput={formatWon}
       maxLength={15}
-      suffix="억"
+      suffix="억원"
     />
   );
 };

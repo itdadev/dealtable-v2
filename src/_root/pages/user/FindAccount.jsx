@@ -12,6 +12,10 @@ import { PrimaryButton } from "@/components/ui/buttons";
 import { FIND_ACCOUNT_API_URL } from "@/constants/apiUrls";
 import { zodFindAccount } from "@/lib/react-hook-form/validation/zodValidation";
 import { ButtonWrapper } from "./JoinComplete";
+import {
+  ChangeEmailPasswordText,
+  FindAccountText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const FindAccount = () => {
   const navigate = useNavigate();
@@ -40,7 +44,7 @@ const FindAccount = () => {
     async (data) => {
       const { status, data: result } = await axios.post(
         FIND_ACCOUNT_API_URL,
-        data
+        data,
       );
 
       if (status === 200) {
@@ -57,19 +61,21 @@ const FindAccount = () => {
         console.log(error);
         navigate("/find-account-fail");
       },
-    }
+    },
   );
 
   const findAccountSubmit = useCallback(
     (data) => {
       findAccountFunction(data);
     },
-    [findAccountFunction]
+    [findAccountFunction],
   );
 
   return (
     <CustomForm submitEvent={handleSubmit(findAccountSubmit)}>
-      <FormDescription>이메일과 비밀번호를 변경하세요.</FormDescription>
+      <FormDescription>
+        <ChangeEmailPasswordText />
+      </FormDescription>
 
       <UserNameField control={control} />
 
@@ -85,7 +91,9 @@ const FindAccount = () => {
       />
 
       <ButtonWrapper>
-        <PrimaryButton buttonType="submit">계정 찾기</PrimaryButton>
+        <PrimaryButton buttonType="submit">
+          <FindAccountText />
+        </PrimaryButton>
       </ButtonWrapper>
     </CustomForm>
   );

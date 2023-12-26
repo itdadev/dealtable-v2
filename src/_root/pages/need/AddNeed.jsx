@@ -95,7 +95,7 @@ const AddNeed = () => {
 
   const getNeedDetail = useCallback(async () => {
     const { status, data } = await Interceptor?.get(
-      `${NEED_DETAIL_API_URL}/${needsKey}`
+      `${NEED_DETAIL_API_URL}/${needsKey}`,
     );
 
     if (status === 200) {
@@ -108,7 +108,7 @@ const AddNeed = () => {
     getNeedDetail,
     {
       enabled: !!needsKey,
-    }
+    },
   );
 
   const { control, handleSubmit, watch, setValue } = useForm({
@@ -126,7 +126,7 @@ const AddNeed = () => {
   useEffect(() => {
     if (needDetail) {
       setValue("industry", needDetail?.industry);
-      setValue("deal_scale", needDetail?.deal_scale);
+      setValue("deal_scale", addComma(needDetail?.deal_scale));
       setValue("sales", addComma(needDetail?.sales));
       setValue("revenue", addComma(needDetail?.revenue));
       setValue("key_condition", needDetail?.key_condition);
@@ -183,6 +183,7 @@ const AddNeed = () => {
       Interceptor.patch(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: true,
+        deal_scale: returnNull(data?.sales),
         sales: returnNull(data?.sales),
         revenue: returnNull(data?.revenue),
         needs_key: needsKey,
@@ -196,15 +197,16 @@ const AddNeed = () => {
       onError: (error) => {
         console.log(error);
       },
-    }
+    },
   );
 
   const { mutate: tempoEditNeedsFunction } = useMutation(
     (data) =>
       // 니즈 수정하기 (임시 저장)
-     Interceptor.patch(MUTATE_NEEDS_API_URL, {
+      Interceptor.patch(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: false,
+        deal_scale: returnNull(data?.deal_scale),
         sales: returnNull(data?.sales),
         revenue: returnNull(data?.revenue),
         needs_key: needsKey,
@@ -218,7 +220,7 @@ const AddNeed = () => {
       onError: (error) => {
         console.log(error);
       },
-    }
+    },
   );
 
   const { mutate: addNeedsFunction } = useMutation(
@@ -227,6 +229,7 @@ const AddNeed = () => {
       Interceptor.post(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: true,
+        deal_scale: returnNull(data?.deal_scale),
         sales: returnNull(data?.sales),
         revenue: returnNull(data?.revenue),
       }),
@@ -239,7 +242,7 @@ const AddNeed = () => {
       onError: (error) => {
         console.log(error);
       },
-    }
+    },
   );
 
   const { mutate: tempoAddNeedsFunction } = useMutation(
@@ -248,6 +251,7 @@ const AddNeed = () => {
       Interceptor.post(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: false,
+        deal_scale: returnNull(data?.deal_scale),
         sales: returnNull(data?.sales),
         revenue: returnNull(data?.revenue),
       }),
@@ -260,7 +264,7 @@ const AddNeed = () => {
       onError: (error) => {
         console.log(error);
       },
-    }
+    },
   );
 
   const { mutate: deleteNeedsFunction } = useMutation(
@@ -278,7 +282,7 @@ const AddNeed = () => {
       onError: (error) => {
         console.log(error);
       },
-    }
+    },
   );
 
   const { mutate: terminateNeedsFunction } = useMutation(
@@ -294,7 +298,7 @@ const AddNeed = () => {
       onError: (error) => {
         console.log(error);
       },
-    }
+    },
   );
 
   const joinSubmit = useCallback(() => {
@@ -452,9 +456,17 @@ const AddNeed = () => {
 
           <DealScaleField control={control} readOnly={isReadOnly} />
 
-          <SalesField control={control} readOnly={isReadOnly} />
+          <SalesField
+            control={control}
+            readOnly={isReadOnly}
+            setValue={setValue}
+          />
 
-          <RevenueField control={control} readOnly={isReadOnly} />
+          <RevenueField
+            control={control}
+            readOnly={isReadOnly}
+            setValue={setValue}
+          />
 
           <KeyConditionField control={control} readOnly={isReadOnly} />
         </FieldGroup>

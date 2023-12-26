@@ -29,11 +29,11 @@ const MainBanner = ({ active, swiper }) => {
     <>
       <HomeSectionTextWrapper>
         <FadeToTop active={active}>
-          <header>Need Matching</header>
+          <header>Get your</header>
 
-          <header>Platform</header>
+          <header>M&A Deal list</header>
 
-          <header>Deal Table</header>
+          <header>DEALTABLE</header>
         </FadeToTop>
       </HomeSectionTextWrapper>
 

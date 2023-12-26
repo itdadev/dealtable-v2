@@ -5,7 +5,6 @@ import { BorderButton } from "@/components/ui/buttons";
 import {
   Home3Text1,
   Home3Text2,
-  Home3Text3,
   StartText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 
@@ -19,14 +18,13 @@ const HomeMembers = ({ active }) => {
   return (
     <ButtonWrapper>
       <HomeSectionTextWrapper>
-        <FadeToRight active={active}>Members</FadeToRight>
+        <FadeToRight active={active}>M&A Buy side</FadeToRight>
       </HomeSectionTextWrapper>
 
       <HomeSectionDescContainer>
         <Trail active={active}>
           <Home3Text1 />
           <Home3Text2 />
-          <Home3Text3 />
         </Trail>
       </HomeSectionDescContainer>
 

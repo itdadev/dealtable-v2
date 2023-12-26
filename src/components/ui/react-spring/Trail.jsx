@@ -5,8 +5,8 @@ import styled from "@emotion/styled";
 const Container = styled(a.div)(() => ({
   position: "relative",
   width: "150%",
-  height: "3rem",
-  lineHeight: "3rem",
+  height: "3.6rem",
+  lineHeight: "3.6rem",
   letterSpacing: "-0.02em",
   willChange: "transform, opacity",
   overflow: "hidden",
@@ -23,7 +23,7 @@ const Trail = ({ active, children }) => {
     config: { mass: 10, tension: 2500, friction: 500 },
     opacity: active ? 1 : 0,
     x: active ? 0 : 50,
-    height: active ? 30 : 0,
+    height: active ? 40 : 0,
     from: { opacity: 0, x: 0, height: 0 },
     delay: 1000,
   });

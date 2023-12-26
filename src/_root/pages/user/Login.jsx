@@ -20,8 +20,17 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { AntdAlert } from "@/components/ui";
 
 import { zodLogin } from "@/lib/react-hook-form/validation/zodValidation";
+import { useIntl } from "react-intl";
+import {
+  ContinueText,
+  EnterEmailForLoginText,
+  FindEmailPasswordText,
+  JoinText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const Login = () => {
+  const intl = useIntl();
+
   const [api, contextHolder] = notification.useNotification();
 
   const { setIsAuthenticated } = useUserContext();
@@ -29,7 +38,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [alertMessages, setAlertMessages] = useState({
-    peding: false,
+    pending: false,
     invalid: false,
     editAccount: false,
   });
@@ -57,7 +66,7 @@ const Login = () => {
             JSON.stringify({
               refresh_token: data.data.data.refresh_token,
               access_token: data.data.data.access_token,
-            })
+            }),
           );
         } else {
           localStorage.setItem(LOCAL_STORAGE_AUTO_LOGIN, false);
@@ -66,7 +75,7 @@ const Login = () => {
             JSON.stringify({
               refresh_token: data.data.data.refresh_token,
               access_token: data.data.data.access_token,
-            })
+            }),
           );
         }
 
@@ -75,12 +84,12 @@ const Login = () => {
       },
       onError: (error) => {
         if (error.response.status === 400) {
-          setAlertMessages(() => ({ invalid: true }));
+          setAlertMessages({ invalid: true });
         }
 
         if (error.response.status === 406) {
           // pending
-          setAlertMessages(() => ({ peding: true }));
+          setAlertMessages({ pending: true });
         }
 
         if (error.response.status === 451) {
@@ -90,10 +99,10 @@ const Login = () => {
 
         if (error.response.status === 400) {
           // id & password
-          setAlertMessages(() => ({ invalid: true }));
+          setAlertMessages({ invalid: true });
         }
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -119,7 +128,7 @@ const Login = () => {
     (data) => {
       userLoginFunction(data);
     },
-    [userLoginFunction]
+    [userLoginFunction],
   );
 
   return (
@@ -129,12 +138,18 @@ const Login = () => {
       {state?.findAccountSuccess && (
         <Result
           status="success"
-          title="비밀번호 변경이 완료되었습니다!"
-          subTitle="변경하신 비밀번호로 로그인하신 후 딜테이블을 이용해주세요."
+          title={intl.formatMessage({
+            id: "lang-change-password-complete-desc-1",
+          })}
+          subTitle={intl.formatMessage({
+            id: "lang-change-password-complete-desc-2",
+          })}
         />
       )}
 
-      <FormDescription>로그인을 위해 이메일을 입력하세요.</FormDescription>
+      <FormDescription>
+        <EnterEmailForLoginText />
+      </FormDescription>
 
       <div>
         <EmailField control={control} />
@@ -145,45 +160,63 @@ const Login = () => {
       <SingleCheckBox
         name="autoLogin"
         control={control}
-        label="로그인 상태 유지"
+        label={intl.formatMessage({
+          id: "lang-keep-me-logged-in",
+        })}
       />
 
       {alertMessages.editAccount && (
         <Alert
-          message="회원 정보의 주요 사항을 수정하셔서 관리자가 해당 계정의 승인 절차를 진행 중입니다."
-          description="영업일 기준 3~5일 이내로 승인이 완료됩니다."
+          message={intl.formatMessage({
+            id: "lang-changed-account-confirming",
+          })}
+          description={intl.formatMessage({
+            id: "lang-confirm-working-hours",
+          })}
           type="warning"
         />
       )}
 
-      {alertMessages.peding && (
+      {alertMessages.pending && (
         <Alert
-          message="관리자가 해당 계정의 승인 절차를 진행 중입니다. "
-          description="영업일 기준 3~5일 이내로 승인이 완료됩니다."
+          message={intl.formatMessage({
+            id: "lang-admin-confirming-account",
+          })}
+          description={intl.formatMessage({
+            id: "lang-confirm-working-hours",
+          })}
           type="warning"
         />
       )}
 
       {alertMessages.invalid && (
         <AntdAlert
-          message="계정 혹은 비밀번호가 일치하지 않습니다. 입력한 내용을 다시한번 확인해주세요"
+          message={intl.formatMessage({
+            id: "lang-account-not-match",
+          })}
           type="error"
         />
       )}
 
       <Flex align="center" justify="space-between">
         <Flex align="center">
-          <Link to="/join">회원가입</Link>
+          <Link to="/join">
+            <JoinText />
+          </Link>
 
           <Divider type="vertical" />
 
-          <Link to="/find-account">이메일/비밀번호 찾기</Link>
+          <Link to="/find-account">
+            <FindEmailPasswordText />
+          </Link>
         </Flex>
 
         {isLoading ? (
           <LoadingSpinner />
         ) : (
-          <PrimaryButton buttonType="submit">계속</PrimaryButton>
+          <PrimaryButton buttonType="submit">
+            <ContinueText />
+          </PrimaryButton>
         )}
       </Flex>
     </CustomForm>

@@ -20,7 +20,7 @@ const HomeDifferent = ({ active }) => {
   return (
     <ButtonWrapper>
       <HomeSectionTextWrapper>
-        <FadeToRight active={active}>Different</FadeToRight>
+        <FadeToRight active={active}>Difficult</FadeToRight>
       </HomeSectionTextWrapper>
 
       <HomeSectionDescContainer>

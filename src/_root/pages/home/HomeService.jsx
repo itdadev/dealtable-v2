@@ -19,13 +19,15 @@ const HomeService = ({ active }) => {
   return (
     <ButtonWrapper>
       <HomeSectionTextWrapper>
-        <FadeToRight active={active}>Service</FadeToRight>
+        <FadeToRight active={active}>We are</FadeToRight>
       </HomeSectionTextWrapper>
 
       <HomeSectionDescContainer>
         <Trail active={active}>
           <Home2Text1 />
+
           <Home2Text2 />
+
           <Home2Text3 />
         </Trail>
       </HomeSectionDescContainer>

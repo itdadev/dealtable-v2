@@ -14,6 +14,7 @@ import {
   Home5Text1Title,
   Home5Text2Contents,
   Home5Text2Title,
+  Home5Text3Contents,
   StartText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 import { FadeToRight, Trail } from "@/components/ui/react-spring";
@@ -34,37 +35,19 @@ const HomeSecurity = ({ active }) => {
   return (
     <ButtonWrapper smallGap>
       <HomeSectionTextWrapper>
-        <FadeToRight active={active}>Security</FadeToRight>
+        <FadeToRight active={active}>Deal DB</FadeToRight>
       </HomeSectionTextWrapper>
 
       <HomeSectionDescWithLine>
         <hr />
 
-        <TextBox>
-          <div>
-            <div>
-              <Home5Text1Title />
-            </div>
+        <Trail active={active}>
+          <Home5Text1Contents />
 
-            <HomeSectionSmallDesc>
-              <Trail active={active}>
-                <Home5Text1Contents />
-              </Trail>
-            </HomeSectionSmallDesc>
-          </div>
+          <Home5Text2Contents />
 
-          <div>
-            <div>
-              <Home5Text2Title />
-            </div>
-
-            <HomeSectionSmallDesc>
-              <Trail active={active}>
-                <Home5Text2Contents />
-              </Trail>
-            </HomeSectionSmallDesc>
-          </div>
-        </TextBox>
+          <Home5Text3Contents />
+        </Trail>
       </HomeSectionDescWithLine>
 
       <BorderButton linkTo="/login">

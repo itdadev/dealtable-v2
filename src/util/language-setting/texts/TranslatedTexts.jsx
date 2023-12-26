@@ -40,83 +40,74 @@ export const StartText = () => {
 };
 
 export const Home1Text1 = () => {
-  // 회사를 팔고 싶고, 회사를 사고 싶어도
+  // 수십만 개의 기업 중
   return <FormattedMessage id="lang-home-1-text-1" />;
 };
 
 export const Home1Text2 = () => {
-  // 조건에 맞는 대상을 찾는 것은
+  // 인수하고 싶은 조건의 회사를 찾는 것은
   return <FormattedMessage id="lang-home-1-text-2" />;
 };
 
 export const Home1Text3 = () => {
-  // 매우 어려운 일이다
+  // 매우 어려운 일입니다.
   return <FormattedMessage id="lang-home-1-text-3" />;
 };
 
 export const Home2Text1 = () => {
   // DEALTABLE은
+
   return <FormattedMessage id="lang-home-2-text-1" />;
 };
 
 export const Home2Text2 = () => {
-  // 최적의 M&A 상대를 매칭해드리는
+  // 인수 니즈에 맞는 잠재매도기업을
   return <FormattedMessage id="lang-home-2-text-2" />;
 };
 
 export const Home2Text3 = () => {
-  // 서비스입니다.
+  // 빠르고 정확하게 찾아주는 서비스입니다.
   return <FormattedMessage id="lang-home-2-text-3" />;
 };
 
 export const Home3Text1 = () => {
-  // DEALTABLE은
+  // M&A시장에서 회사를 직접 인수하거나
   return <FormattedMessage id="lang-home-3-text-1" />;
 };
 
 export const Home3Text2 = () => {
-  // 최적의 M&A 상대를 매칭해드리는
+  // 인수를 중개, 자문하는 모든 Buy side가 DEALTABLE의 고객입니다.
   return <FormattedMessage id="lang-home-3-text-2" />;
 };
 
-export const Home3Text3 = () => {
-  // 서비스입니다.
-  return <FormattedMessage id="lang-home-3-text-3" />;
-};
-
 export const Home4Text1 = () => {
-  // 팔고 싶은 회사,
+  // 인수하고 싶은 회사의 조건만
   return <FormattedMessage id="lang-home-4-text-1" />;
 };
 
 export const Home4Text2 = () => {
-  // 사고 싶은 회사의 정보만
+  // 입력하면 직접 탐색할 필요없이 잠재매도기업 리스트를
   return <FormattedMessage id="lang-home-4-text-2" />;
 };
 
 export const Home4Text3 = () => {
-  // 입력하면 직접 탐색할 필요없이 매칭을 받을 수 있습니다.
+  //  받을 수 있습니다.
   return <FormattedMessage id="lang-home-4-text-3" />;
 };
 
-export const Home5Text1Title = () => {
-  // 공개 제한
-  return <FormattedMessage id="lang-home-5-text-1-title" />;
-};
-
 export const Home5Text1Contents = () => {
-  // 내가 선택한 상대방에게만 Deal 정보가 공개됩니다.
+  // 내부 리서치 전담팀과 IT기술을 활용하여 축적한
   return <FormattedMessage id="lang-home-5-text-1-contents" />;
 };
 
-export const Home5Text2Title = () => {
-  // NDA 계약 체결
-  return <FormattedMessage id="lang-home-5-text-2-title" />;
+export const Home5Text2Contents = () => {
+  // 10만개 이상의 기업과 Deal 정보를 기반으로
+  return <FormattedMessage id="lang-home-5-text-2-contents" />;
 };
 
-export const Home5Text2Contents = () => {
-  // 매칭 된 상대방의 정보를 확인하기 위해서는 전자NDA계약 동의가 필수입니다.
-  return <FormattedMessage id="lang-home-5-text-2-contents" />;
+export const Home5Text3Contents = () => {
+  // 인수 니즈에 최적화 된 리스트를 추출합니다.
+  return <FormattedMessage id="lang-home-5-text-3-contents" />;
 };
 
 export const Home6Text1 = () => {
@@ -152,7 +143,7 @@ export const DeleteLongText = () => {
 
 export const CancelText = () => {
   // 취소
-  return <FormattedMessage id="lang-cancle" />;
+  return <FormattedMessage id="lang-cancel" />;
 };
 
 export const EditText = () => {
@@ -376,4 +367,165 @@ export const NeedsAddText = () => {
 export const NoNeedsDataText = () => {
   // 작성하신 인수 니즈가 없습니다.
   return <FormattedMessage id="lang-no-needs-data" />;
+};
+
+// User
+export const FoundEmailAddressText = () => {
+  // 가입하신 이메일은 아래와 같습니다.
+  return <FormattedMessage id="lang-found-email-address" />;
+};
+
+export const ChangePasswordText = () => {
+  // 비밀번호 변경하기
+  return <FormattedMessage id="lang-change-password" />;
+};
+
+export const LoginLongText = () => {
+  // 로그인 하기
+  return <FormattedMessage id="lang-login-long" />;
+};
+
+export const ChangeEmailPasswordText = () => {
+  // 이메일과 비밀번호를 변경하세요.
+  return <FormattedMessage id="lang-change-email-password" />;
+};
+
+export const FindAccountText = () => {
+  // 계정 찾기
+  return <FormattedMessage id="lang-find-account" />;
+};
+
+export const FindAccountFailText = () => {
+  // 계정 찾기 실패
+  return <FormattedMessage id="lang-find-account-fail" />;
+};
+
+export const FindAccountFailDesc1Text = () => {
+  // 해당 정보로 가입된 계정을 찾을 수 없습니다.
+  return <FormattedMessage id="lang-find-account-fail-desc-1" />;
+};
+
+export const FindAccountFailDesc2Text = () => {
+  // 정보를 다시 확인하고 시도해 주세요.
+  return <FormattedMessage id="lang-find-account-fail-desc-2" />;
+};
+
+export const ChangeAccountPasswordText = () => {
+  // 계정 및 비밀번호 변경
+  return <FormattedMessage id="lang-change-account-password" />;
+};
+
+export const AccountInformationText = () => {
+  // 계정 정보
+  return <FormattedMessage id="lang-account-information" />;
+};
+
+export const UserInformationText = () => {
+  // 사용자 정보
+  return <FormattedMessage id="lang-user-information" />;
+};
+
+export const CompanyInformationText = () => {
+  // 기업 정보
+  return <FormattedMessage id="lang-company-information" />;
+};
+
+export const JoinRequestText = () => {
+  // 회원가입 신청
+  return <FormattedMessage id="lang-join-request" />;
+};
+
+export const JoinRejectDescText = () => {
+  // 계정의 회원가입이 아래의 사유로 승인되지 않았습니다. 회원가입을 다시 진행해주세요.
+  return <FormattedMessage id="lang-join-reject-reason" />;
+};
+
+export const AgreeTermText = () => {
+  // 약관 동의
+  return <FormattedMessage id="lang-agree-term" />;
+};
+
+export const JoinRequestCompleteText = () => {
+  // 회원가입 신청완료
+  return <FormattedMessage id="lang-join-request-complete" />;
+};
+
+export const JoinRequestCompleteDesc1Text = () => {
+  // 회원가입 신청이 완료 되었습니다.
+  return <FormattedMessage id="lang-join-request-complete-desc-1" />;
+};
+
+export const JoinRequestCompleteDesc2Text = () => {
+  // 3~5일 이내로 승인이 완료됩니다.
+  return <FormattedMessage id="lang-confirm-working-hours" />;
+};
+
+export const GoToMainText = () => {
+  // 메인으로
+  return <FormattedMessage id="lang-go-to-main" />;
+};
+
+export const EditPasswordText = () => {
+  // 비밀번호 수정
+  return <FormattedMessage id="lang-edit-password" />;
+};
+
+export const EditPasswordCompleteText = () => {
+  // 비밀번호가 성공적으로 수정되었습니다. 다시 로그인해주세요.
+  return <FormattedMessage id="lang-edit-password-complete" />;
+};
+
+export const ChangePasswordCompleteDesc1Text = () => {
+  // 비밀번호 변경이 완료되었습니다!
+  return <FormattedMessage id="lang-change-password-complete-desc-1" />;
+};
+
+export const ChangePasswordCompleteDesc2Text = () => {
+  // 변경하신 비밀번호로 로그인하신 후 딜테이블을 이용해주세요.
+  return <FormattedMessage id="lang-change-password-complete-desc-2" />;
+};
+
+export const EnterEmailForLoginText = () => {
+  // 로그인을 위해 이메일을 입력하세요.
+  return <FormattedMessage id="lang-enter-email-for-login" />;
+};
+
+export const KeepMeLoggedInText = () => {
+  // 로그인 상태 유지
+  return <FormattedMessage id="lang-keep-me-logged-in" />;
+};
+
+export const ChangedAccountConfirmingText = () => {
+  // 회원 정보의 주요 사항을 수정하셔서 관리자가 해당 계정의 승인 절차를 진행 중입니다.
+  return <FormattedMessage id="lang-changed-account-confirming" />;
+};
+
+export const ConfirmWorkingHoursText = () => {
+  // 영업일 기준 3~5일 이내로 승인이 완료됩니다.
+  return <FormattedMessage id="lang-confirm-working-hours" />;
+};
+
+export const AdminConfirmingAccountText = () => {
+  // 관리자가 해당 계정의 승인 절차를 진행 중입니다.
+  return <FormattedMessage id="lang-admin-confirming-account" />;
+};
+
+export const AccountNotMatchText = () => {
+  // 계정 혹은 비밀번호가 일치하지 않습니다. 입력한 내용을 다시한번 확인해주세요
+  return <FormattedMessage id="lang-account-not-match" />;
+};
+
+export const JoinText = () => {
+  // 회원가입
+  return <FormattedMessage id="lang-join" />;
+};
+
+export const FindEmailPasswordText = () => {
+  // 이메일/비밀번호 찾기
+  return <FormattedMessage id="lang-find-email-password" />;
+};
+
+export const ContinueText = () => {
+  // 계속
+  return <FormattedMessage id="lang-continue" />;
 };

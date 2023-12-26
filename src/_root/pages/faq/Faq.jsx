@@ -78,7 +78,7 @@ const Faq = () => {
 
   const getFaqList = async ({ pageParam = 1 }) => {
     const { status, data } = await axios?.get(
-      `${FAQ_LIST_API_URL}?page=${pageParam}&size=${FAQ_LIST_LOAD_SIZE}&keyword=${searchKeyword}`
+      `${FAQ_LIST_API_URL}?page=${pageParam}&size=${FAQ_LIST_LOAD_SIZE}&keyword=${searchKeyword}`,
     );
 
     if (status === 200) {
@@ -185,8 +185,6 @@ const Faq = () => {
           )}
         </>
       )}
-
-      <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
 
       <LoadMoreButton
         fetchNextPage={fetchNextPage}

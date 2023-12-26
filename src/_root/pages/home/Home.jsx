@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styled from "@emotion/styled";
@@ -216,15 +216,15 @@ const Home = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   if (swiper && swiper?.realIndex === 7) {
-  //     swiper?.autoplay.stop();
-  //
-  //     return;
-  //   }
-  //
-  //   swiper?.autoplay.start();
-  // }, [swiper, swiper?.realIndex]);
+  useEffect(() => {
+    if (swiper && swiper?.realIndex === 7) {
+      swiper?.autoplay.stop();
+
+      return;
+    }
+
+    swiper?.autoplay.start();
+  }, [swiper, swiper?.realIndex]);
 
   return (
     <>
@@ -242,7 +242,7 @@ const Home = () => {
             clickable: isDesktop,
           }}
           loop={false}
-          // autoplay={{ delay: 5000 }}
+          autoplay={{ delay: 5000 }}
           speed={1000}
           onSwiper={setSwiper}
           onResize={setSwiper}
