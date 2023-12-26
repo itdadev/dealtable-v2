@@ -31,5 +31,5 @@ root.render(
         </AuthProvider>
       </IntlProvider>
     </QueryProvider>
-  </BrowserRouter>
+  </BrowserRouter>,
 );

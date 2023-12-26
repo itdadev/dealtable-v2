@@ -202,7 +202,7 @@ const AddNeed = () => {
   const { mutate: tempoEditNeedsFunction } = useMutation(
     (data) =>
       // 니즈 수정하기 (임시 저장)
-      Interceptor.patch(MUTATE_NEEDS_API_URL, {
+     Interceptor.patch(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: false,
         sales: returnNull(data?.sales),
@@ -351,9 +351,11 @@ const AddNeed = () => {
   const showExampleModal = () => {
     setExampleModalOpen(true);
   };
+
   const okExampleModal = () => {
     setExampleModalOpen(false);
   };
+
   const closeExampleModal = () => {
     setExampleModalOpen(false);
   };
@@ -433,7 +435,9 @@ const AddNeed = () => {
           </StatusName>
         </Flex>
 
-        {(statusNm === "작성중" || statusNm === "작성 완료") && (
+        {(statusNm === "생성" ||
+          statusNm === "작성중" ||
+          statusNm === "작성 완료") && (
           <ExampleButton type="button" onClick={showExampleModal}>
             <ShowExampleText />
           </ExampleButton>

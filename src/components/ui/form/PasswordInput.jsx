@@ -4,7 +4,7 @@ import Password from "antd/es/input/Password";
 
 import { FieldContainer, FieldErrorMessage } from "./CustomForm";
 
-const PassswordInput = (props) => {
+const PasswordInput = (props) => {
   return (
     <Controller
       name={props.name}
@@ -45,4 +45,4 @@ const PassswordInput = (props) => {
   );
 };
 
-export default PassswordInput;
+export default PasswordInput;

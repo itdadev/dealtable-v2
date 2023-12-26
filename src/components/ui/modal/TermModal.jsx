@@ -30,7 +30,7 @@ const TermModal = ({ onCancel, termModalOpen }) => {
         return "개인 정보 처리 방침";
 
       case "personal_info":
-        return "개인정보 이용";
+        return "MMP Deal Insight 뉴스레터 구독 동의";
 
       default:
         return "";

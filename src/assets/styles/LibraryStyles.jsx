@@ -48,6 +48,7 @@ const style = css`
   }
 
   // Antd
+
   .ant-input-data-count {
     top: -2.2rem;
     font-size: 1.4rem;
@@ -56,6 +57,16 @@ const style = css`
 
   .ant-collapse-content {
     border: none !important;
+  }
+
+  .antd-modal-wrapper {
+    max-height: 70vh;
+    display: flex;
+    margin-top: 15vh;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 

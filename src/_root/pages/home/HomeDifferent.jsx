@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSpring, animated } from "@react-spring/web";
 
 import { BorderButton } from "@/components/ui/buttons";
 import {
@@ -7,6 +8,7 @@ import {
   Home1Text3,
   StartText,
 } from "@/util/language-setting/texts/TranslatedTexts";
+import { FadeToRight, Trail } from "@/components/ui/react-spring";
 
 import {
   ButtonWrapper,
@@ -15,50 +17,18 @@ import {
 } from "./Home";
 
 const HomeDifferent = ({ active }) => {
-  // const [springs, api] = useSpring(() => ({
-  //   from: { x: -1000 },
-  // }));
-
-  // useEffect(() => {
-  //   if (active) {
-  //     api.start({
-  //       from: {
-  //         x: -1000,
-  //       },
-  //       to: {
-  //         x: 0,
-  //       },
-  //       config: { duration: 1200 },
-  //     });
-  //   }
-  // }, [active, api]);
-
   return (
     <ButtonWrapper>
       <HomeSectionTextWrapper>
-        {/* <animated.header
-          style={{
-            ...springs,
-          }}
-        >
-          Different
-        </animated.header> */}
-
-        <header>Different</header>
+        <FadeToRight active={active}>Different</FadeToRight>
       </HomeSectionTextWrapper>
 
       <HomeSectionDescContainer>
-        <div>
+        <Trail active={active}>
           <Home1Text1 />
-        </div>
-
-        <div>
           <Home1Text2 />
-        </div>
-
-        <div>
           <Home1Text3 />
-        </div>
+        </Trail>
       </HomeSectionDescContainer>
 
       <BorderButton linkTo="/login">

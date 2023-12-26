@@ -3,8 +3,9 @@ import styled from "@emotion/styled";
 
 const FooterContainer = styled.footer(({ theme, showFooter }) => ({
   display: showFooter ? "block" : "none",
+  width: "100%",
   height: "18.8rem",
-  background: theme.color.grey,
+  background: "pink",
   color: "white",
 }));
 

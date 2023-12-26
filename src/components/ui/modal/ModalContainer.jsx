@@ -11,6 +11,7 @@ const ModalContainer = ({ children, ...props }) => {
       cancelButtonProps={{ shape: "round" }}
       centered
       cancelText={props.cancelText ? props.cancelText : <CancelText />}
+      wrapClassName="antd-modal-wrapper"
     >
       {children}
     </Modal>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
+import { formatWon } from "@/util/ModifyData";
 import {
   corpNamePH,
   currentPasswordPH,
@@ -19,8 +20,7 @@ import {
 } from "@/lib/react-hook-form/validation/placeholderTexts";
 
 import { TextAreaInput, TextInput } from "../form";
-import PassswordInput from "../form/PasswordInput";
-import { formatWon } from "@/util/ModifyData";
+import PasswordInput from "../form/PasswordInput";
 
 export const EmailField = ({ control, readOnly }) => {
   return (
@@ -39,7 +39,7 @@ export const PasswordField = ({ control, readOnly = false }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <PassswordInput
+    <PasswordInput
       name="user_pw"
       label="비밀번호"
       control={control}
@@ -62,7 +62,7 @@ export const ConfirmPasswordField = ({ control, readOnly = false }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <PassswordInput
+    <PasswordInput
       name="password_confirm"
       label="비밀번호 확인"
       labelrequired="true"
@@ -85,7 +85,7 @@ export const NewPasswordField = ({ control }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <PassswordInput
+    <PasswordInput
       name="new_pw"
       label="새 비밀번호"
       labelrequired="true"
@@ -107,7 +107,7 @@ export const CurrentPasswordField = ({ control }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <PassswordInput
+    <PasswordInput
       name="user_pw"
       label="현재 비밀번호"
       labelrequired="true"
@@ -220,6 +220,8 @@ export const SalesField = ({ control, readOnly = false, defaultValue }) => {
       readOnly={readOnly}
       defaultValue={defaultValue}
       onInput={formatWon}
+      maxLength={15}
+      suffix="억"
     />
   );
 };
@@ -234,6 +236,8 @@ export const RevenueField = ({ control, readOnly = false, defaultValue }) => {
       readOnly={readOnly}
       defaultValue={defaultValue}
       onInput={formatWon}
+      maxLength={15}
+      suffix="억"
     />
   );
 };

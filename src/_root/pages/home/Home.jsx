@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styled from "@emotion/styled";
 import { Autoplay, Keyboard, Mousewheel, Pagination } from "swiper/modules";
-import autoAnimate from "@formkit/auto-animate";
-import { image } from "@/theme";
 
+import { image } from "@/theme";
 import { GoDownArrow, NormalOverlay } from "@/components/ui";
+import { Footer } from "@/components/shared";
 import { borderZIndex } from "@/constants/zIndex";
 import { IsDesktop, mq } from "@/lib/react-responsive/mediaQuery";
 import { FadeInOut } from "@/lib/react-transition-group/FadeInOut";
@@ -22,14 +22,15 @@ import {
   MainBanner,
 } from ".";
 
-export const BackgroundImageWrapper = styled.div(({ url }) => ({
+export const BackgroundImageWrapper = styled.div(({ url, isFooter }) => ({
   position: "relative",
   width: "100vw",
-  height: "100vh",
+  height: isFooter ? "calc(100vh - 18.8rem)" : "100vh",
   backgroundImage: `url(${url})`,
   backgroundAttachment: "fixed",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
+  transition: "all 0.3s",
 
   [mq("desktop")]: {
     maxHeight: "100vh",
@@ -152,7 +153,7 @@ export const HomeSectionDescWithLine = styled.div(() => ({
   },
 }));
 
-export const HomeSectionSmallDesc = styled.p(() => ({
+export const HomeSectionSmallDesc = styled.div(() => ({
   fontSize: "1.6rem",
 
   [mq("desktop")]: {
@@ -169,19 +170,13 @@ export const ButtonWrapper = styled.div(({ smallGap }) => ({
 const Home = () => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
-  const parent = useRef(null);
-
-  useEffect(() => {
-    parent.current && autoAnimate(parent.current);
-  }, [parent]);
-
   const [swiper, setSwiper] = useState();
   const [currentSliderIdx, setCurrentSliderIdx] = useState(0);
 
   const homeArr = [
     {
       id: 1,
-      contents: <MainBanner swiper={swiper} active={currentSliderIdx === 1} />,
+      contents: <MainBanner swiper={swiper} active={currentSliderIdx === 0} />,
       image: image.mainBanner01,
     },
     {
@@ -191,51 +186,51 @@ const Home = () => {
     },
     {
       id: 3,
-      contents: <HomeService active={currentSliderIdx === 1} />,
+      contents: <HomeService active={currentSliderIdx === 2} />,
       image: image.homeSectionBg02,
     },
     {
       id: 4,
-      contents: <HomeMembers active={currentSliderIdx === 1} />,
+      contents: <HomeMembers active={currentSliderIdx === 3} />,
       image: image.homeSectionBg03,
     },
     {
       id: 5,
-      contents: <HomeEasy active={currentSliderIdx === 1} />,
+      contents: <HomeEasy active={currentSliderIdx === 4} />,
       image: image.homeSectionBg04,
     },
     {
       id: 6,
-      contents: <HomeSecurity active={currentSliderIdx === 1} />,
+      contents: <HomeSecurity active={currentSliderIdx === 5} />,
       image: image.homeSectionBg05,
     },
     {
       id: 7,
-      contents: <HomeProfessional active={currentSliderIdx === 1} />,
+      contents: <HomeProfessional active={currentSliderIdx === 6} />,
       image: image.homeSectionBg06,
     },
     {
       id: 8,
-      contents: <HomeStart active={currentSliderIdx === 1} />,
+      contents: <HomeStart active={currentSliderIdx === 7} />,
       image: image.homeSectionBg07,
     },
   ];
 
-  useEffect(() => {
-    if (swiper && swiper?.realIndex === 7) {
-      swiper?.autoplay.stop();
-
-      return;
-    }
-
-    swiper?.autoplay.start();
-  }, [swiper, swiper?.realIndex]);
+  // useEffect(() => {
+  //   if (swiper && swiper?.realIndex === 7) {
+  //     swiper?.autoplay.stop();
+  //
+  //     return;
+  //   }
+  //
+  //   swiper?.autoplay.start();
+  // }, [swiper, swiper?.realIndex]);
 
   return (
     <>
       <div style={{ height: "100vh" }}>
         <IsDesktop>
-          <FadeInOut in={currentSliderIdx !== 0 && currentSliderIdx !== 6}>
+          <FadeInOut in={currentSliderIdx !== 0 && currentSliderIdx !== 7}>
             <GoDownArrow fixed swiper={swiper} idx={currentSliderIdx + 1} />
           </FadeInOut>
         </IsDesktop>
@@ -247,10 +242,10 @@ const Home = () => {
             clickable: isDesktop,
           }}
           loop={false}
-          autoplay={{ delay: 5000 }}
+          // autoplay={{ delay: 5000 }}
+          speed={1000}
           onSwiper={setSwiper}
           onResize={setSwiper}
-          speed={1000}
           mousewheel={true}
           slidesPerView="1"
           direction="vertical"
@@ -265,19 +260,29 @@ const Home = () => {
             swiper.autoplay.stop();
           }}
         >
-          {homeArr.map((section) => {
+          {homeArr.map((section, idx) => {
             return (
-              <SwiperSlide key={section.id}>
-                <BackgroundImageWrapper url={section.image} className="section">
-                  <HomeSectionTextContainer home>
-                    {section.contents}
-                  </HomeSectionTextContainer>
+              <SwiperSlide key={section.id} style={{ height: "11.8rem" }}>
+                <div>
+                  <BackgroundImageWrapper
+                    url={section.image}
+                    className="section"
+                    isFooter={currentSliderIdx === 7}
+                  >
+                    <HomeSectionTextContainer home>
+                      {section.contents}
+                    </HomeSectionTextContainer>
 
-                  <NormalOverlay />
-                </BackgroundImageWrapper>
+                    <NormalOverlay />
+                  </BackgroundImageWrapper>
+
+                  {/*{idx === 7 && <Footer showFooter />}*/}
+                </div>
               </SwiperSlide>
             );
           })}
+
+          <Footer showFooter />
         </Swiper>
       </div>
     </>

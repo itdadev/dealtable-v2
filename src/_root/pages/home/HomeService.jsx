@@ -1,6 +1,7 @@
 import React from "react";
 
 import { BorderButton } from "@/components/ui/buttons";
+import { FadeToRight, Trail } from "@/components/ui/react-spring";
 import {
   Home2Text1,
   Home2Text2,
@@ -14,25 +15,19 @@ import {
   HomeSectionTextWrapper,
 } from "./Home";
 
-const HomeService = () => {
+const HomeService = ({ active }) => {
   return (
     <ButtonWrapper>
       <HomeSectionTextWrapper>
-        <header>Service</header>
+        <FadeToRight active={active}>Service</FadeToRight>
       </HomeSectionTextWrapper>
 
       <HomeSectionDescContainer>
-        <div>
+        <Trail active={active}>
           <Home2Text1 />
-        </div>
-
-        <div>
           <Home2Text2 />
-        </div>
-
-        <div>
           <Home2Text3 />
-        </div>
+        </Trail>
       </HomeSectionDescContainer>
 
       <BorderButton linkTo="/login">

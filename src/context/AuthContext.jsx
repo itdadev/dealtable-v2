@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
     ) {
       setIsAuthenticated(true);
 
-      return;
+
     } else {
       setIsAuthenticated(false);
     }

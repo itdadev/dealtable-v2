@@ -16,6 +16,7 @@ import {
   Home5Text2Title,
   StartText,
 } from "@/util/language-setting/texts/TranslatedTexts";
+import { FadeToRight, Trail } from "@/components/ui/react-spring";
 
 const TextBox = styled.div(() => ({
   display: "flex",
@@ -29,11 +30,11 @@ const TextBox = styled.div(() => ({
   },
 }));
 
-const HomeSecurity = () => {
+const HomeSecurity = ({ active }) => {
   return (
     <ButtonWrapper smallGap>
       <HomeSectionTextWrapper>
-        <header>Security</header>
+        <FadeToRight active={active}>Security</FadeToRight>
       </HomeSectionTextWrapper>
 
       <HomeSectionDescWithLine>
@@ -46,7 +47,9 @@ const HomeSecurity = () => {
             </div>
 
             <HomeSectionSmallDesc>
-              <Home5Text1Contents />
+              <Trail active={active}>
+                <Home5Text1Contents />
+              </Trail>
             </HomeSectionSmallDesc>
           </div>
 
@@ -56,7 +59,9 @@ const HomeSecurity = () => {
             </div>
 
             <HomeSectionSmallDesc>
-              <Home5Text2Contents />
+              <Trail active={active}>
+                <Home5Text2Contents />
+              </Trail>
             </HomeSectionSmallDesc>
           </div>
         </TextBox>

@@ -45,14 +45,17 @@ const Join = () => {
 
   const termOptions = [
     {
-      label: "이용 약관 동의 [필수]",
+      label: "[필수] 이용 약관 동의",
       value: "use_term",
     },
     {
-      label: "개인정보 처리 방침 동의 [필수]",
+      label: "[필수] 개인정보 처리 방침 동의",
       value: "privacy_policy",
     },
-    { label: "개인정보 제공 및 사용 [선택]", value: "personal_info" },
+    {
+      label: "[선택] MMP Deal Insight 뉴스레터 구독 동의",
+      value: "personal_info",
+    },
   ];
 
   const {
@@ -103,7 +106,7 @@ const Join = () => {
           setFocus("email");
         }
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -121,7 +124,7 @@ const Join = () => {
     (data) => {
       userJoinFunction(data);
     },
-    [userJoinFunction]
+    [userJoinFunction],
   );
 
   const handleTermModal = useCallback((type) => {

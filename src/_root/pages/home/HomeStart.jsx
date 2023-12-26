@@ -18,19 +18,21 @@ const HomeStart = () => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   return (
-    <Container>
-      <object
-        data={image.whiteLogo.default}
-        alt=""
-        height={isDesktop ? 95 : 30}
-      >
-        Dealtable
-      </object>
+    <div>
+      <Container>
+        <object
+          data={image.whiteLogo.default}
+          alt=""
+          height={isDesktop ? 95 : 30}
+        >
+          Dealtable
+        </object>
 
-      <BorderButton linkTo="/login">
-        <StartText />
-      </BorderButton>
-    </Container>
+        <BorderButton linkTo="/login">
+          <StartText />
+        </BorderButton>
+      </Container>
+    </div>
   );
 };
 

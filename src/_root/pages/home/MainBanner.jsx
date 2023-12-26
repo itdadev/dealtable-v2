@@ -5,6 +5,7 @@ import GoDownArrow from "@/components/ui/GoDownArrow";
 import { mq } from "@/lib/react-responsive/mediaQuery";
 
 import { HomeSectionTextWrapper } from "./Home";
+import FadeToTop from "../../../components/ui/react-spring/FadeToTop";
 
 const ArrowTextContainer = styled.div(() => ({
   position: "relative",
@@ -23,15 +24,17 @@ const ArrowTextContainer = styled.div(() => ({
   },
 }));
 
-const MainBanner = ({ swiper }) => {
+const MainBanner = ({ active, swiper }) => {
   return (
     <>
       <HomeSectionTextWrapper>
-        <header>Need Matching</header>
+        <FadeToTop active={active}>
+          <header>Need Matching</header>
 
-        <header>Platform</header>
+          <header>Platform</header>
 
-        <header>Deal Table</header>
+          <header>Deal Table</header>
+        </FadeToTop>
       </HomeSectionTextWrapper>
 
       <ArrowTextContainer>

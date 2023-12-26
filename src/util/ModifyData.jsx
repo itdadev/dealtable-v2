@@ -9,17 +9,11 @@ export function returnNull(data) {
 export function formatWon(e) {
   let price = e.target.value;
 
-  price = Number(price.replaceAll(",", ""));
-
-  if (isNaN(price)) {
-    price = 0;
-  } else {
-    price = price?.toLocaleString("ko-KR");
-  }
+  price = price.replace(/[^0-9]/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   e.target.value = price;
 }
 
 export function addComma(price) {
-  return price?.toLocaleString("ko-KR");
+  return price?.toLocaleString();
 }
