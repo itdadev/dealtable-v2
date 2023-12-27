@@ -4,6 +4,10 @@ import { Checkbox, Divider, Flex } from "antd";
 
 import { FieldErrorMessage, FieldGroup } from "./CustomForm";
 import { SingleCheckBox } from ".";
+import {
+  SelectAllText,
+  ViewText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const TermDivider = styled(Divider)(() => ({
   marginBlock: "1.2rem",
@@ -53,7 +57,7 @@ const SelectAllCheckBoxes = ({
     (type) => {
       handleTermModal(type);
     },
-    [handleTermModal]
+    [handleTermModal],
   );
 
   return (
@@ -62,7 +66,7 @@ const SelectAllCheckBoxes = ({
 
       <div>
         <Checkbox onChange={onCheckAllChange} checked={allChecked}>
-          전체 동의
+          <SelectAllText />
         </Checkbox>
       </div>
 
@@ -92,7 +96,7 @@ const SelectAllCheckBoxes = ({
               type="button"
               onClick={() => handleModalOpen(option.value)}
             >
-              보기
+              <ViewText />
             </TermLink>
           </Flex>
         );

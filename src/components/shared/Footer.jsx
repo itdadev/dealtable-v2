@@ -3,6 +3,12 @@ import { Divider, Flex } from "antd";
 import styled from "@emotion/styled";
 
 import { image } from "@/theme";
+import {
+  BrandNameText,
+  CEONameText,
+  CEONumberText,
+  CompanyAddressText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const FooterContainer = styled.footer(({ theme, showFooter }) => ({
   display: showFooter ? "flex" : "none",
@@ -23,17 +29,21 @@ const Footer = ({ showFooter }) => {
     <FooterContainer showFooter={showFooter}>
       <Flex align="center" justify="space-between" style={{ width: "100%" }}>
         <Flex vertical gap="small">
-          <CompanyName>(주)딜테이블</CompanyName>
+          <CompanyName>
+            <BrandNameText />
+          </CompanyName>
 
           <div>
-            대표: 김테이블
+            <CEONameText />
+
             <Divider
               type="vertical"
               style={{
                 borderInlineStart: "1px solid rgba(255, 255, 255, 0.5)",
               }}
             />
-            주소: 서울시 강남구 강남대로 123
+
+            <CompanyAddressText />
           </div>
 
           <div>
@@ -44,7 +54,7 @@ const Footer = ({ showFooter }) => {
                 borderInlineStart: "1px solid rgba(255, 255, 255, 0.5)",
               }}
             />
-            대표번호: 02-1234-5678
+            <CEONumberText />
           </div>
         </Flex>
 

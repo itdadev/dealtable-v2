@@ -7,6 +7,10 @@ const ModalContainer = ({ children, ...props }) => {
   return (
     <Modal
       {...props}
+      style={{
+        height: "100%",
+        overflowY: "auto",
+      }}
       okButtonProps={{ shape: "round" }}
       cancelButtonProps={{ shape: "round" }}
       centered

@@ -32,8 +32,14 @@ import {
 import { Faq } from "./_root/pages/faq";
 import { Notice } from "./_root/pages/notice";
 import { Header } from "./components/shared";
+import { useEffect } from "react";
+import { LOCAL_STORAGE_SITE_LANGUAGE } from "@/constants/StorageKey";
 
 function App() {
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_SITE_LANGUAGE, "ko");
+  }, []);
+
   return (
     <ThemeProvider theme={AppTheme}>
       <ConfigProvider theme={AntdTheme}>

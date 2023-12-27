@@ -71,6 +71,10 @@ const style = css`
       display: none;
     }
   }
+
+  .ant-modal-content {
+    overflow-y: auto;
+  }
 `;
 
 function LibraryStyles() {

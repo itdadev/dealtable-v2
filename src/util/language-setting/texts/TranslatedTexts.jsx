@@ -121,7 +121,7 @@ export const Home6Text2 = () => {
 };
 
 export const Home6Text3 = () => {
-  // 기업DB를 축적한 중소기업 전문
+  // 기업 DB를 축적한 중소기업 전문
   return <FormattedMessage id="lang-home-6-text-3" />;
 };
 
@@ -243,26 +243,6 @@ export const WritingText = () => {
   return <FormattedMessage id="lang-writing" />;
 };
 
-export const WrittenText = () => {
-  // 작성 완료
-  return <FormattedMessage id="lang-written" />;
-};
-
-export const ExploringText = () => {
-  // 탐색중
-  return <FormattedMessage id="lang-exploring" />;
-};
-
-export const ExploredText = () => {
-  // 탐색 완료
-  return <FormattedMessage id="lang-explored" />;
-};
-
-export const TerminatedText = () => {
-  // 종료
-  return <FormattedMessage id="lang-terminated" />;
-};
-
 export const NeedsAddCompleteText = () => {
   // 인수 니즈 생성 완료
   return <FormattedMessage id="lang-needs-add-complete" />;
@@ -311,7 +291,7 @@ export const NeedsTempoAddText = () => {
 
 export const NeedsTempoAddCompleteText = () => {
   // 인수 니즈가 성공적으로 임시 저장되었습니다.
-  return <FormattedMessage id="needs-tempo-add-complete" />;
+  return <FormattedMessage id="lang-needs-tempo-add-complete" />;
 };
 
 export const NeedsEditText = () => {
@@ -324,32 +304,7 @@ export const NeedsEditCompleteText = () => {
   return <FormattedMessage id="lang-needs-edit-complete" />;
 };
 
-export const NumberText = () => {
-  // 번호
-  return <FormattedMessage id="lang-number" />;
-};
-
-export const DealScaleText = () => {
-  // 딜 규모
-  return <FormattedMessage id="lang-deal-scale" />;
-};
-
-export const IndustryText = () => {
-  // 산업 및 업종
-  return <FormattedMessage id="lang-industry" />;
-};
-
-export const StatusText = () => {
-  // 진행 상태
-  return <FormattedMessage id="lang-status" />;
-};
-
-export const InsDateText = () => {
-  // 작성일
-  return <FormattedMessage id="lang-ins-date" />;
-};
-
-export const NeedaTakeoverText = () => {
+export const NeedTakeoverText = () => {
   // 인수 니즈
   return <FormattedMessage id="lang-needs-takeover" />;
 };
@@ -435,16 +390,6 @@ export const JoinRequestText = () => {
   return <FormattedMessage id="lang-join-request" />;
 };
 
-export const JoinRejectDescText = () => {
-  // 계정의 회원가입이 아래의 사유로 승인되지 않았습니다. 회원가입을 다시 진행해주세요.
-  return <FormattedMessage id="lang-join-reject-reason" />;
-};
-
-export const AgreeTermText = () => {
-  // 약관 동의
-  return <FormattedMessage id="lang-agree-term" />;
-};
-
 export const JoinRequestCompleteText = () => {
   // 회원가입 신청완료
   return <FormattedMessage id="lang-join-request-complete" />;
@@ -465,54 +410,9 @@ export const GoToMainText = () => {
   return <FormattedMessage id="lang-go-to-main" />;
 };
 
-export const EditPasswordText = () => {
-  // 비밀번호 수정
-  return <FormattedMessage id="lang-edit-password" />;
-};
-
-export const EditPasswordCompleteText = () => {
-  // 비밀번호가 성공적으로 수정되었습니다. 다시 로그인해주세요.
-  return <FormattedMessage id="lang-edit-password-complete" />;
-};
-
-export const ChangePasswordCompleteDesc1Text = () => {
-  // 비밀번호 변경이 완료되었습니다!
-  return <FormattedMessage id="lang-change-password-complete-desc-1" />;
-};
-
-export const ChangePasswordCompleteDesc2Text = () => {
-  // 변경하신 비밀번호로 로그인하신 후 딜테이블을 이용해주세요.
-  return <FormattedMessage id="lang-change-password-complete-desc-2" />;
-};
-
 export const EnterEmailForLoginText = () => {
   // 로그인을 위해 이메일을 입력하세요.
   return <FormattedMessage id="lang-enter-email-for-login" />;
-};
-
-export const KeepMeLoggedInText = () => {
-  // 로그인 상태 유지
-  return <FormattedMessage id="lang-keep-me-logged-in" />;
-};
-
-export const ChangedAccountConfirmingText = () => {
-  // 회원 정보의 주요 사항을 수정하셔서 관리자가 해당 계정의 승인 절차를 진행 중입니다.
-  return <FormattedMessage id="lang-changed-account-confirming" />;
-};
-
-export const ConfirmWorkingHoursText = () => {
-  // 영업일 기준 3~5일 이내로 승인이 완료됩니다.
-  return <FormattedMessage id="lang-confirm-working-hours" />;
-};
-
-export const AdminConfirmingAccountText = () => {
-  // 관리자가 해당 계정의 승인 절차를 진행 중입니다.
-  return <FormattedMessage id="lang-admin-confirming-account" />;
-};
-
-export const AccountNotMatchText = () => {
-  // 계정 혹은 비밀번호가 일치하지 않습니다. 입력한 내용을 다시한번 확인해주세요
-  return <FormattedMessage id="lang-account-not-match" />;
 };
 
 export const JoinText = () => {
@@ -528,4 +428,108 @@ export const FindEmailPasswordText = () => {
 export const ContinueText = () => {
   // 계속
   return <FormattedMessage id="lang-continue" />;
+};
+
+// NOTE: Footer
+export const BrandNameText = () => {
+  // (주)딜테이블
+  return <FormattedMessage id="lang-continue" />;
+};
+
+export const CEONameText = () => {
+  // 대표: 김테이블
+  return <FormattedMessage id="lang-continue" />;
+};
+
+export const CompanyAddressText = () => {
+  // 주소: 서울시 강남구 강남대로 123
+  return <FormattedMessage id="lang-continue" />;
+};
+
+export const CEONumberText = () => {
+  // 대표번호: 02-1234-5678
+  return <FormattedMessage id="lang-continue" />;
+};
+
+// NOTE: Header
+export const MyProfileText = () => {
+  // 내 프로필
+  return <FormattedMessage id="lang-my-profile" />;
+};
+
+export const LogoutText = () => {
+  // 로그아웃
+  return <FormattedMessage id="lang-logout" />;
+};
+
+export const LoginText = () => {
+  // 로그인
+  return <FormattedMessage id="lang-login" />;
+};
+
+export const GoBackText = () => {
+  // 뒤로가기
+  return <FormattedMessage id="lang-go-back" />;
+};
+
+// NOTE: form
+export const ReEnterPhoneText = () => {
+  // 전화번호 다시 입력
+  return <FormattedMessage id="lang-re-enter-phone" />;
+};
+
+export const CodeConfirmDoneText = () => {
+  // 인증 완료
+  return <FormattedMessage id="lang-code-confirm-done" />;
+};
+
+export const SendCodeNumberText = () => {
+  // 인증번호 전송
+  return <FormattedMessage id="lang-send-code-number" />;
+};
+
+export const CodeNumberText = () => {
+  // 인증 번호
+  return <FormattedMessage id="lang-code-number" />;
+};
+
+export const ResendCodeText = () => {
+  // 재전송
+  return <FormattedMessage id="lang-resend-code" />;
+};
+
+export const ConfirmCodeNumberText = () => {
+  // 인증번호 확인
+  return <FormattedMessage id="lang-confirm-code-number" />;
+};
+
+export const SelectAllText = () => {
+  // 전체 동의
+  return <FormattedMessage id="lang-select-all" />;
+};
+
+export const ViewText = () => {
+  // 보기
+  return <FormattedMessage id="lang-view" />;
+};
+
+// NOTE: modal
+export const ExampleText = () => {
+  // 작성 예시
+  return <FormattedMessage id="lang-example" />;
+};
+
+export const UseTermText = () => {
+  // 이용 약관
+  return <FormattedMessage id="lang-use-term" />;
+};
+
+export const PersonalInformationText = () => {
+  // 개인 정보 처리 방침
+  return <FormattedMessage id="lang-personal-information" />;
+};
+
+export const NewsLetterSubscribeText = () => {
+  // MMP Deal Insight 뉴스레터 구독 동의
+  return <FormattedMessage id="lang-news-letter-subscribe" />;
 };

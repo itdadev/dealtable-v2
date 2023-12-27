@@ -16,12 +16,20 @@ import {
   phoneAlreadyExists,
   phoneDoesntExists,
   phoneRequired,
-  verificationCodeInvaid,
+  verificationCodeInvalid,
 } from "@/lib/react-hook-form/validation/inputErrorMessage";
 
 import { FieldErrorMessage } from "./CustomForm";
 import { PhoneField } from "../fields/Fields";
 import { TextInput } from ".";
+import {
+  CodeConfirmDoneText,
+  CodeNumberText,
+  ConfirmCodeNumberText,
+  ReEnterPhoneText,
+  ResendCodeText,
+  SendCodeNumberText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 export const CODE_EXPIRE_TIME = 5 * 60 * 1000;
 
@@ -47,7 +55,7 @@ const PhoneVerificationFields = ({
   findAccount,
 }) => {
   const [targetDate, setTargetDate] = useState(
-    new Date().getTime() + CODE_EXPIRE_TIME
+    new Date().getTime() + CODE_EXPIRE_TIME,
   );
 
   const timerRef = useRef(null);
@@ -93,7 +101,7 @@ const PhoneVerificationFields = ({
         findAccount ? FIND_SEND_CODE_API_URL : SEND_CODE_API_URL,
         {
           phone: data,
-        }
+        },
       );
 
       return res;
@@ -132,7 +140,7 @@ const PhoneVerificationFields = ({
           });
         }
       },
-    }
+    },
   );
 
   const { mutate: verifyCodeFunction } = useMutation(
@@ -148,13 +156,13 @@ const PhoneVerificationFields = ({
       },
       onError: (error) => {
         if (error?.response.status === 400) {
-          setError("auth_code", { message: verificationCodeInvaid });
+          setError("auth_code", { message: verificationCodeInvalid });
 
           setCodeVerified(false);
           setPhoneActive(true);
         }
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -197,11 +205,13 @@ const PhoneVerificationFields = ({
             }}
             disabled={codeVerified}
           >
-            {codeSent && !codeVerified
-              ? "전화번호 다시 입력"
-              : codeVerified
-              ? "인증 완료"
-              : "인증번호 전송"}
+            {codeSent && !codeVerified ? (
+              <ReEnterPhoneText />
+            ) : codeVerified ? (
+              <CodeConfirmDoneText />
+            ) : (
+              <SendCodeNumberText />
+            )}
           </SendButton>
         </PhoneField>
       </Flex>
@@ -209,7 +219,7 @@ const PhoneVerificationFields = ({
       <Flex>
         <TextInput
           name="auth_code"
-          label="인증 번호"
+          label={<CodeNumberText />}
           labelrequired="true"
           control={control}
           readOnly={codeVerified || !codeSent}
@@ -242,11 +252,13 @@ const PhoneVerificationFields = ({
               })
             }
           >
-            {codeExpired
-              ? "재전송"
-              : codeVerified
-              ? "인증 완료"
-              : "인증번호 확인"}
+            {codeExpired ? (
+              <ResendCodeText />
+            ) : codeVerified ? (
+              <CodeConfirmDoneText />
+            ) : (
+              <ConfirmCodeNumberText />
+            )}
           </SendButton>
         </TextInput>
       </Flex>

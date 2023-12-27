@@ -13,7 +13,7 @@ import Interceptor from "@/lib/axios/AxiosInterceptor";
 import { IsDesktop, mq } from "@/lib/react-responsive/mediaQuery";
 import { image } from "@/theme";
 import {
-  NeedaTakeoverText,
+  NeedTakeoverText,
   NeedsAddText,
   NeedsDeleteCompleteText,
   NeedsDeleteText,
@@ -26,6 +26,7 @@ import {
   NoNeedsDataText,
   TotalTicketText,
 } from "@/util/language-setting/texts/TranslatedTexts";
+import { addComma } from "@/util/ModifyData";
 
 const StyledTable = styled.div(({ theme }) => ({
   maxWidth: "80vw",
@@ -169,7 +170,7 @@ const Need = () => {
     const { status, data } = await Interceptor?.get(
       `${NEEDS_LIST_API_URL}?page=${pageParam}&size=${NEED_LIST_LOAD_SIZE}&order_status=${
         switchStatus.status ? switchStatus.status : ""
-      }&order_ins_date=${switchStatus.date ? switchStatus.date : ""}`
+      }&order_ins_date=${switchStatus.date ? switchStatus.date : ""}`,
     );
 
     if (status === 200) {
@@ -245,7 +246,7 @@ const Need = () => {
     },
     {
       title: intl.formatMessage({
-        id: "lang-industry",
+        id: "lang-industry-job",
       }),
       flex: 5,
       ellipsis: 2,
@@ -282,7 +283,7 @@ const Need = () => {
     (id) => {
       navigate(`/need/edit/${id}`);
     },
-    [navigate]
+    [navigate],
   );
 
   useEffect(() => {
@@ -296,7 +297,7 @@ const Need = () => {
       <Flex align="center" justify="space-between">
         <TotalCnt vertical>
           <Title>
-            <NeedaTakeoverText />
+            <NeedTakeoverText />
           </Title>
 
           <Flex gap="small">
@@ -358,7 +359,7 @@ const Need = () => {
 
                     <Column flex={columns[1].flex}>
                       <div className="ellipsis-2">
-                        {need.deal_scale ? need.deal_scale : "-"}
+                        {need.deal_scale ? addComma(need.deal_scale) : "-"}
                       </div>
                     </Column>
 

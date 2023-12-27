@@ -11,6 +11,7 @@ export const AntdTheme = {
     colorError: color.error,
     colorErrorBg: "#F6F6F6",
     colorErrorBorder: "#F6F6F6",
+    colorLinkHover: color.secondary,
   },
   components: {
     Button: {

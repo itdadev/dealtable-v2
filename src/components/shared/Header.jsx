@@ -8,6 +8,11 @@ import { image } from "@/theme";
 import { headerContainerZIndex } from "@/constants/zIndex";
 import { useUserContext } from "@/context/AuthContext";
 import { IsDefault, IsDesktop, mq } from "@/lib/react-responsive/mediaQuery";
+import {
+  LoginText,
+  LogoutText,
+  MyProfileText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const HeaderContainer = styled.header(({ theme, active }) => ({
   position: "fixed",
@@ -90,6 +95,18 @@ const HeaderLogo = styled.img(() => ({
   },
 }));
 
+const LogoutButton = styled.button(({ theme }) => ({
+  ":hover": {
+    color: theme.color.secondary,
+  },
+}));
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  ":hover": {
+    color: theme.color.secondary,
+  },
+}));
+
 const Header = () => {
   const { isAuthenticated, logoutUser } = useUserContext();
 
@@ -101,7 +118,7 @@ const Header = () => {
 
   const menuModalHandler = useCallback(
     () => setActive((prev) => !prev),
-    [setActive]
+    [setActive],
   );
 
   const logout = useCallback(() => {
@@ -124,12 +141,18 @@ const Header = () => {
         <HeaderLanguageContainer>
           {isAuthenticated ? (
             <Flex gap="small">
-              <Link to="/account">내 프로필</Link>
+              <Link to="/account">
+                <MyProfileText />
+              </Link>
 
-              <button onClick={logout}>로그아웃</button>
+              <LogoutButton type="button" onClick={logout}>
+                <LogoutText />
+              </LogoutButton>
             </Flex>
           ) : (
-            <Link to="/login">로그인</Link>
+            <StyledLink to="/login">
+              <LoginText />
+            </StyledLink>
           )}
         </HeaderLanguageContainer>
       </IsDesktop>
@@ -168,12 +191,18 @@ const Header = () => {
           <HeaderLanguageContainer>
             {isAuthenticated ? (
               <Flex gap="small">
-                <Link to="/account">내 프로필</Link>
+                <Link to="/account">
+                  <MyProfileText />
+                </Link>
 
-                <button onClick={logout}>로그아웃</button>
+                <LogoutButton type="button" onClick={logout}>
+                  <LogoutText />
+                </LogoutButton>
               </Flex>
             ) : (
-              <Link to="/login">로그인</Link>
+              <StyledLink to="/login">
+                <LoginText />
+              </StyledLink>
             )}
           </HeaderLanguageContainer>
         </MobileMenuWrapper>

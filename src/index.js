@@ -4,6 +4,8 @@ import ReactDOM from "react-dom/client";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { IntlProvider } from "react-intl";
 
+import { LOCAL_STORAGE_SITE_LANGUAGE } from "@/constants/StorageKey";
+
 import App from "./App";
 import GlobalStyles from "./assets/styles/GlobalStyles";
 import LibraryStyles from "./assets/styles/LibraryStyles";
@@ -14,14 +16,16 @@ import koMsg from "./util/language-setting/languages/ko.json";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const messages = { "en-US": enUsMsg, ko: koMsg }["ko"];
+const lang = localStorage.getItem(LOCAL_STORAGE_SITE_LANGUAGE);
+
+const messages = { "en-US": enUsMsg, ko: koMsg }[lang];
 
 root.render(
   <BrowserRouter>
     <QueryProvider>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
 
-      <IntlProvider locale="ko" messages={messages}>
+      <IntlProvider locale={lang} messages={messages}>
         <AuthProvider>
           <GlobalStyles />
 

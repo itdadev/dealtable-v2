@@ -12,6 +12,7 @@ import { useUserContext } from "@/context/AuthContext";
 import { mq } from "@/lib/react-responsive/mediaQuery";
 
 import { NormalOverlay } from "..";
+import { GoBackText } from "@/util/language-setting/texts/TranslatedTexts";
 
 const FormContainer = styled.div(({ width = "100rem" }) => ({
   position: "relative",
@@ -199,7 +200,11 @@ const CustomForm = ({
 
       <HomeSectionTextContainer>
         <FormContainer width={width}>
-          {!noGoBack && <GotoBack onClick={goBack}>뒤로가기</GotoBack>}
+          {!noGoBack && (
+            <GotoBack onClick={goBack}>
+              <GoBackText />
+            </GotoBack>
+          )}
 
           <Container onSubmit={submitEvent} wide={wide}>
             {!noLogo && (

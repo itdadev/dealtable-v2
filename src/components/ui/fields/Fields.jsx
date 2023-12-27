@@ -19,8 +19,24 @@ import {
   salesPH,
 } from "@/lib/react-hook-form/validation/placeholderTexts";
 
-import { TextAreaInput, TextInput } from "../form";
 import PasswordInput from "../form/PasswordInput";
+import { TextAreaInput, TextInput } from "../form";
+import {
+  CompanyNameText,
+  CurrentPasswordText,
+  DealScaleText,
+  EmailText,
+  IndustryText,
+  KeyConditiondText,
+  NewPasswordText,
+  PasswordConfirmText,
+  PasswordText,
+  PhoneText,
+  RevenueText,
+  SalesText,
+  UserNameText,
+  UserPositionText,
+} from "@/util/language-setting/texts/TranslatedFieldTexts";
 
 export const EmailField = ({ control, readOnly }) => {
   return (
@@ -29,7 +45,7 @@ export const EmailField = ({ control, readOnly }) => {
       control={control}
       placeholder={emailPH}
       readOnly={readOnly}
-      label="이메일"
+      label={<EmailText />}
       labelrequired="true"
     />
   );
@@ -41,7 +57,7 @@ export const PasswordField = ({ control, readOnly = false }) => {
   return (
     <PasswordInput
       name="user_pw"
-      label="비밀번호"
+      label={<PasswordText />}
       control={control}
       type="password"
       labelrequired="true"
@@ -64,7 +80,7 @@ export const ConfirmPasswordField = ({ control, readOnly = false }) => {
   return (
     <PasswordInput
       name="password_confirm"
-      label="비밀번호 확인"
+      label={<PasswordConfirmText />}
       labelrequired="true"
       control={control}
       type="password"
@@ -87,7 +103,7 @@ export const NewPasswordField = ({ control }) => {
   return (
     <PasswordInput
       name="new_pw"
-      label="새 비밀번호"
+      label={<NewPasswordText />}
       labelrequired="true"
       control={control}
       type="password"
@@ -109,7 +125,7 @@ export const CurrentPasswordField = ({ control }) => {
   return (
     <PasswordInput
       name="user_pw"
-      label="현재 비밀번호"
+      label={<CurrentPasswordText />}
       labelrequired="true"
       control={control}
       type="password"
@@ -129,7 +145,7 @@ export const UserNameField = ({ control, readOnly = false }) => {
   return (
     <TextInput
       name="user_name"
-      label="이름"
+      label={<UserNameText />}
       labelrequired="true"
       control={control}
       placeholder={namePH}
@@ -142,7 +158,7 @@ export const CompanyNameField = ({ control, readOnly = false }) => {
   return (
     <TextInput
       name="company_name"
-      label="기업명"
+      label={<CompanyNameText />}
       labelrequired="true"
       control={control}
       placeholder={corpNamePH}
@@ -155,7 +171,7 @@ export const UserPositionField = ({ control, readOnly = false }) => {
   return (
     <TextInput
       name="user_position"
-      label="직책"
+      label={<UserPositionText />}
       control={control}
       placeholder={positionPH}
       readOnly={readOnly}
@@ -167,7 +183,7 @@ export const PhoneField = ({ control, readOnly = false, children }) => {
   return (
     <TextInput
       name="phone"
-      label="전화번호"
+      label={<PhoneText />}
       labelrequired="true"
       type="number"
       control={control}
@@ -184,7 +200,7 @@ export const IndustryField = ({ control, readOnly = false, defaultValue }) => {
   return (
     <TextAreaInput
       name="industry"
-      label="산업군"
+      label={<IndustryText />}
       labelrequired="true"
       control={control ? control : undefined}
       placeholder={industryPH}
@@ -204,7 +220,7 @@ export const DealScaleField = ({
   return (
     <TextInput
       name="deal_scale"
-      label="딜 규모"
+      label={<DealScaleText />}
       labelrequired="true"
       control={control}
       placeholder={dealScalePH}
@@ -226,7 +242,7 @@ export const SalesField = ({
   return (
     <TextInput
       name="sales"
-      label="매출"
+      label={<SalesText />}
       control={control}
       placeholder={salesPH}
       readOnly={readOnly}
@@ -247,7 +263,7 @@ export const RevenueField = ({
   return (
     <TextInput
       name="revenue"
-      label="영업 이익"
+      label={<RevenueText />}
       control={control}
       placeholder={revenuePH}
       readOnly={readOnly}
@@ -267,7 +283,7 @@ export const KeyConditionField = ({
   return (
     <TextAreaInput
       name="key_condition"
-      label="핵심 조건"
+      label={<KeyConditiondText />}
       control={control}
       placeholder={keyConditionPH}
       readOnly={readOnly}

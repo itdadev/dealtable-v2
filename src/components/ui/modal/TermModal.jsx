@@ -6,6 +6,11 @@ import {
   PrivacyPolicyContents,
   UseTermContents,
 } from "@/util/TermsContents";
+import {
+  NewsLetterSubscribeText,
+  PersonalInformationText,
+  UseTermText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 import { FormDescription } from "../form/CustomForm";
 import { ModalContainer } from ".";
@@ -24,13 +29,13 @@ const TermModal = ({ onCancel, termModalOpen }) => {
   const modalName = useMemo(() => {
     switch (termModalOpen) {
       case "use_term":
-        return "이용 약관";
+        return <UseTermText />;
 
       case "privacy_policy":
-        return "개인 정보 처리 방침";
+        return <PersonalInformationText />;
 
       case "personal_info":
-        return "MMP Deal Insight 뉴스레터 구독 동의";
+        return <NewsLetterSubscribeText />;
 
       default:
         return "";
