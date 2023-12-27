@@ -6,42 +6,29 @@ export function returnNull(data) {
   return null;
 }
 
-const formattedWon = (price) => {
-  if (!!price && typeof price === "number") {
-    return String(price).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export function formatWon(e, setValue, name) {
+  let value = e.target.value;
+
+  // 모든 문자 제거 후 숫자와 소수점만 허용
+  value = value.replace(/[^\d.]/g, "");
+
+  const decimalIndex = value.indexOf(".");
+
+  if (decimalIndex !== -1) {
+    // 소수점 이후 두 자리까지만 유지
+    const decimalPart = value.substring(decimalIndex + 1);
+    value = `${value.substring(0, decimalIndex + 1)}${decimalPart.slice(0, 2)}`;
+
+    // // 소수점 이후 세 자리마다 콤마 추가
+    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  } else {
+    // 콤마 추가
+    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
 
-  if (!!price && typeof price === "string") {
-    return price.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  if (setValue) {
+    setValue(name, value);
   }
-
-  if (price === undefined) {
-    return null;
-  }
-
-  return String(price);
-};
-
-const numberInputRex = (data) => {
-  return data.split(".").length > 2
-    ? data.slice(0, data.lastIndexOf("."))
-    : data;
-};
-
-export function formatWon(e) {
-  const result = numberInputRex(
-    e.target.value
-      .replace(/[^0-9.]/g, "")
-      .replace(/^\d*[.]\d{2}$/g, e.target.value.slice(0, -1)),
-  );
-
-  const numbered = Number(result);
-
-  const floored = Math.floor(numbered * 100) / 100;
-
-  const final = formattedWon(floored.toString());
-
-  e.target.value = final;
 }
 
 export function addComma(price) {

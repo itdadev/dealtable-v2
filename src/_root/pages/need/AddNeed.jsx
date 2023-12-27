@@ -454,7 +454,11 @@ const AddNeed = () => {
         <FieldGroup>
           <IndustryField control={control} readOnly={isReadOnly} />
 
-          <DealScaleField control={control} readOnly={isReadOnly} />
+          <DealScaleField
+            control={control}
+            readOnly={isReadOnly}
+            setValue={setValue}
+          />
 
           <SalesField
             control={control}

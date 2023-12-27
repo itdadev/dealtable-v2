@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
-import { formattedWon, formatWon, numberInputRex } from "@/util/ModifyData";
+import { formatWon } from "@/util/ModifyData";
 import {
   corpNamePH,
   currentPasswordPH,
@@ -195,7 +195,12 @@ export const IndustryField = ({ control, readOnly = false, defaultValue }) => {
   );
 };
 
-export const DealScaleField = ({ control, readOnly = false, defaultValue }) => {
+export const DealScaleField = ({
+  control,
+  readOnly = false,
+  defaultValue,
+  setValue,
+}) => {
   return (
     <TextInput
       name="deal_scale"
@@ -205,7 +210,7 @@ export const DealScaleField = ({ control, readOnly = false, defaultValue }) => {
       placeholder={dealScalePH}
       readOnly={readOnly}
       defaultValue={defaultValue}
-      onInput={(e) => formatWon(e)}
+      onChange={(e) => formatWon(e, setValue, "deal_scale")}
       maxLength={15}
       suffix="억원"
     />
@@ -226,14 +231,19 @@ export const SalesField = ({
       placeholder={salesPH}
       readOnly={readOnly}
       defaultValue={defaultValue}
-      onInput={(e) => formatWon(e)}
+      onChange={(e) => formatWon(e, setValue, "sales")}
       maxLength={15}
       suffix="억원"
     />
   );
 };
 
-export const RevenueField = ({ control, readOnly = false, defaultValue }) => {
+export const RevenueField = ({
+  control,
+  readOnly = false,
+  defaultValue,
+  setValue,
+}) => {
   return (
     <TextInput
       name="revenue"
@@ -242,7 +252,7 @@ export const RevenueField = ({ control, readOnly = false, defaultValue }) => {
       placeholder={revenuePH}
       readOnly={readOnly}
       defaultValue={defaultValue}
-      onInput={formatWon}
+      onChange={(e) => formatWon(e, setValue, "revenue")}
       maxLength={15}
       suffix="억원"
     />

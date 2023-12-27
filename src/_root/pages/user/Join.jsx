@@ -134,7 +134,6 @@ const Join = () => {
 
   const joinSubmit = useCallback(
     (data) => {
-      console.log(data);
       userJoinFunction(data);
     },
     [userJoinFunction],
