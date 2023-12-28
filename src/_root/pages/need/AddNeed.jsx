@@ -301,7 +301,7 @@ const AddNeed = () => {
     },
   );
 
-  const joinSubmit = useCallback(() => {
+  const addNeedSubmit = useCallback(() => {
     setConfirmModal({
       complete: true,
       tempo: false,
@@ -365,7 +365,7 @@ const AddNeed = () => {
   };
 
   return (
-    <CustomForm wide submitEvent={handleSubmit(joinSubmit)} noLogo>
+    <CustomForm wide submitEvent={handleSubmit(addNeedSubmit)} noLogo>
       <NeedExampleModal
         open={exampleModalOpen}
         onOk={okExampleModal}
@@ -375,16 +375,18 @@ const AddNeed = () => {
       <ModalContainer
         title={
           <NeedsAddModalTitleText
-            text={needsKey ? <EditText /> : <AddText />}
+            text={
+              needsKey && statusNm !== "작성중" ? <EditText /> : <AddText />
+            }
           />
         }
         open={confirmModal.complete}
         onOk={doneComplete}
         onCancel={handleCancel}
-        okText={needsKey ? <EditText /> : <AddText />}
+        okText={needsKey && statusNm !== "작성중" ? <EditText /> : <AddText />}
       >
         <NeedsAddEditQuestionText
-          text={needsKey ? <EditText /> : <AddText />}
+          text={needsKey && statusNm !== "작성중" ? <EditText /> : <AddText />}
         />
       </ModalContainer>
 

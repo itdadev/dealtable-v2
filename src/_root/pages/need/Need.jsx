@@ -162,7 +162,7 @@ const Need = () => {
   const { state } = useLocation();
 
   const [switchStatus, setSwitchStatus] = useState({
-    status: "asc",
+    status: "",
     date: "desc",
   });
 
@@ -170,7 +170,7 @@ const Need = () => {
     const { status, data } = await Interceptor?.get(
       `${NEEDS_LIST_API_URL}?page=${pageParam}&size=${NEED_LIST_LOAD_SIZE}&order_status=${
         switchStatus.status ? switchStatus.status : ""
-      }&order_ins_date=${switchStatus.date ? switchStatus.date : ""}`,
+      }&order_ins_date=${switchStatus.date ? switchStatus.date : "desc"}`,
     );
 
     if (status === 200) {

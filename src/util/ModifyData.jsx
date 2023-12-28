@@ -32,5 +32,9 @@ export function formatWon(e, setValue, name) {
 }
 
 export function addComma(price) {
-  return price?.toLocaleString();
+  if (price) {
+    return price?.toLocaleString();
+  }
+
+  return "";
 }
