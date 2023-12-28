@@ -426,7 +426,7 @@ const AddNeed = () => {
         <NeedsTerminateQuestionText />
       </ModalContainer>
 
-      <FormTitle align="center" justify="space-between">
+      <FormTitle align="center" justify="space-between" wrap="wrap" gap="small">
         <Flex
           align={isDesktop ? "center" : "flex-start"}
           gap={isDesktop ? "large" : "small"}

@@ -121,8 +121,14 @@ const Header = () => {
     [setActive],
   );
 
+  const closeModal = useCallback(() => {
+    setActive(false);
+  }, []);
+
   const logout = useCallback(() => {
     logoutUser();
+
+    setActive(false);
 
     navigate("/");
   }, [logoutUser, navigate]);
@@ -140,7 +146,7 @@ const Header = () => {
       <IsDesktop>
         <HeaderLanguageContainer>
           {isAuthenticated ? (
-            <Flex gap="small">
+            <Flex gap="large">
               <Link to="/account">
                 <MyProfileText />
               </Link>
@@ -191,7 +197,7 @@ const Header = () => {
           <HeaderLanguageContainer>
             {isAuthenticated ? (
               <Flex gap="small">
-                <Link to="/account">
+                <Link to="/account" onClick={closeModal}>
                   <MyProfileText />
                 </Link>
 
@@ -200,7 +206,7 @@ const Header = () => {
                 </LogoutButton>
               </Flex>
             ) : (
-              <StyledLink to="/login">
+              <StyledLink to="/login" onClick={closeModal}>
                 <LoginText />
               </StyledLink>
             )}

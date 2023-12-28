@@ -40,13 +40,13 @@ export const FormDescription = styled.p(() => ({
   },
 }));
 
-const Container = styled.form(({ theme, wide }) => ({
+const Container = styled.form(({ theme, wide, noGoBack }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   gap: "1rem",
   width: "100%",
-  maxHeight: "calc(100vh - 10rem)",
+  maxHeight: noGoBack ? "calc(100vh - 10rem)" : "calc(100vh - 14rem)",
   margin: "auto",
   padding: "2rem",
   boxShadow: theme.shadow.primary,
@@ -206,7 +206,7 @@ const CustomForm = ({
             </GotoBack>
           )}
 
-          <Container onSubmit={submitEvent} wide={wide}>
+          <Container onSubmit={submitEvent} wide={wide} noGoBack={noGoBack}>
             {!noLogo && (
               <LinkToHome to={isAuthenticated ? "/need" : "/"}>
                 <img

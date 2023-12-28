@@ -16,7 +16,9 @@ import koMsg from "./util/language-setting/languages/ko.json";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const lang = localStorage.getItem(LOCAL_STORAGE_SITE_LANGUAGE);
+const lang = localStorage.getItem(LOCAL_STORAGE_SITE_LANGUAGE)
+  ? localStorage.getItem(LOCAL_STORAGE_SITE_LANGUAGE)
+  : "ko";
 
 const messages = { "en-US": enUsMsg, ko: koMsg }[lang];
 

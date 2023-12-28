@@ -134,7 +134,7 @@ const ToggleButton = styled.img(() => ({
 }));
 
 const FilterToggle = ({ switchStatus, setSwitchStatus, type }) => {
-  if (switchStatus === "asc" || switchStatus === undefined) {
+  if (switchStatus === "asc") {
     return (
       <ToggleButton
         src={image.filterAsc.default}
@@ -144,10 +144,20 @@ const FilterToggle = ({ switchStatus, setSwitchStatus, type }) => {
     );
   }
 
-  if (switchStatus === "desc" || switchStatus === undefined) {
+  if (switchStatus === "desc") {
     return (
       <ToggleButton
         src={image.filterDesc.default}
+        alt="필터 내림차순"
+        onClick={() => setSwitchStatus({ [type]: "asc" })}
+      />
+    );
+  }
+
+  if (switchStatus === "" || switchStatus === undefined) {
+    return (
+      <ToggleButton
+        src={image.filterOff.default}
         alt="필터 내림차순"
         onClick={() => setSwitchStatus({ [type]: "asc" })}
       />
