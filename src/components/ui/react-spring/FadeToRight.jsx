@@ -3,7 +3,7 @@ import { animated, useSpring } from "@react-spring/web";
 
 const FadeToRight = ({ active, children }) => {
   const [springs, api] = useSpring(() => ({
-    from: { x: -400 },
+    from: { x: -400, opacity: 0 },
   }));
 
   useEffect(() => {
@@ -13,11 +13,19 @@ const FadeToRight = ({ active, children }) => {
           x: -400,
           opacity: 0,
         },
-        to: {
-          x: 0,
-          opacity: 1,
+        to: async (next) => {
+          await next({
+            x: 30,
+            opacity: 0.5,
+            config: { duration: 1000 },
+          });
+          await next({
+            x: 0,
+            opacity: 1,
+            config: { duration: 500 },
+          });
         },
-        config: { duration: 1500 },
+        config: { duration: 1000 },
       });
     }
   }, [active, api]);

@@ -64,6 +64,7 @@ const NeedExampleModal = ({ open, onOk, onCancel }) => {
           defaultValue={intl.formatMessage({
             id: "lang-example-5",
           })}
+          example
         />
       </FieldGroup>
     </ModalContainer>

@@ -37,7 +37,9 @@ import { LOCAL_STORAGE_SITE_LANGUAGE } from "@/constants/StorageKey";
 
 function App() {
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_SITE_LANGUAGE, "ko");
+    if (localStorage.getItem(LOCAL_STORAGE_SITE_LANGUAGE) === null) {
+      localStorage.setItem(LOCAL_STORAGE_SITE_LANGUAGE, "ko");
+    }
   }, []);
 
   return (

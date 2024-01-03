@@ -54,11 +54,7 @@ const ChangePassword = () => {
       }),
     {
       onSuccess: () => {
-        navigate("/login", {
-          state: {
-            findAccountSuccess: true,
-          },
-        });
+        navigate("/login", { state: { mutateStatus: "password" } });
       },
       onError: (error) => {
         console.log(error);

@@ -237,7 +237,7 @@ const AddNeed = () => {
       onSuccess: () => {
         queryClient.removeQueries("needList");
 
-        navigate("/need/add-complete");
+        navigate("/need", { state: { mutateStatus: "add" } });
       },
       onError: (error) => {
         console.log(error);

@@ -75,6 +75,13 @@ const style = css`
   .ant-modal-content {
     overflow-y: auto;
   }
+
+  .ant-dropdown-menu-item {
+    &:hover {
+      color: #bd9b60 !important;
+      transition: none !important;
+    }
+  }
 `;
 
 function LibraryStyles() {

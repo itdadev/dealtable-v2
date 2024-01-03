@@ -12,6 +12,7 @@ export const AntdTheme = {
     colorErrorBg: "#F6F6F6",
     colorErrorBorder: "#F6F6F6",
     colorLinkHover: color.secondary,
+    paddingXXS: 10,
   },
   components: {
     Button: {
@@ -39,6 +40,9 @@ export const AntdTheme = {
     Alert: {
       defaultPadding: 12,
       borderRadiusLG: 0,
+    },
+    Dropdown: {
+      // paddingBlock: 8,
     },
   },
 };

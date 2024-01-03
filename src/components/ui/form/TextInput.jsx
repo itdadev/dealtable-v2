@@ -24,6 +24,7 @@ const TextInput = ({ children, ...props }) => {
                 <Input
                   {...field}
                   {...props}
+                  autocomplete="off"
                   id={props.name}
                   status={errors[props.name] ? "error" : ""}
                   size="large"
@@ -56,7 +57,7 @@ const TextInput = ({ children, ...props }) => {
     />
   ) : (
     <FieldContainer>
-      <label htmlFor={props.name}>
+      <label>
         {props.label}
 
         <sup>{props.labelrequired === "true" && "*"}</sup>

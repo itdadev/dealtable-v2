@@ -279,6 +279,7 @@ export const KeyConditionField = ({
   control,
   readOnly = false,
   defaultValue,
+  example,
 }) => {
   return (
     <TextAreaInput
@@ -289,6 +290,7 @@ export const KeyConditionField = ({
       readOnly={readOnly}
       maxLength={700}
       defaultValue={defaultValue}
+      example={example}
     />
   );
 };

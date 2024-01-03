@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useMutation } from "react-query";
-import { Alert, Divider, Flex, Result, notification } from "antd";
+import { Alert, Divider, Flex, notification } from "antd";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { PrimaryButton } from "@/components/ui/buttons";
@@ -134,18 +134,6 @@ const Login = () => {
   return (
     <CustomForm submitEvent={handleSubmit(loginSubmit)} noGoBack>
       {contextHolder}
-
-      {state?.findAccountSuccess && (
-        <Result
-          status="success"
-          title={intl.formatMessage({
-            id: "lang-change-password-complete-desc-1",
-          })}
-          subTitle={intl.formatMessage({
-            id: "lang-change-password-complete-desc-2",
-          })}
-        />
-      )}
 
       <FormDescription>
         <EnterEmailForLoginText />

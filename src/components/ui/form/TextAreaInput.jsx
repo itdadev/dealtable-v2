@@ -48,7 +48,7 @@ const TextAreaInput = (props) => {
     />
   ) : (
     <TextAresFieldContainer>
-      <label htmlFor={props.name}>
+      <label>
         {props.label}
 
         <sup>{props.labelrequired === "true" && "*"}</sup>
@@ -59,6 +59,10 @@ const TextAreaInput = (props) => {
         rows={4}
         id={props.name}
         showCount
+        autoSize={{
+          minRows: props.example ? 4 : 4,
+          maxRows: props.example ? 18 : 4,
+        }}
         style={{
           resize: "none",
           fontSize: "1.6rem",

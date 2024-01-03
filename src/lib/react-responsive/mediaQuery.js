@@ -25,9 +25,11 @@ export const IsDefault = ({ children }) => {
 };
 
 const bp = {
-  mobile: 300,
+  mobile: 360,
+  mini: 360,
   tablet: 768,
   desktop: 1024,
 };
 
 export const mq = (n) => `@media (min-width: ${bp[n]}px)`;
+export const mqx = (n) => `@media (max-width: ${bp[n]}px)`;

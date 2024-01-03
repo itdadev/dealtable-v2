@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import styled from "@emotion/styled";
-import { Flex } from "antd";
+import { Divider, Dropdown, Flex } from "antd";
 
 import { image } from "@/theme";
 import { headerContainerZIndex } from "@/constants/zIndex";
@@ -13,6 +13,9 @@ import {
   LogoutText,
   MyProfileText,
 } from "@/util/language-setting/texts/TranslatedTexts";
+import { Space } from "antd/lib";
+import { DownOutlined } from "@ant-design/icons";
+import { LOCAL_STORAGE_SITE_LANGUAGE } from "@/constants/StorageKey";
 
 const HeaderContainer = styled.header(({ theme, active }) => ({
   position: "fixed",
@@ -30,6 +33,7 @@ const HeaderContainer = styled.header(({ theme, active }) => ({
   [mq("desktop")]: {
     height: "10rem",
     padding: "0 4rem",
+    background: "transparent",
   },
 }));
 
@@ -48,9 +52,10 @@ const MobileMenuWrapper = styled.div(() => ({
   display: "flex",
   flexDirection: "column",
   gap: "12rem 0",
-  justifyContent: "flex-end",
+  justifyContent: "space-between",
   height: "100%",
-  padding: "0 0 8rem 3rem",
+  padding: "8rem 0 8rem 3rem",
+  color: "white",
 }));
 
 const HeaderLanguageContainer = styled.div(() => ({
@@ -107,6 +112,55 @@ const StyledLink = styled(Link)(({ theme }) => ({
   },
 }));
 
+const LinkText = styled(Link)(({ theme }) => ({
+  fontSize: "2.8rem",
+  fontWeight: theme.fontWeight.medium,
+}));
+
+const LangText = styled.button(({ active, theme }) => ({
+  color: active ? "white" : theme.color.grey,
+}));
+
+const LanguageSwitcher = () => {
+  const [isKorean, setIsKorean] = useState(
+    localStorage.getItem(LOCAL_STORAGE_SITE_LANGUAGE) === "ko",
+  );
+
+  const toggleLanguage = useCallback(() => {
+    setIsKorean((prev) => !prev);
+    if (isKorean) {
+      setIsKorean(false);
+      localStorage.setItem(LOCAL_STORAGE_SITE_LANGUAGE, "en-US");
+    } else {
+      setIsKorean(true);
+      localStorage.setItem(LOCAL_STORAGE_SITE_LANGUAGE, "ko");
+    }
+
+    window.location.reload();
+  }, [isKorean]);
+  const LANG_OFF = true;
+  return LANG_OFF ? (
+    <></>
+  ) : (
+    <Flex align="center">
+      <LangText active={isKorean} onClick={toggleLanguage} type="button">
+        KR
+      </LangText>
+
+      <Divider
+        type="vertical"
+        style={{
+          borderInlineStart: "1px solid rgba(255, 255, 255, 0.5)",
+        }}
+      />
+
+      <LangText active={!isKorean} onClick={toggleLanguage} type="button">
+        EN
+      </LangText>
+    </Flex>
+  );
+};
+
 const Header = () => {
   const { isAuthenticated, logoutUser } = useUserContext();
 
@@ -133,6 +187,36 @@ const Header = () => {
     navigate("/");
   }, [logoutUser, navigate]);
 
+  const items = [
+    {
+      label: <StyledLink to="/notice">공지사항</StyledLink>,
+      key: "1",
+    },
+    {
+      label: <StyledLink to="/faq">FAQ</StyledLink>,
+      key: "2",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: (
+        <StyledLink to="/account">
+          <MyProfileText />
+        </StyledLink>
+      ),
+      key: "3",
+    },
+    {
+      label: (
+        <LogoutButton type="button" onClick={logout}>
+          <LogoutText />
+        </LogoutButton>
+      ),
+      key: "4",
+    },
+  ];
+
   return (
     <HeaderContainer active={active}>
       <Link to={isAuthenticated ? "/need" : "/"}>
@@ -147,18 +231,37 @@ const Header = () => {
         <HeaderLanguageContainer>
           {isAuthenticated ? (
             <Flex gap="large">
-              <Link to="/account">
-                <MyProfileText />
-              </Link>
-
-              <LogoutButton type="button" onClick={logout}>
-                <LogoutText />
-              </LogoutButton>
+              <Dropdown
+                menu={{
+                  items,
+                }}
+                placement="bottomRight"
+                trigger={["click"]}
+              >
+                <button type="button" onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    MY
+                    <DownOutlined />
+                  </Space>
+                </button>
+              </Dropdown>
             </Flex>
           ) : (
-            <StyledLink to="/login">
-              <LoginText />
-            </StyledLink>
+            <Flex gap="large">
+              <LanguageSwitcher />
+
+              <a
+                href="https://www.mmp.co.kr/m61.php"
+                target="_blank"
+                rel="noreferrer"
+              >
+                매각 문의
+              </a>
+
+              <StyledLink to="/login" onClick={closeModal}>
+                <LoginText />
+              </StyledLink>
+            </Flex>
           )}
         </HeaderLanguageContainer>
       </IsDesktop>
@@ -192,27 +295,47 @@ const Header = () => {
         </HamburgerButton>
       </IsDefault>
 
-      <MobileMenuContainer active={active}>
-        <MobileMenuWrapper>
-          <HeaderLanguageContainer>
-            {isAuthenticated ? (
-              <Flex gap="small">
-                <Link to="/account" onClick={closeModal}>
-                  <MyProfileText />
-                </Link>
+      <IsDefault>
+        <MobileMenuContainer active={active}>
+          <MobileMenuWrapper>
+            <Flex vertical gap={24}>
+              <LinkText to="/notice">공지사항</LinkText>
 
-                <LogoutButton type="button" onClick={logout}>
-                  <LogoutText />
-                </LogoutButton>
-              </Flex>
-            ) : (
-              <StyledLink to="/login" onClick={closeModal}>
-                <LoginText />
-              </StyledLink>
-            )}
-          </HeaderLanguageContainer>
-        </MobileMenuWrapper>
-      </MobileMenuContainer>
+              <LinkText to="/faq">FAQ</LinkText>
+            </Flex>
+
+            <HeaderLanguageContainer>
+              {isAuthenticated ? (
+                <Flex gap="small">
+                  <Link to="/account" onClick={closeModal}>
+                    <MyProfileText />
+                  </Link>
+
+                  <LogoutButton type="button" onClick={logout}>
+                    <LogoutText />
+                  </LogoutButton>
+                </Flex>
+              ) : (
+                <Flex gap="large">
+                  <a
+                    href="https://www.mmp.co.kr/m61.php"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    매각 문의
+                  </a>
+
+                  <StyledLink to="/login" onClick={closeModal}>
+                    <LoginText />
+                  </StyledLink>
+
+                  <LanguageSwitcher />
+                </Flex>
+              )}
+            </HeaderLanguageContainer>
+          </MobileMenuWrapper>
+        </MobileMenuContainer>
+      </IsDefault>
     </HeaderContainer>
   );
 };

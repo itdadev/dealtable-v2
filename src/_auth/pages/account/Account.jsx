@@ -39,7 +39,7 @@ const Account = ({ edit }) => {
 
   const getUserDetail = useCallback(async () => {
     const { status, data } = await Interceptor?.get(
-      `${MUTATE_USER_INFO_API_URL}`
+      `${MUTATE_USER_INFO_API_URL}`,
     );
 
     if (status === 200) {
@@ -49,7 +49,7 @@ const Account = ({ edit }) => {
 
   const { data: userDetail, isLoading } = useQuery(
     ["userDetail"],
-    getUserDetail
+    getUserDetail,
   );
 
   const {
@@ -101,7 +101,11 @@ const Account = ({ edit }) => {
       setValue("user_name", userDetail?.user_name);
       setValue("phone", userDetail?.phone);
       setValue("company_name", userDetail?.company_name);
-      setValue("user_position", userDetail?.user_position);
+
+      if (userDetail?.user_position) {
+        setValue("user_position", userDetail?.user_position);
+      } else {
+      }
     }
   }, [setValue, userDetail]);
 
@@ -109,7 +113,7 @@ const Account = ({ edit }) => {
     async (data) => {
       const { data: result, status } = await Interceptor.patch(
         MUTATE_USER_INFO_API_URL,
-        data
+        data,
       );
 
       if (status === 200) {
@@ -131,14 +135,14 @@ const Account = ({ edit }) => {
       onError: (error) => {
         console.log(error);
       },
-    }
+    },
   );
 
   const changeAccountSubmit = useCallback(
     (data) => {
       editUserAccountFunction(data);
     },
-    [editUserAccountFunction]
+    [editUserAccountFunction],
   );
 
   useEffect(() => {
@@ -156,10 +160,7 @@ const Account = ({ edit }) => {
   }, []);
 
   return (
-    <CustomForm
-      submitEvent={handleSubmit(changeAccountSubmit)}
-      noGoBack={!edit}
-    >
+    <CustomForm submitEvent={handleSubmit(changeAccountSubmit)}>
       {contextHolder}
 
       <FormDescription>계정 관리</FormDescription>

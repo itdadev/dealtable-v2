@@ -10,7 +10,7 @@ import LoadMoreButton from "@/components/ui/buttons/LoadMoreButton";
 import { NEEDS_LIST_API_URL, NEED_LIST_LOAD_SIZE } from "@/constants/apiUrls";
 import { CustomForm } from "@/components/ui/form";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
-import { IsDesktop, mq } from "@/lib/react-responsive/mediaQuery";
+import { IsDefault, IsDesktop, mq } from "@/lib/react-responsive/mediaQuery";
 import { image } from "@/theme";
 import {
   NeedTakeoverText,
@@ -25,6 +25,10 @@ import {
   NeedsTempoAddText,
   NoNeedsDataText,
   TotalTicketText,
+  DealScaleValueText,
+  NeedsAddCompleteText,
+  NeedsAddComplete1Text,
+  NeedsAddComplete2Text,
 } from "@/util/language-setting/texts/TranslatedTexts";
 import { addComma } from "@/util/ModifyData";
 
@@ -133,6 +137,12 @@ const ToggleButton = styled.img(() => ({
   cursor: "pointer",
 }));
 
+const DealScaleValue = styled.small(({ theme }) => ({
+  marginLeft: "0.3rem",
+  color: theme.color.grey,
+  fontSize: "1.2rem",
+}));
+
 const FilterToggle = ({ switchStatus, setSwitchStatus, type }) => {
   if (switchStatus === "asc") {
     return (
@@ -158,7 +168,7 @@ const FilterToggle = ({ switchStatus, setSwitchStatus, type }) => {
     return (
       <ToggleButton
         src={image.filterOff.default}
-        alt="필터 내림차순"
+        alt="필터 없음"
         onClick={() => setSwitchStatus({ [type]: "asc" })}
       />
     );
@@ -222,6 +232,24 @@ const Need = () => {
         duration: 3,
       });
     }
+
+    if (state?.mutateStatus === "add") {
+      api.success({
+        message: <NeedsAddCompleteText />,
+        description: (
+          <div>
+            <p>
+              <NeedsAddComplete1Text />
+            </p>
+
+            <p>
+              <NeedsAddComplete2Text />
+            </p>
+          </div>
+        ),
+        duration: 3,
+      });
+    }
   }, [api, state?.mutateStatus]);
 
   const {
@@ -250,7 +278,7 @@ const Need = () => {
     },
     {
       title: intl.formatMessage({
-        id: "lang-deal-scale",
+        id: "lang-deal-scale-table",
       }),
       flex: "1 1 5rem",
     },
@@ -259,7 +287,6 @@ const Need = () => {
         id: "lang-industry-job",
       }),
       flex: 5,
-      ellipsis: 2,
     },
     {
       title: intl.formatMessage({
@@ -370,6 +397,12 @@ const Need = () => {
                     <Column flex={columns[1].flex}>
                       <div className="ellipsis-2">
                         {need.deal_scale ? addComma(need.deal_scale) : "-"}
+
+                        <IsDefault>
+                          <DealScaleValue>
+                            <DealScaleValueText />
+                          </DealScaleValue>
+                        </IsDefault>
                       </div>
                     </Column>
 

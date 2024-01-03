@@ -1,11 +1,12 @@
 import React from "react";
+import { useMediaQuery } from "react-responsive";
 import styled from "@emotion/styled";
 
 import GoDownArrow from "@/components/ui/GoDownArrow";
+import { FadeToTop } from "@/components/ui/react-spring";
 import { mq } from "@/lib/react-responsive/mediaQuery";
 
 import { HomeSectionTextWrapper } from "./Home";
-import FadeToTop from "../../../components/ui/react-spring/FadeToTop";
 
 const ArrowTextContainer = styled.div(() => ({
   position: "relative",
@@ -25,16 +26,30 @@ const ArrowTextContainer = styled.div(() => ({
 }));
 
 const MainBanner = ({ active, swiper }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
   return (
     <>
       <HomeSectionTextWrapper>
-        <FadeToTop active={active}>
-          <header>Get your</header>
+        {isMobile ? (
+          <FadeToTop active={active}>
+            <header>Get your</header>
 
-          <header>M&A Deal list</header>
+            <header>M&A</header>
 
-          <header>DEALTABLE</header>
-        </FadeToTop>
+            <header>Deal list</header>
+
+            <header>DEALTABLE</header>
+          </FadeToTop>
+        ) : (
+          <FadeToTop active={active}>
+            <header>Get your</header>
+
+            <header>M&A Deal list</header>
+
+            <header>DEALTABLE</header>
+          </FadeToTop>
+        )}
       </HomeSectionTextWrapper>
 
       <ArrowTextContainer>

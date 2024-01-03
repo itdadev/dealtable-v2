@@ -8,7 +8,7 @@ import { image } from "@/theme";
 import { GoDownArrow, NormalOverlay } from "@/components/ui";
 import { Footer } from "@/components/shared";
 import { borderZIndex } from "@/constants/zIndex";
-import { IsDesktop, mq } from "@/lib/react-responsive/mediaQuery";
+import { IsDesktop, mq, mqx } from "@/lib/react-responsive/mediaQuery";
 import { FadeInOut } from "@/lib/react-transition-group/FadeInOut";
 
 import {
@@ -29,12 +29,14 @@ export const BackgroundImageWrapper = styled.div(({ url, isFooter }) => ({
   backgroundImage: `url(${url})`,
   backgroundAttachment: "fixed",
   backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
+  backgroundSize: "auto 100%",
+  backgroundPosition: "60% top",
   transition: "all 0.3s",
 
   [mq("desktop")]: {
     maxHeight: "100vh",
     overflow: "hidden",
+    backgroundSize: "cover",
   },
 }));
 
@@ -84,11 +86,10 @@ export const HomeSectionTextContainer = styled.div(({ theme, home }) => ({
 
 export const HomeSectionTextWrapper = styled.div(({ theme }) => ({
   position: "relative",
-  width: "fit-content",
   color: "white",
-
   overflow: "hidden",
   fontSize: "3.2rem",
+  width: "100%",
 
   header: {
     //Big Header Text
@@ -99,9 +100,16 @@ export const HomeSectionTextWrapper = styled.div(({ theme }) => ({
     fontFamily: theme.fontFamily.secondary,
   },
 
+  [mqx("mini")]: {
+    header: {
+      fontSize: "4.2rem",
+    },
+  },
+
   [mq("desktop")]: {
     wordBreak: "keep-all",
     whiteSpace: "nowrap",
+    width: "fit-content",
 
     header: {
       left: "-4rem",
@@ -116,6 +124,10 @@ export const HomeSectionDescContainer = styled.div(() => ({
   lineHeight: 1.5,
   marginTop: "2rem",
 
+  [mqx("mini")]: {
+    fontSize: "1.4rem",
+  },
+
   [mq("desktop")]: {
     fontSize: "2.4rem",
   },
@@ -129,6 +141,7 @@ export const HomeSectionDescWithLine = styled.div(() => ({
   fontSize: "1.6rem",
   color: "white",
   lineHeight: 1.5,
+  wordWrap: "wrap",
 
   hr: {
     width: "100%",
@@ -136,6 +149,10 @@ export const HomeSectionDescWithLine = styled.div(() => ({
     marginTop: "1rem",
     marginBottom: "0.8rem",
     background: "white",
+  },
+
+  [mqx("mini")]: {
+    fontSize: "1.4rem",
   },
 
   [mq("desktop")]: {

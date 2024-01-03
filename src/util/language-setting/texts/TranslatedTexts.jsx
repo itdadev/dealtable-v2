@@ -80,6 +80,11 @@ export const Home3Text2 = () => {
   return <FormattedMessage id="lang-home-3-text-2" />;
 };
 
+export const Home3Text3 = () => {
+  // 인수를 중개, 자문하는 모든 Buy side가 DEALTABLE의 고객입니다.
+  return <FormattedMessage id="lang-home-3-text-3" />;
+};
+
 export const Home4Text1 = () => {
   // 인수하고 싶은 회사의 조건만
   return <FormattedMessage id="lang-home-4-text-1" />;
@@ -433,28 +438,33 @@ export const ContinueText = () => {
 // NOTE: Footer
 export const BrandNameText = () => {
   // (주)딜테이블
-  return <FormattedMessage id="lang-continue" />;
+  return <FormattedMessage id="lang-brand-name" />;
 };
 
 export const CEONameText = () => {
   // 대표: 김테이블
-  return <FormattedMessage id="lang-continue" />;
+  return <FormattedMessage id="lang-ceo-name" />;
 };
 
 export const CompanyAddressText = () => {
   // 주소: 서울시 강남구 강남대로 123
-  return <FormattedMessage id="lang-continue" />;
+  return <FormattedMessage id="lang-company-address" />;
 };
 
 export const CEONumberText = () => {
   // 대표번호: 02-1234-5678
-  return <FormattedMessage id="lang-continue" />;
+  return <FormattedMessage id="lang-ceo-number" />;
 };
 
 // NOTE: Header
 export const MyProfileText = () => {
   // 내 프로필
   return <FormattedMessage id="lang-my-profile" />;
+};
+
+export const DealScaleValueText = () => {
+  // 억원 딜규모
+  return <FormattedMessage id="lang-deal-scale-value" />;
 };
 
 export const LogoutText = () => {
