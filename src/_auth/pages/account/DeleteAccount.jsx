@@ -15,6 +15,12 @@ import { zodDeleteAccount } from "@/lib/react-hook-form/validation/zodValidation
 import Interceptor from "@/lib/axios/AxiosInterceptor";
 import { ButtonWrapper } from "@/_root/pages/user/JoinComplete";
 import { ModalContainer } from "@/components/ui/modal";
+import {
+  CancelText,
+  DeleteAccountDescText,
+  DeleteAccountLongText,
+  DeleteUserAccountText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const DeleteAccount = () => {
   const navigate = useNavigate();
@@ -26,7 +32,7 @@ const DeleteAccount = () => {
 
   const { control, handleSubmit, watch, setError } = useForm({
     resolver: zodResolver(zodDeleteAccount),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       user_pw: "",
     },
@@ -62,7 +68,7 @@ const DeleteAccount = () => {
           });
         }
       },
-    }
+    },
   );
 
   const handleCancel = useCallback(() => {
@@ -81,24 +87,28 @@ const DeleteAccount = () => {
   return (
     <CustomForm submitEvent={handleSubmit(deleteAccountSubmit)}>
       <ModalContainer
-        title="회원 탈퇴하기"
+        title={<DeleteUserAccountText />}
         open={confirmModal}
         onOk={deleteComplete}
         onCancel={handleCancel}
-        okText="탈퇴하기"
-        cancelText="취소"
+        okText={<DeleteAccountLongText />}
+        cancelText={<CancelText />}
       >
-        서비스에서 탈퇴하시겠습니까? 지금까지 생성한 니즈가 삭제됩니다.
+        <DeleteAccountDescText />
       </ModalContainer>
 
       <FieldGroup>
-        <FormDescription>회원 탈퇴하기</FormDescription>
+        <FormDescription>
+          <DeleteUserAccountText />
+        </FormDescription>
 
         <CurrentPasswordField control={control} />
       </FieldGroup>
 
       <ButtonWrapper>
-        <PrimaryButton buttonType="submit">탈퇴하기</PrimaryButton>
+        <PrimaryButton buttonType="submit">
+          <DeleteAccountLongText />
+        </PrimaryButton>
       </ButtonWrapper>
     </CustomForm>
   );

@@ -53,7 +53,7 @@ export const UserPositionText = () => {
 };
 
 export const PhoneText = () => {
-  // 전화번호
+  // 휴대폰 번호
   return <FormattedMessage id="lang-phone" />;
 };
 

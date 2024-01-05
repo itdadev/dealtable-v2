@@ -23,6 +23,7 @@ export const AntdTheme = {
       paddingInlineLG: 16,
       paddingBlockLG: 16,
       colorBgContainer: "inherit",
+      border: "none",
     },
     Flex: {
       fontSize: "inherit",

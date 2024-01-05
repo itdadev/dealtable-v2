@@ -3,7 +3,9 @@ import { Spin } from "antd";
 import styled from "@emotion/styled";
 
 const Container = styled.div(() => ({
-  minHeight: "5.2rem",
+  display: "flex",
+  alignItems: "center",
+  minHeight: "4rem",
 }));
 
 const LoadingSpinner = () => {

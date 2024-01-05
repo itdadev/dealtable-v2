@@ -315,7 +315,7 @@ export const NeedTakeoverText = () => {
 };
 
 export const TotalTicketText = ({ total }) => {
-  // 티켓 {total}장
+  // 전체 {total}장
   return <FormattedMessage id="lang-total-ticket" values={{ total: total }} />;
 };
 
@@ -346,7 +346,7 @@ export const LoginLongText = () => {
 };
 
 export const ChangeEmailPasswordText = () => {
-  // 이메일과 비밀번호를 변경하세요.
+  // 이메일/비밀번호를 찾기 위해 인증이 필요합니다.
   return <FormattedMessage id="lang-change-email-password" />;
 };
 
@@ -463,7 +463,7 @@ export const MyProfileText = () => {
 };
 
 export const DealScaleValueText = () => {
-  // 억원 딜규모
+  // 억원 딜 규모
   return <FormattedMessage id="lang-deal-scale-value" />;
 };
 
@@ -484,7 +484,7 @@ export const GoBackText = () => {
 
 // NOTE: form
 export const ReEnterPhoneText = () => {
-  // 전화번호 다시 입력
+  // 휴대폰 번호 다시 입력
   return <FormattedMessage id="lang-re-enter-phone" />;
 };
 
@@ -542,4 +542,35 @@ export const PersonalInformationText = () => {
 export const NewsLetterSubscribeText = () => {
   // MMP Deal Insight 뉴스레터 구독 동의
   return <FormattedMessage id="lang-news-letter-subscribe" />;
+};
+
+// NOTE: Account
+export const AccountManageText = () => {
+  // 계정 관리
+  return <FormattedMessage id="lang-account-manage" />;
+};
+
+export const ChangePasswordShortText = () => {
+  // 비밀번호 변경
+  return <FormattedMessage id="lang-change-password-short" />;
+};
+
+export const AccountInformationChangeText = () => {
+  // 계정 정보 변경
+  return <FormattedMessage id="lang-account-information-change" />;
+};
+
+export const DeleteAccountLongText = () => {
+  // 탈퇴하기
+  return <FormattedMessage id="lang-delete-account" />;
+};
+
+export const DeleteUserAccountText = () => {
+  // 회원 탈퇴하기
+  return <FormattedMessage id="lang-delete-user-account" />;
+};
+
+export const DeleteAccountDescText = () => {
+  // 서비스에서 탈퇴하시겠습니까? 지금까지 생성한 니즈가 삭제됩니다.
+  return <FormattedMessage id="lang-delete-account-desc" />;
 };

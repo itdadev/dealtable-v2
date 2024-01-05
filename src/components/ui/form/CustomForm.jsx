@@ -71,7 +71,7 @@ export const FieldContainer = styled.div(({ theme }) => ({
   flexDirection: "column",
   gap: "0.4rem 0",
   width: "100%",
-  minHeight: "10.2rem",
+  minHeight: "10.4rem",
 
   label: {
     fontSize: "1.4rem",

@@ -179,7 +179,12 @@ export const UserPositionField = ({ control, readOnly = false }) => {
   );
 };
 
-export const PhoneField = ({ control, readOnly = false, children }) => {
+export const PhoneField = ({
+  control,
+  readOnly = false,
+  children,
+  addonAfter,
+}) => {
   return (
     <TextInput
       name="phone"
@@ -190,6 +195,9 @@ export const PhoneField = ({ control, readOnly = false, children }) => {
       placeholder={phoneNumPH}
       readOnly={readOnly}
       pattern="[0-9]+"
+      addonAfter={addonAfter}
+      bordered={false}
+      customborder="true"
     >
       {children}
     </TextInput>

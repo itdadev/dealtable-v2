@@ -17,6 +17,11 @@ import { PrimaryButton } from "@/components/ui/buttons";
 import { zodChangeMyPassword } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
 import { ButtonWrapper } from "@/_root/pages/user/JoinComplete";
+import { ChangePasswordText } from "@/util/language-setting/texts/TranslatedTexts";
+import {
+  currentPasswordInvalid,
+  samePasswordEntered,
+} from "@/lib/react-hook-form/validation/inputErrorMessage";
 
 const ChangeMyPassword = () => {
   const navigate = useNavigate();
@@ -25,7 +30,7 @@ const ChangeMyPassword = () => {
 
   const { control, handleSubmit, setError } = useForm({
     resolver: zodResolver(zodChangeMyPassword),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       user_pw: "",
       new_pw: "",
@@ -44,30 +49,32 @@ const ChangeMyPassword = () => {
       onError: (error) => {
         if (error.response.status === 400) {
           setError("user_pw", {
-            message: "현재 비밀번호와 일치하지 않습니다.",
+            message: currentPasswordInvalid,
           });
         }
 
         if (error.response.status === 409) {
-          setError("user_pw", {
-            message: "현재 비밀번호와 변경하려는 비밀 번호가 같습니다.",
+          setError("new_pw", {
+            message: samePasswordEntered,
           });
         }
       },
-    }
+    },
   );
 
   const changePasswordSubmit = useCallback(
     (data) => {
       changeMyPasswordFunction(data);
     },
-    [changeMyPasswordFunction]
+    [changeMyPasswordFunction],
   );
 
   return (
     <CustomForm submitEvent={handleSubmit(changePasswordSubmit)}>
       <FieldGroup>
-        <FormDescription>비밀번호 변경하기</FormDescription>
+        <FormDescription>
+          <ChangePasswordText />
+        </FormDescription>
 
         <CurrentPasswordField control={control} />
 
@@ -77,7 +84,9 @@ const ChangeMyPassword = () => {
       </FieldGroup>
 
       <ButtonWrapper>
-        <PrimaryButton buttonType="submit">비밀번호 변경하기</PrimaryButton>
+        <PrimaryButton buttonType="submit">
+          <ChangePasswordText />
+        </PrimaryButton>
       </ButtonWrapper>
     </CustomForm>
   );

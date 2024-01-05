@@ -31,7 +31,7 @@ const FindAccount = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(zodFindAccount),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       user_name: "",
       phone: "",

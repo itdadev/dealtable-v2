@@ -38,7 +38,7 @@ const ChangePassword = () => {
 
   const { control, handleSubmit } = useForm({
     resolver: zodResolver(zodChangePassword),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       new_pw: "",
       password_confirm: "",

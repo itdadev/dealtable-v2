@@ -20,6 +20,14 @@ import { useUserContext } from "@/context/AuthContext";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
 import { zodEditAccount } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
+import {
+  AccountInformationChangeText,
+  AccountManageText,
+  ChangePasswordShortText,
+  CompanyInformationText,
+  DeleteAccountLongText,
+  UserInformationText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 const LinkText = styled(Link)(({ theme }) => ({
   color: theme.color.grey,
@@ -63,7 +71,7 @@ const Account = ({ edit }) => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(zodEditAccount),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       email: "",
       user_name: "",
@@ -163,7 +171,9 @@ const Account = ({ edit }) => {
     <CustomForm submitEvent={handleSubmit(changeAccountSubmit)}>
       {contextHolder}
 
-      <FormDescription>계정 관리</FormDescription>
+      <FormDescription>
+        <AccountManageText />
+      </FormDescription>
 
       {isLoading ? (
         <Spin />
@@ -174,7 +184,9 @@ const Account = ({ edit }) => {
           </FieldGroup>
 
           <FieldGroup>
-            <header>사용자 정보</header>
+            <header>
+              <UserInformationText />
+            </header>
 
             <UserNameField control={control} readOnly={!edit} />
 
@@ -195,7 +207,9 @@ const Account = ({ edit }) => {
           </FieldGroup>
 
           <FieldGroup>
-            <header>기업 정보 변경</header>
+            <header>
+              <CompanyInformationText />
+            </header>
 
             <CompanyNameField readOnly={!edit} control={control} />
 
@@ -206,9 +220,13 @@ const Account = ({ edit }) => {
 
       {edit && (
         <Flex align="center" justify="space-between">
-          <LinkText to="/change-my-password">비밀번호 변경</LinkText>
+          <LinkText to="/change-my-password">
+            <ChangePasswordShortText />
+          </LinkText>
 
-          <PrimaryButton buttonType="submit">계정 정보 변경</PrimaryButton>
+          <PrimaryButton buttonType="submit">
+            <AccountInformationChangeText />
+          </PrimaryButton>
         </Flex>
       )}
 
@@ -219,15 +237,17 @@ const Account = ({ edit }) => {
           gap="16px"
           wrap="wrap-reverse"
         >
-          <LinkText to="/delete-account">탈퇴하기</LinkText>
+          <LinkText to="/delete-account">
+            <DeleteAccountLongText />
+          </LinkText>
 
           <Flex gap="small">
             <SecondaryButton linkTo="/change-my-password">
-              비밀번호 변경
+              <ChangePasswordShortText />
             </SecondaryButton>
 
             <PrimaryButton linkTo="/change-account">
-              기본 정보 변경
+              <AccountInformationChangeText />
             </PrimaryButton>
           </Flex>
         </Flex>

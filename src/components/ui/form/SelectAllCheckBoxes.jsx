@@ -34,11 +34,11 @@ const SelectAllCheckBoxes = ({
   const onCheckAllChange = (e) => {
     if (e.target.checked) {
       options.forEach((element) => {
-        setValue(element.value, true);
+        setValue(element.value, true, { shouldValidate: true });
       });
     } else {
       options.forEach((element) => {
-        setValue(element.value, false);
+        setValue(element.value, false, { shouldValidate: true });
       });
     }
   };

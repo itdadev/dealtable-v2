@@ -23,6 +23,14 @@ export const passwordConfirmInvalid = IsKorean
   ? "비밀번호가 일치하지 않습니다."
   : "";
 
+export const currentPasswordInvalid = IsKorean
+  ? "현재 비밀번호와 일치하지 않습니다."
+  : "";
+
+export const samePasswordEntered = IsKorean
+  ? "현재 비밀번호와 변경하려는 비밀 번호가 같습니다."
+  : "";
+
 export const nameRequired = IsKorean ? "이름을 입력해주세요." : "";
 export const phoneRequired = IsKorean ? "전화번호를 입력해주세요." : "";
 export const differentPhoneRequired = IsKorean
@@ -32,7 +40,7 @@ export const verificationCodeRequired = IsKorean
   ? "인증 번호를 입력해주세요."
   : "";
 export const verificationCodeInvalid = IsKorean
-  ? "인증 번호를 확인해주세요."
+  ? "인증번호를 다시 확인해주세요."
   : "";
 export const verificationCodeIncomplete = IsKorean
   ? "인증을 완료해주세요."
@@ -48,4 +56,4 @@ export const privacyPolicyRequired = IsKorean
   : "";
 
 export const industryRequired = IsKorean ? "산업군을 입력해주세요." : "";
-export const dealScaleRequired = IsKorean ? "딜규모를 입력해주세요." : "";
+export const dealScaleRequired = IsKorean ? "딜 규모를 입력해주세요." : "";

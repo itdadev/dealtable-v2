@@ -81,7 +81,7 @@ const Join = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(zodJoin),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       email: "",
       user_pw: "",

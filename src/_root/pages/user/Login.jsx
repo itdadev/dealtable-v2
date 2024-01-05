@@ -47,7 +47,7 @@ const Login = () => {
 
   const { control, handleSubmit, watch } = useForm({
     resolver: zodResolver(zodLogin),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       email: state?.foundEmail ? state?.foundEmail : "",
       user_pw: "",

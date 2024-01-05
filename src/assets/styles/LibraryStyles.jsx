@@ -72,6 +72,11 @@ const style = css`
     }
   }
 
+  .ant-input-group-addon {
+    border: none !important;
+    background: none !important;
+  }
+
   .ant-modal-content {
     overflow-y: auto;
   }
@@ -81,6 +86,11 @@ const style = css`
       color: #bd9b60 !important;
       transition: none !important;
     }
+  }
+
+  .antd-input-custom-border {
+    border: 1px solid #d9d9d9;
+    border-radius: 0.6rem;
   }
 `;
 

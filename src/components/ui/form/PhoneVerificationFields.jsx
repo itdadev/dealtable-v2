@@ -30,16 +30,18 @@ import {
   ResendCodeText,
   SendCodeNumberText,
 } from "@/util/language-setting/texts/TranslatedTexts";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export const CODE_EXPIRE_TIME = 5 * 60 * 1000;
 
-const SendButton = styled.div(({ theme }) => ({
+const SendButton = styled.div(({ theme, disabled }) => ({
   color: theme.color.primary,
   wordBreak: "keep-all",
   whiteSpace: "nowrap",
   display: "flex",
   alignItems: "center",
-  cursor: "pointer",
+  cursor: disabled ? "default" : "pointer",
+  pointerEvents: disabled ? "none" : "auto",
   height: "5.8rem",
 }));
 
@@ -79,10 +81,10 @@ const PhoneVerificationFields = ({
     timerRef.current.stop();
   }, []);
 
-  const { mutate: sendCodeFunction } = useMutation(
+  const { mutate: sendCodeFunction, isLoading: sendLoading } = useMutation(
     (data) => {
       if (codeSent) {
-        // CASE: 전화번호 다시 입력
+        // CASE: 휴대폰 번호 다시 입력
         return "resend";
       }
 
@@ -127,7 +129,7 @@ const PhoneVerificationFields = ({
 
         clearErrors("phone");
 
-        // CASE: 전화번호 처음 입력
+        // CASE: 휴대폰 번호 처음 입력
         startTimer();
         resetTimer();
         setCodeSent(true);
@@ -143,7 +145,7 @@ const PhoneVerificationFields = ({
     },
   );
 
-  const { mutate: verifyCodeFunction } = useMutation(
+  const { mutate: verifyCodeFunction, isLoading: verifyLoading } = useMutation(
     (data) => axios.post(CHECK_CODE_API_URL, { ...data }),
     {
       onSuccess: () => {
@@ -196,24 +198,34 @@ const PhoneVerificationFields = ({
   return (
     <>
       <Flex>
-        <PhoneField control={control} readOnly={!phoneActive || codeVerified}>
-          <SendButton
-            type="primary"
-            size="large"
-            onClick={() => {
-              sendCodeFunction(watch("phone"));
-            }}
-            disabled={codeVerified}
-          >
-            {codeSent && !codeVerified ? (
-              <ReEnterPhoneText />
-            ) : codeVerified ? (
-              <CodeConfirmDoneText />
-            ) : (
-              <SendCodeNumberText />
-            )}
-          </SendButton>
-        </PhoneField>
+        <PhoneField
+          control={control}
+          readOnly={!phoneActive || codeVerified}
+          addonAfter={
+            <SendButton
+              type="primary"
+              size="large"
+              onClick={() => {
+                sendCodeFunction(watch("phone"));
+              }}
+              disabled={codeVerified}
+            >
+              {sendLoading ? (
+                <LoadingSpinner />
+              ) : (
+                <div>
+                  {codeSent && !codeVerified ? (
+                    <ReEnterPhoneText />
+                  ) : codeVerified ? (
+                    <CodeConfirmDoneText />
+                  ) : (
+                    <SendCodeNumberText />
+                  )}
+                </div>
+              )}
+            </SendButton>
+          }
+        />
       </Flex>
 
       <Flex>
@@ -224,43 +236,55 @@ const PhoneVerificationFields = ({
           control={control}
           readOnly={codeVerified || !codeSent}
           placeholder={verificationCodePH}
-          customerror={
-            errors.phone_verified ? errors.phone_verified?.message : ""
-          }
-          suffix={
+          bordered={false}
+          customborder="true"
+          labelafter={
             <FieldErrorMessage
               custom={{
                 display:
                   codeSent && !codeExpired && !codeVerified ? "block" : "none",
               }}
             >
-              <Countdown
-                date={targetDate}
-                renderer={renderer}
-                ref={timerRef}
-                autoStart={false}
-              />
+              <div style={{ marginTop: "0.4rem" }}>
+                <Countdown
+                  date={targetDate}
+                  renderer={renderer}
+                  ref={timerRef}
+                  autoStart={false}
+                />
+              </div>
             </FieldErrorMessage>
           }
-        >
-          <SendButton
-            disabled={(!codeActive && !codeExpired) || codeVerified}
-            onClick={() =>
-              verifyCodeFunction({
-                phone: watch("phone"),
-                auth_code: watch("auth_code"),
-              })
-            }
-          >
-            {codeExpired ? (
-              <ResendCodeText />
-            ) : codeVerified ? (
-              <CodeConfirmDoneText />
-            ) : (
-              <ConfirmCodeNumberText />
-            )}
-          </SendButton>
-        </TextInput>
+          customerror={
+            errors.phone_verified ? errors.phone_verified?.message : ""
+          }
+          addonAfter={
+            <SendButton
+              type="button"
+              disabled={(!codeActive && !codeExpired) || codeVerified}
+              onClick={() =>
+                verifyCodeFunction({
+                  phone: watch("phone"),
+                  auth_code: watch("auth_code"),
+                })
+              }
+            >
+              {verifyLoading ? (
+                <LoadingSpinner />
+              ) : (
+                <div>
+                  {codeExpired ? (
+                    <ResendCodeText />
+                  ) : codeVerified ? (
+                    <CodeConfirmDoneText />
+                  ) : (
+                    <ConfirmCodeNumberText />
+                  )}
+                </div>
+              )}
+            </SendButton>
+          }
+        />
       </Flex>
     </>
   );

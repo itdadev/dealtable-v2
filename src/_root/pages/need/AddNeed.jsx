@@ -113,7 +113,7 @@ const AddNeed = () => {
 
   const { control, handleSubmit, watch, setValue } = useForm({
     resolver: zodResolver(zodNeedsAdd),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       industry: "",
       deal_scale: "",
