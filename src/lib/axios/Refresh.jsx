@@ -8,6 +8,19 @@ import {
 } from "@/constants/StorageKey";
 import { REFRESH_TOKEN_API_URL } from "@/constants/apiUrls";
 import { useUserContext } from "@/context/AuthContext";
+import { useQueryClient } from "react-query";
+
+function LogoutUser() {
+  const queryClient = useQueryClient();
+  const { setIsAuthenticated } = useUserContext();
+
+  queryClient.removeQueries("userData");
+
+  setIsAuthenticated(false);
+
+  localStorage.removeItem(LOCAL_STORAGE_TOKENS);
+  sessionStorage.removeItem(LOCAL_STORAGE_TOKENS);
+}
 
 const useRefreshToken = async (config) => {
   const isAutoLogin =
@@ -26,38 +39,50 @@ const useRefreshToken = async (config) => {
 
   // 토큰이 만료되었고, refreshToken 이 저장되어 있을 때
   if (dayjs.unix(expireAt.exp).diff(dayjs()) < 1) {
-    console.log("token 만료");
+    try {
+      const res = await axios.post(REFRESH_TOKEN_API_URL, {
+        refresh_token: refreshToken,
+      });
 
-    const body = {
-      refresh_token: refreshToken,
-    };
+      if (res.status === 400) {
+        LogoutUser();
+
+        return;
+      }
+
+      token = res.data.data;
+
+      if (isAutoLogin) {
+        localStorage.setItem(LOCAL_STORAGE_AUTO_LOGIN, "true");
+
+        localStorage.setItem(
+          LOCAL_STORAGE_TOKENS,
+          JSON.stringify({
+            refresh_token: refreshToken,
+            access_token: token,
+          }),
+        );
+      } else {
+        localStorage.setItem(LOCAL_STORAGE_AUTO_LOGIN, "false");
+
+        sessionStorage.setItem(
+          LOCAL_STORAGE_TOKENS,
+          JSON.stringify({
+            refresh_token: refreshToken,
+            access_token: token,
+          }),
+        );
+      }
+    } catch (error) {
+      console.log(error);
+
+      localStorage.removeItem(LOCAL_STORAGE_TOKENS);
+      sessionStorage.removeItem(LOCAL_STORAGE_TOKENS);
+
+      window.location.reload();
+    }
 
     // 토큰 갱신 서버통신
-    const { data } = await axios.post(REFRESH_TOKEN_API_URL, body);
-
-    token = data.data;
-
-    if (isAutoLogin) {
-      localStorage.setItem(LOCAL_STORAGE_AUTO_LOGIN, true);
-
-      localStorage.setItem(
-        LOCAL_STORAGE_TOKENS,
-        JSON.stringify({
-          refresh_token: refreshToken,
-          access_token: data.data,
-        })
-      );
-    } else {
-      localStorage.setItem(LOCAL_STORAGE_AUTO_LOGIN, false);
-
-      sessionStorage.setItem(
-        LOCAL_STORAGE_TOKENS,
-        JSON.stringify({
-          refresh_token: refreshToken,
-          access_token: data.data,
-        })
-      );
-    }
   }
 
   config.headers.Authorization = `Bearer ${token}`;
@@ -66,6 +91,8 @@ const useRefreshToken = async (config) => {
 };
 
 const useRefreshErrorHandle = (err) => {
+  console.log(err);
+
   const { logoutUser } = useUserContext();
 
   logoutUser();

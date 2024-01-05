@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(
     !!localStorage.getItem(LOCAL_STORAGE_TOKENS) ||
-      !!sessionStorage.getItem(LOCAL_STORAGE_TOKENS)
+      !!sessionStorage.getItem(LOCAL_STORAGE_TOKENS),
   );
 
   const getUserData = async () => {
@@ -47,8 +47,6 @@ const AuthProvider = ({ children }) => {
       sessionStorage.getItem(LOCAL_STORAGE_TOKENS)
     ) {
       setIsAuthenticated(true);
-
-
     } else {
       setIsAuthenticated(false);
     }
@@ -69,7 +67,7 @@ const AuthProvider = ({ children }) => {
 
       setIsAuthenticated(true);
     },
-    [queryClient]
+    [queryClient],
   );
 
   const value = {
