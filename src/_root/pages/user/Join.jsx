@@ -3,8 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useMutation } from "react-query";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useIntl } from "react-intl";
 import { Alert } from "antd";
+import styled from "@emotion/styled";
 
 import {
   CustomForm,
@@ -17,6 +18,7 @@ import {
   FixedButtonContainer,
 } from "@/components/ui/form/CustomForm";
 import { JOIN_API_URL } from "@/constants/apiUrls";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CompanyNameField,
   ConfirmPasswordField,
@@ -32,9 +34,16 @@ import {
   CompanyInformationText,
   JoinRequestText,
   UserInformationText,
+  ViewText,
 } from "@/util/language-setting/texts/TranslatedTexts";
-import { useIntl } from "react-intl";
 
+const TermLink = styled.button(({ theme }) => ({
+  color: theme.color.grey,
+  fontSize: "1.2rem",
+  textDecoration: "underline",
+  lineHeight: "1.4rem",
+  marginLeft: "0.6rem",
+}));
 const Join = () => {
   const intl = useIntl();
 
@@ -53,21 +62,6 @@ const Join = () => {
       setUserData(state.userData);
     }
   }, [state]);
-
-  const termOptions = [
-    {
-      label: "[필수] 이용 약관 동의",
-      value: "use_term",
-    },
-    {
-      label: "[필수] 개인정보 처리 방침 동의",
-      value: "privacy_policy",
-    },
-    {
-      label: "[선택] MMP Deal Insight 뉴스레터 구독 동의",
-      value: "personal_info",
-    },
-  ];
 
   const {
     control,
@@ -147,8 +141,53 @@ const Join = () => {
     setTermModalOpen("");
   }, []);
 
+  const termOptions = [
+    {
+      label: (
+        <div>
+          <span>[필수] 이용 약관 동의</span>
+
+          <TermLink type="button" onClick={() => setTermModalOpen("use_term")}>
+            <ViewText />
+          </TermLink>
+        </div>
+      ),
+      value: "use_term",
+    },
+    {
+      label: (
+        <div>
+          <span>[필수] 개인정보 처리 방침 동의</span>
+
+          <TermLink
+            type="button"
+            onClick={() => setTermModalOpen("privacy_policy")}
+          >
+            <ViewText />
+          </TermLink>
+        </div>
+      ),
+      value: "privacy_policy",
+    },
+    {
+      label: (
+        <div>
+          <span>[선택] MMP Deal Insight 뉴스레터 구독 동의</span>
+
+          <TermLink
+            type="button"
+            onClick={() => setTermModalOpen("personal_info")}
+          >
+            <ViewText />
+          </TermLink>
+        </div>
+      ),
+      value: "personal_info",
+    },
+  ];
+
   return (
-    <CustomForm submitEvent={handleSubmit(joinSubmit)}>
+    <CustomForm submitEvent={handleSubmit(joinSubmit)} back>
       <TermModal onCancel={onCancel} termModalOpen={termModalOpen} />
 
       {userData?.reject_reason && (

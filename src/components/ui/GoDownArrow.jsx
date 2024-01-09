@@ -7,7 +7,7 @@ import { mq } from "@/lib/react-responsive/mediaQuery";
 
 const GoDownArrowContainer = styled.button(({ fixed }) => ({
   position: fixed ? "fixed" : "static",
-  left: fixed ? "4rem" : "0",
+  left: fixed ? "2rem" : "0",
   bottom: fixed ? "8rem" : "0",
   width: "5rem",
   height: "5rem",

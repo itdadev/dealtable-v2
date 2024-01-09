@@ -19,6 +19,7 @@ export const image = {
   filterOff: require("./assets/icons/filter-off.svg"),
   filterAsc: require("./assets/icons/filter-asc.svg"),
   filterDesc: require("./assets/icons/filter-desc.svg"),
+  leftArrowIcon: require("./assets/icons/arrow-left-s-line.svg"),
 };
 
 export const color = {

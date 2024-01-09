@@ -184,13 +184,21 @@ export const PhoneField = ({
   readOnly = false,
   children,
   addonAfter,
+  buttonEvent,
 }) => {
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      buttonEvent();
+    }
+  };
+
   return (
     <TextInput
       name="phone"
       label={<PhoneText />}
       labelrequired="true"
       type="number"
+      onKeyDown={handleOnKeyPress}
       control={control}
       placeholder={phoneNumPH}
       readOnly={readOnly}
@@ -228,6 +236,7 @@ export const DealScaleField = ({
   return (
     <TextInput
       name="deal_scale"
+      inputmode="decimal"
       label={<DealScaleText />}
       labelrequired="true"
       control={control}
@@ -251,6 +260,7 @@ export const SalesField = ({
     <TextInput
       name="sales"
       label={<SalesText />}
+      inputmode="decimal"
       control={control}
       placeholder={salesPH}
       readOnly={readOnly}
@@ -271,6 +281,7 @@ export const RevenueField = ({
   return (
     <TextInput
       name="revenue"
+      inputmode="decimal"
       label={<RevenueText />}
       control={control}
       placeholder={revenuePH}

@@ -3,7 +3,7 @@ import { useMediaQuery } from "react-responsive";
 import styled from "@emotion/styled";
 
 import GoDownArrow from "@/components/ui/GoDownArrow";
-import { FadeToTop } from "@/components/ui/react-spring";
+import { FadeToRight } from "@/components/ui/react-spring";
 import { mq } from "@/lib/react-responsive/mediaQuery";
 
 import { HomeSectionTextWrapper } from "./Home";
@@ -32,23 +32,23 @@ const MainBanner = ({ active, swiper }) => {
     <>
       <HomeSectionTextWrapper>
         {isMobile ? (
-          <FadeToTop active={active}>
-            <header>Get your</header>
+          <FadeToRight active={active}>
+            <div>Get your</div>
 
-            <header>M&A</header>
+            <div>M&A</div>
 
-            <header>Deal list</header>
+            <div>Deal list</div>
 
-            <header>DEALTABLE</header>
-          </FadeToTop>
+            <div>DEALTABLE</div>
+          </FadeToRight>
         ) : (
-          <FadeToTop active={active}>
-            <header>Get your</header>
+          <FadeToRight active={active}>
+            <div>Get your</div>
 
-            <header>M&A Deal list</header>
+            <div>M&A Deal list</div>
 
-            <header>DEALTABLE</header>
-          </FadeToTop>
+            <div>DEALTABLE</div>
+          </FadeToRight>
         )}
       </HomeSectionTextWrapper>
 

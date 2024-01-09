@@ -8,22 +8,29 @@ import {
   NoMoreDataText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 
-const LoadMoreButton = ({ fetchNextPage, hasNextPage, isFetchingNextPage }) => {
+const LoadMoreButton = ({
+  isLoading,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+}) => {
   return (
-    <Flex align="center" justify="center">
-      <SecondaryButton
-        clickEvent={() => fetchNextPage()}
-        disabled={!hasNextPage || isFetchingNextPage}
-      >
-        {isFetchingNextPage ? (
-          <LoadingText />
-        ) : hasNextPage ? (
-          <LoadMoreText />
-        ) : (
-          <NoMoreDataText />
-        )}
-      </SecondaryButton>
-    </Flex>
+    !isLoading && (
+      <Flex align="center" justify="center">
+        <SecondaryButton
+          clickEvent={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isFetchingNextPage ? (
+            <LoadingText />
+          ) : hasNextPage ? (
+            <LoadMoreText />
+          ) : (
+            <NoMoreDataText />
+          )}
+        </SecondaryButton>
+      </Flex>
+    )
   );
 };
 

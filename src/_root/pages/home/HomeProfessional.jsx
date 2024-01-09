@@ -14,6 +14,7 @@ import {
   ButtonWrapper,
   HomeSectionDescContainer,
   HomeSectionTextWrapper,
+  StartButton,
 } from "./Home";
 
 const HomeProfessional = ({ active }) => {
@@ -35,9 +36,11 @@ const HomeProfessional = ({ active }) => {
         </Trail>
       </HomeSectionDescContainer>
 
-      <BorderButton linkTo="/login">
-        <StartText />
-      </BorderButton>
+      <StartButton>
+        <BorderButton linkTo="/login">
+          <StartText />
+        </BorderButton>
+      </StartButton>
     </ButtonWrapper>
   );
 };

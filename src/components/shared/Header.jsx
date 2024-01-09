@@ -48,7 +48,7 @@ const MobileMenuContainer = styled.div(({ theme, active }) => ({
   zIndex: headerContainerZIndex,
 }));
 
-const MobileMenuWrapper = styled.div(() => ({
+const MobileMenuWrapper = styled.div(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "12rem 0",
@@ -56,6 +56,16 @@ const MobileMenuWrapper = styled.div(() => ({
   height: "100%",
   padding: "8rem 0 8rem 3rem",
   color: "white",
+  fontSize: "2.8rem",
+  fontWeight: theme.fontWeight.medium,
+
+  button: {
+    width: "fit-content",
+
+    "&:hover": {
+      color: theme.color.secondary,
+    },
+  },
 }));
 
 const HeaderLanguageContainer = styled.div(() => ({
@@ -110,11 +120,6 @@ const StyledLink = styled(Link)(({ theme }) => ({
   ":hover": {
     color: theme.color.secondary,
   },
-}));
-
-const LinkText = styled(Link)(({ theme }) => ({
-  fontSize: "2.8rem",
-  fontWeight: theme.fontWeight.medium,
 }));
 
 const LangText = styled.button(({ active, theme }) => ({
@@ -217,9 +222,15 @@ const Header = () => {
     },
   ];
 
+  const refresh = useCallback(() => {
+    navigate(isAuthenticated ? "/need" : "/");
+
+    window.location.reload();
+  }, [isAuthenticated, navigate]);
+
   return (
     <HeaderContainer active={active}>
-      <Link to={isAuthenticated ? "/need" : "/"}>
+      <Link to={isAuthenticated ? "/need" : "/"} onClick={refresh}>
         <HeaderLogo
           src={image.whiteLogo.default}
           type=""
@@ -299,40 +310,34 @@ const Header = () => {
         <MobileMenuContainer active={active}>
           <MobileMenuWrapper>
             <Flex vertical gap={24}>
-              <LinkText to="/notice">공지사항</LinkText>
+              {isAuthenticated && (
+                <>
+                  <Link to="/notice">공지사항</Link>
 
-              <LinkText to="/faq">FAQ</LinkText>
-            </Flex>
-
-            <HeaderLanguageContainer>
-              {isAuthenticated ? (
-                <Flex gap="small">
-                  <Link to="/account" onClick={closeModal}>
-                    <MyProfileText />
-                  </Link>
-
-                  <LogoutButton type="button" onClick={logout}>
-                    <LogoutText />
-                  </LogoutButton>
-                </Flex>
-              ) : (
-                <Flex gap="large">
-                  <a
-                    href="https://www.mmp.co.kr/m61.php"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    매각 문의
-                  </a>
-
-                  <StyledLink to="/login" onClick={closeModal}>
-                    <LoginText />
-                  </StyledLink>
-
-                  <LanguageSwitcher />
-                </Flex>
+                  <Link to="/faq">FAQ</Link>
+                </>
               )}
-            </HeaderLanguageContainer>
+
+              <a
+                href="https://www.mmp.co.kr/m61.php"
+                target="_blank"
+                rel="noreferrer"
+              >
+                매각 문의
+              </a>
+
+              {isAuthenticated ? (
+                <button type="button" onClick={logout}>
+                  <LogoutText />
+                </button>
+              ) : (
+                <StyledLink to="/login" onClick={closeModal}>
+                  <LoginText />
+                </StyledLink>
+              )}
+
+              <LanguageSwitcher />
+            </Flex>
           </MobileMenuWrapper>
         </MobileMenuContainer>
       </IsDefault>

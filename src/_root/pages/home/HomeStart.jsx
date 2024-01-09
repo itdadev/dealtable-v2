@@ -20,11 +20,7 @@ const HomeStart = () => {
   return (
     <div>
       <Container>
-        <object
-          data={image.whiteLogo.default}
-          alt="Dealtable 로고"
-          height={isDesktop ? 95 : 30}
-        >
+        <object data={image.whiteLogo.default} height={isDesktop ? 95 : 30}>
           Dealtable
         </object>
 

@@ -72,7 +72,7 @@ const FindAccount = () => {
   );
 
   return (
-    <CustomForm submitEvent={handleSubmit(findAccountSubmit)}>
+    <CustomForm submitEvent={handleSubmit(findAccountSubmit)} back>
       <FormDescription>
         <ChangeEmailPasswordText />
       </FormDescription>
@@ -91,7 +91,7 @@ const FindAccount = () => {
       />
 
       <ButtonWrapper>
-        <PrimaryButton buttonType="submit">
+        <PrimaryButton buttonType="button">
           <FindAccountText />
         </PrimaryButton>
       </ButtonWrapper>

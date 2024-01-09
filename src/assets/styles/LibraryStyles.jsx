@@ -75,6 +75,7 @@ const style = css`
   .ant-input-group-addon {
     border: none !important;
     background: none !important;
+    padding: 0 1.6rem !important;
   }
 
   .ant-modal-content {
@@ -91,6 +92,15 @@ const style = css`
   .antd-input-custom-border {
     border: 1px solid #d9d9d9;
     border-radius: 0.6rem;
+  }
+
+  .ant-checkbox-wrapper {
+    align-items: center;
+
+    .ant-checkbox {
+      align-self: flex-start;
+      margin-top: 0.3rem;
+    }
   }
 `;
 

@@ -74,7 +74,7 @@ const Notice = () => {
 
   const getFawList = async ({ pageParam = 1 }) => {
     const { status, data } = await axios?.get(
-      `${NOTICE_LIST_API_URL}?page=${pageParam}&size=${NOTICE_LIST_LOAD_SIZE}`
+      `${NOTICE_LIST_API_URL}?page=${pageParam}&size=${NOTICE_LIST_LOAD_SIZE}`,
     );
 
     if (status === 200) {
@@ -141,7 +141,7 @@ const Notice = () => {
   }, [activeKey, isDesktop, noticeList?.pages]);
 
   return (
-    <CustomForm noLogo wide noGoBack>
+    <CustomForm noLogo wide>
       <FormDescription>
         <NoticeText />
       </FormDescription>
@@ -169,6 +169,7 @@ const Notice = () => {
       <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
 
       <LoadMoreButton
+        isLoading={isLoading}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}

@@ -26,16 +26,13 @@ import {
   NoNeedsDataText,
   TotalTicketText,
   DealScaleValueText,
-  NeedsAddCompleteText,
-  NeedsAddComplete1Text,
-  NeedsAddComplete2Text,
 } from "@/util/language-setting/texts/TranslatedTexts";
 import { addComma } from "@/util/ModifyData";
 
-const StyledTable = styled.div(({ theme }) => ({
+const StyledTable = styled.div(({ theme, noborder }) => ({
   maxWidth: "80vw",
   margin: "1.6rem auto",
-  borderBottom: `1px solid ${theme.color.lightGrey}`,
+  borderBottom: noborder ? "none" : `1px solid ${theme.color.lightGrey}`,
 }));
 
 export const Nodata = styled.div(({ theme }) => ({
@@ -232,24 +229,6 @@ const Need = () => {
         duration: 3,
       });
     }
-
-    if (state?.mutateStatus === "add") {
-      api.success({
-        message: <NeedsAddCompleteText />,
-        description: (
-          <div>
-            <p>
-              <NeedsAddComplete1Text />
-            </p>
-
-            <p>
-              <NeedsAddComplete2Text />
-            </p>
-          </div>
-        ),
-        duration: 3,
-      });
-    }
   }, [api, state?.mutateStatus]);
 
   const {
@@ -353,9 +332,11 @@ const Need = () => {
         </PrimaryButton>
       </Flex>
 
-      <StyledTable>
+      <StyledTable noborder={isLoading ? "true" : "false"}>
         {isLoading ? (
-          <Spin />
+          <Flex align="center" justify="center">
+            <Spin />
+          </Flex>
         ) : (
           <>
             <IsDesktop>
@@ -429,6 +410,7 @@ const Need = () => {
       </StyledTable>
 
       <LoadMoreButton
+        isLoading={isLoading}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}

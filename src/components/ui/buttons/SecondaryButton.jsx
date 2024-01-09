@@ -11,7 +11,7 @@ const Container = styled(Button)(({ fullwidth, theme }) => ({
   color: theme.color.primary,
 
   border: `1px solid ${theme.color.primary}`,
-  borderRadius: "50rem",
+  borderRadius: "0.5rem",
   fontSize: "1.6rem",
 
   padding: "1.2rem 1.6rem",

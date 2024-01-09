@@ -25,7 +25,7 @@ const FadeToRight = ({ active, children }) => {
             config: { duration: 500 },
           });
         },
-        config: { duration: 1000 },
+        config: { duration: 1200 },
       });
     }
   }, [active, api]);

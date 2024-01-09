@@ -20,7 +20,7 @@ const Description = styled.div(({ theme }) => ({
 
 const AddNeedComplete = () => {
   return (
-    <CustomForm noGoBack>
+    <CustomForm noGoBack fit>
       <div>
         <FormDescription>
           <NeedsAddCompleteText />

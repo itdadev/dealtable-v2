@@ -191,6 +191,7 @@ const AddNeed = () => {
     {
       onSuccess: () => {
         queryClient.removeQueries("needList");
+        queryClient.removeQueries({ queryKey: ["needDetail", needsKey] });
 
         navigate("/need", { state: { mutateStatus: "edit" } });
       },
@@ -214,6 +215,7 @@ const AddNeed = () => {
     {
       onSuccess: () => {
         queryClient.removeQueries("needList");
+        queryClient.removeQueries({ queryKey: ["needDetail", needsKey] });
 
         navigate("/need", { state: { mutateStatus: "edit" } });
       },
@@ -237,7 +239,7 @@ const AddNeed = () => {
       onSuccess: () => {
         queryClient.removeQueries("needList");
 
-        navigate("/need", { state: { mutateStatus: "add" } });
+        navigate("/need/add-complete");
       },
       onError: (error) => {
         console.log(error);

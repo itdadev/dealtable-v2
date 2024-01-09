@@ -8,7 +8,7 @@ import { image } from "@/theme";
 import { GoDownArrow, NormalOverlay } from "@/components/ui";
 import { Footer } from "@/components/shared";
 import { borderZIndex } from "@/constants/zIndex";
-import { IsDesktop, mq, mqx } from "@/lib/react-responsive/mediaQuery";
+import { mq, mqx } from "@/lib/react-responsive/mediaQuery";
 import { FadeInOut } from "@/lib/react-transition-group/FadeInOut";
 
 import {
@@ -46,15 +46,13 @@ export const HomeSectionTextContainer = styled.div(({ theme, home }) => ({
   bottom: 0,
   display: "flex",
   flexDirection: "column",
-  justifyContent: "flex-start",
+  justifyContent: "center",
   gap: "0.6rem 0",
-
   width: "100%",
   maxWidth: "calc(100% - 4rem)",
   height: "100%",
   maxHeight: "calc(100% - 6rem)",
   margin: "0 2rem",
-  paddingTop: home ? "16rem" : 0,
   borderRight: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
   borderLeft: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
 
@@ -94,7 +92,7 @@ export const HomeSectionTextWrapper = styled.div(({ theme }) => ({
   header: {
     //Big Header Text
     position: "relative",
-    left: "-1.6rem",
+    left: 0,
     fontSize: "5.4rem",
     fontWeight: theme.fontWeight.extraBold,
     fontFamily: theme.fontFamily.secondary,
@@ -129,6 +127,7 @@ export const HomeSectionDescContainer = styled.div(() => ({
   },
 
   [mq("desktop")]: {
+    marginBottom: "16rem",
     fontSize: "2.4rem",
   },
 }));
@@ -178,9 +177,17 @@ export const HomeSectionSmallDesc = styled.div(() => ({
   },
 }));
 
-export const ButtonWrapper = styled.div(({ smallGap }) => ({
-  a: {
-    marginTop: smallGap ? "4rem" : "12rem",
+export const ButtonWrapper = styled.div(() => ({
+  marginBottom: "20rem",
+  minHeight: "26rem",
+}));
+
+export const StartButton = styled.div(() => ({
+  position: "absolute",
+  bottom: "30%",
+
+  [mq("desktop")]: {
+    bottom: "15rem",
   },
 }));
 
@@ -246,11 +253,9 @@ const Home = () => {
   return (
     <>
       <div style={{ height: "100vh" }}>
-        <IsDesktop>
-          <FadeInOut in={currentSliderIdx !== 0 && currentSliderIdx !== 7}>
-            <GoDownArrow fixed swiper={swiper} idx={currentSliderIdx + 1} />
-          </FadeInOut>
-        </IsDesktop>
+        <FadeInOut in={currentSliderIdx !== 0 && currentSliderIdx !== 7}>
+          <GoDownArrow fixed swiper={swiper} idx={currentSliderIdx + 1} />
+        </FadeInOut>
 
         <Swiper
           keyboard={{ enabled: true }}

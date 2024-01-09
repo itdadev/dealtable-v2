@@ -199,6 +199,7 @@ const PhoneVerificationFields = ({
     <>
       <Flex>
         <PhoneField
+          buttonEvent={() => sendCodeFunction(watch("phone"))}
           control={control}
           readOnly={!phoneActive || codeVerified}
           addonAfter={
@@ -238,6 +239,14 @@ const PhoneVerificationFields = ({
           placeholder={verificationCodePH}
           bordered={false}
           customborder="true"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              verifyCodeFunction({
+                phone: watch("phone"),
+                auth_code: watch("auth_code"),
+              });
+            }
+          }}
           labelafter={
             <FieldErrorMessage
               custom={{

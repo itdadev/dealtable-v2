@@ -12,11 +12,12 @@ import {
   ButtonWrapper,
   HomeSectionDescWithLine,
   HomeSectionTextWrapper,
+  StartButton,
 } from "./Home";
 
 const HomeEasy = ({ active }) => {
   return (
-    <ButtonWrapper smallGap>
+    <ButtonWrapper>
       <HomeSectionTextWrapper>
         <FadeToRight active={active}>Easy</FadeToRight>
       </HomeSectionTextWrapper>
@@ -33,9 +34,11 @@ const HomeEasy = ({ active }) => {
         </Trail>
       </HomeSectionDescWithLine>
 
-      <BorderButton linkTo="/login">
-        <StartText />
-      </BorderButton>
+      <StartButton>
+        <BorderButton linkTo="/login">
+          <StartText />
+        </BorderButton>
+      </StartButton>
     </ButtonWrapper>
   );
 };

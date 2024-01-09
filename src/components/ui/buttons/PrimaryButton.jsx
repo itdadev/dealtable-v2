@@ -18,7 +18,7 @@ const Container = styled(Button)(({ fullwidth, theme }) => ({
   ...defaultButtonStyle,
   width: fullwidth === "true" ? "100%" : "fit-content",
   color: "white",
-  borderRadius: "50rem",
+  borderRadius: "0.5rem",
   fontWeight: theme.fontWeight.regular,
   padding: "1.2rem 1.6rem",
 

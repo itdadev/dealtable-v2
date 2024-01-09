@@ -31,6 +31,7 @@ const TextAreaInput = (props) => {
                 backgroundColor: props.readOnly ? "#FAFAFD" : "white",
               }}
               style={{
+                padding: "1.6rem",
                 resize: "none",
                 fontSize: "1.6rem",
                 backgroundColor: props.readOnly ? "#FAFAFD" : "white",
@@ -64,6 +65,8 @@ const TextAreaInput = (props) => {
           maxRows: props.example ? 18 : 4,
         }}
         style={{
+          backgroundColor: "#FAFAFD",
+          padding: "1.6rem",
           resize: "none",
           fontSize: "1.6rem",
         }}

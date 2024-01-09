@@ -91,7 +91,6 @@ const Faq = () => {
     isLoading,
     fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["faqList", searchKeyword],
@@ -151,7 +150,7 @@ const Faq = () => {
   }, [activeKey, faqList?.pages, isDesktop]);
 
   return (
-    <CustomForm noLogo wide noGoBack>
+    <CustomForm noLogo wide>
       <FormDescription>FAQ</FormDescription>
 
       {isLoading ? (
@@ -187,6 +186,7 @@ const Faq = () => {
       )}
 
       <LoadMoreButton
+        isLoading={isLoading}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}

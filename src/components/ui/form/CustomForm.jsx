@@ -10,11 +10,14 @@ import { image } from "@/theme";
 import { contentZIndex } from "@/constants/zIndex";
 import { useUserContext } from "@/context/AuthContext";
 import { mq } from "@/lib/react-responsive/mediaQuery";
+import {
+  GoBackText,
+  NeedTakeoverText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 
 import { NormalOverlay } from "..";
-import { GoBackText } from "@/util/language-setting/texts/TranslatedTexts";
 
-const FormContainer = styled.div(({ width = "100rem" }) => ({
+const FormContainer = styled.div(({ width = "100rem", fit }) => ({
   position: "relative",
   zIndex: contentZIndex,
   margin: "2rem 0",
@@ -24,9 +27,14 @@ const FormContainer = styled.div(({ width = "100rem" }) => ({
   },
 
   [mq("desktop")]: {
+    display: "flex",
+    flexDirection: "column",
     width: "fit-content",
     minWidth: "48rem",
     maxWidth: width,
+    minHeight: fit ? "fit-content" : "68.4rem",
+    overflow: "hidden",
+    height: "100%",
     margin: "8rem auto",
   },
 }));
@@ -40,7 +48,7 @@ export const FormDescription = styled.p(() => ({
   },
 }));
 
-const Container = styled.form(({ theme, wide, noGoBack }) => ({
+const Container = styled.form(({ theme, wide, noGoBack, fit }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -61,6 +69,7 @@ const Container = styled.form(({ theme, wide, noGoBack }) => ({
     minWidth: wide ? "92rem" : "60rem",
     maxWidth: wide ? "92rem" : "60rem",
     maxHeight: "calc(100vh - 25rem)",
+    height: fit ? "fit-content" : "100%",
     padding: "6.4rem 4.8rem",
   },
 }));
@@ -90,7 +99,7 @@ export const FieldContainer = styled.div(({ theme }) => ({
 }));
 
 export const TextAresFieldContainer = styled.div(({ theme }) => ({
-  minHeight: "16rem",
+  minHeight: "18rem",
   width: "100%",
   flex: 1,
   display: "flex",
@@ -98,6 +107,8 @@ export const TextAresFieldContainer = styled.div(({ theme }) => ({
   gap: "0.4rem 0",
 
   label: {
+    fontSize: "1.4rem",
+
     sup: {
       color: theme.color.error,
       marginLeft: "0.2rem",
@@ -174,8 +185,10 @@ const LinkToHome = styled(Link)(() => ({
 }));
 
 const GotoBack = styled.button(() => ({
-  color: "white",
+  display: "flex",
   marginBottom: "1rem",
+  lineHeight: "2.7rem",
+  color: "white",
 }));
 
 const CustomForm = ({
@@ -185,28 +198,43 @@ const CustomForm = ({
   wide,
   noLogo,
   noGoBack,
+  back,
+  fit,
 }) => {
   const { isAuthenticated } = useUserContext();
 
   const navigate = useNavigate();
 
   const goBack = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
+    if (back) {
+      navigate(-1);
+
+      return;
+    }
+
+    navigate(isAuthenticated ? "/need" : "/");
+  }, [back, isAuthenticated, navigate]);
 
   return (
     <BackgroundImageWrapper url={image.homeSectionBg06}>
       <NormalOverlay />
 
       <HomeSectionTextContainer>
-        <FormContainer width={width}>
+        <FormContainer width={width} fit={fit}>
           {!noGoBack && (
             <GotoBack onClick={goBack}>
-              <GoBackText />
+              <img src={image.leftArrowIcon.default} alt="<" />
+
+              <p>{back ? <GoBackText /> : <NeedTakeoverText />}</p>
             </GotoBack>
           )}
 
-          <Container onSubmit={submitEvent} wide={wide} noGoBack={noGoBack}>
+          <Container
+            onSubmit={submitEvent}
+            wide={wide}
+            noGoBack={noGoBack}
+            fit={fit}
+          >
             {!noLogo && (
               <LinkToHome to={isAuthenticated ? "/need" : "/"}>
                 <img

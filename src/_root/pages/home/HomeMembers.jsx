@@ -13,13 +13,16 @@ import {
   ButtonWrapper,
   HomeSectionDescContainer,
   HomeSectionTextWrapper,
+  StartButton,
 } from "./Home";
 
 const HomeMembers = ({ active }) => {
   return (
     <ButtonWrapper>
       <HomeSectionTextWrapper>
-        <FadeToRight active={active}>M&A Buy side</FadeToRight>
+        <FadeToRight active={active}>
+          M&A <p>Buy side</p>
+        </FadeToRight>
       </HomeSectionTextWrapper>
 
       <HomeSectionDescContainer>
@@ -32,9 +35,11 @@ const HomeMembers = ({ active }) => {
         </Trail>
       </HomeSectionDescContainer>
 
-      <BorderButton linkTo="/login">
-        <StartText />
-      </BorderButton>
+      <StartButton>
+        <BorderButton linkTo="/login">
+          <StartText />
+        </BorderButton>
+      </StartButton>
     </ButtonWrapper>
   );
 };

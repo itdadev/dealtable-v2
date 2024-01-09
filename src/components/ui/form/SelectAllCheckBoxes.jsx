@@ -1,23 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Checkbox, Divider, Flex } from "antd";
 
 import { FieldErrorMessage, FieldGroup } from "./CustomForm";
 import { SingleCheckBox } from ".";
-import {
-  SelectAllText,
-  ViewText,
-} from "@/util/language-setting/texts/TranslatedTexts";
+import { SelectAllText } from "@/util/language-setting/texts/TranslatedTexts";
 
 const TermDivider = styled(Divider)(() => ({
   marginBlock: "1.2rem",
-}));
-
-const TermLink = styled.button(({ theme }) => ({
-  color: theme.color.grey,
-  fontSize: "1.2rem",
-  textDecoration: "underline",
-  lineHeight: "1.4rem",
 }));
 
 const SelectAllCheckBoxes = ({
@@ -27,7 +17,6 @@ const SelectAllCheckBoxes = ({
   setValue,
   watch,
   errors,
-  handleTermModal,
 }) => {
   const [allChecked, setAllChecked] = useState(false);
 
@@ -53,13 +42,6 @@ const SelectAllCheckBoxes = ({
     return () => subscription.unsubscribe();
   }, [options, watch]);
 
-  const handleModalOpen = useCallback(
-    (type) => {
-      handleTermModal(type);
-    },
-    [handleTermModal],
-  );
-
   return (
     <FieldGroup>
       <header>{title}</header>
@@ -84,20 +66,13 @@ const SelectAllCheckBoxes = ({
 
       {options.map((option) => {
         return (
-          <Flex align="center" key={option.value}>
+          <Flex key={option.value}>
             <SingleCheckBox
               name={option.value}
               control={control}
               label={option.label}
               noError
             />
-
-            <TermLink
-              type="button"
-              onClick={() => handleModalOpen(option.value)}
-            >
-              <ViewText />
-            </TermLink>
           </Flex>
         );
       })}

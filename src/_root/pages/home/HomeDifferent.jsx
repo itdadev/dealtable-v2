@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useSpring, animated } from "@react-spring/web";
+import React from "react";
 
 import { BorderButton } from "@/components/ui/buttons";
 import {
@@ -14,6 +13,7 @@ import {
   ButtonWrapper,
   HomeSectionDescContainer,
   HomeSectionTextWrapper,
+  StartButton,
 } from "./Home";
 
 const HomeDifferent = ({ active }) => {
@@ -31,9 +31,11 @@ const HomeDifferent = ({ active }) => {
         </Trail>
       </HomeSectionDescContainer>
 
-      <BorderButton linkTo="/login">
-        <StartText />
-      </BorderButton>
+      <StartButton>
+        <BorderButton linkTo="/login">
+          <StartText />
+        </BorderButton>
+      </StartButton>
     </ButtonWrapper>
   );
 };
