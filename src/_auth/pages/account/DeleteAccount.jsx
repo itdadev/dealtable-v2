@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Modal } from "antd";
 
 import { CustomForm } from "@/components/ui/form";
 import { FieldGroup, FormDescription } from "@/components/ui/form/CustomForm";
@@ -24,11 +23,14 @@ import {
 
 const DeleteAccount = () => {
   const navigate = useNavigate();
+
   const { logoutUser } = useUserContext();
 
   const [password, setPassword] = useState("");
 
   const [confirmModal, setConfirmModal] = useState(false);
+
+  const [deleteDoneAlert, setDeleteDoneAlert] = useState(false);
 
   const { control, handleSubmit, watch, setError } = useForm({
     resolver: zodResolver(zodDeleteAccount),
@@ -53,11 +55,11 @@ const DeleteAccount = () => {
       return res;
     },
     {
-      onSuccess: () => {
-        Modal.success({
-          onOk: logout(),
-          content: "회원 탈퇴가 정상적으로 처리되었습니다.",
-        });
+      onSuccess: (res) => {
+        if (res.status === 200) {
+          logout();
+          navigate("/", { state: { mutateStatus: "deleteAccount" } });
+        }
       },
       onError: (error) => {
         if (error.response.status === 400) {

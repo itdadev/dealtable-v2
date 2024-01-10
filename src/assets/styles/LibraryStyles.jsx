@@ -102,6 +102,10 @@ const style = css`
       margin-top: 0.3rem;
     }
   }
+
+  .ant-notification-notice-message {
+    margin-bottom: 0 !important;
+  }
 `;
 
 function LibraryStyles() {

@@ -260,6 +260,7 @@ const AddNeed = () => {
     {
       onSuccess: () => {
         queryClient.removeQueries("needList");
+        queryClient.removeQueries({ queryKey: ["needDetail", needsKey] });
 
         navigate("/need", { state: { mutateStatus: "tempo" } });
       },
@@ -294,6 +295,7 @@ const AddNeed = () => {
     {
       onSuccess: () => {
         queryClient.removeQueries("needList");
+        queryClient.removeQueries({ queryKey: ["needDetail", needsKey] });
 
         navigate("/need", { state: { mutateStatus: "terminate" } });
       },

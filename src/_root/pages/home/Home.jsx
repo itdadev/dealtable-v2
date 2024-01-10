@@ -10,6 +10,7 @@ import { Footer } from "@/components/shared";
 import { borderZIndex } from "@/constants/zIndex";
 import { mq, mqx } from "@/lib/react-responsive/mediaQuery";
 import { FadeInOut } from "@/lib/react-transition-group/FadeInOut";
+import { notification } from "antd";
 
 import {
   HomeDifferent,
@@ -21,6 +22,11 @@ import {
   HomeStart,
   MainBanner,
 } from ".";
+import {
+  NeedsDoneCompleteText,
+  NeedsDoneText,
+} from "@/util/language-setting/texts/TranslatedTexts";
+import { useLocation } from "react-router-dom";
 
 export const BackgroundImageWrapper = styled.div(({ url, isFooter }) => ({
   position: "relative",
@@ -127,7 +133,6 @@ export const HomeSectionDescContainer = styled.div(() => ({
   },
 
   [mq("desktop")]: {
-    marginBottom: "16rem",
     fontSize: "2.4rem",
   },
 }));
@@ -192,6 +197,8 @@ export const StartButton = styled.div(() => ({
 }));
 
 const Home = () => {
+  const { state } = useLocation();
+
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   const [swiper, setSwiper] = useState();
@@ -250,9 +257,26 @@ const Home = () => {
     swiper?.autoplay.start();
   }, [swiper, swiper?.realIndex]);
 
+  const [api, contextHolder] = notification.useNotification();
+
+  useEffect(() => {
+    if (state?.mutateStatus === "deleteAccount") {
+      api.success({
+        message: "회원 탈퇴가 정상적으로 처리되었습니다.",
+        duration: 3,
+      });
+    }
+  }, [state, api]);
+
+  useEffect(() => {
+    window.history.replaceState({}, document.title);
+  }, []);
+
   return (
     <>
       <div style={{ height: "100vh" }}>
+        {contextHolder}
+
         <FadeInOut in={currentSliderIdx !== 0 && currentSliderIdx !== 7}>
           <GoDownArrow fixed swiper={swiper} idx={currentSliderIdx + 1} />
         </FadeInOut>

@@ -12,6 +12,7 @@ import {
   passwordConfirmRequired,
   passwordFormat,
   passwordRequired,
+  phoneInvalid,
   phoneRequired,
   privacyPolicyRequired,
   useTermRequired,
@@ -20,7 +21,7 @@ import {
 } from "./inputErrorMessage";
 
 export const zodLogin = z.object({
-  email: z.string().min(1, emailRequired).email(emailFormat),
+  email: z.string().min(1, emailRequired).email({ message: emailFormat }),
   user_pw: z
     .string()
     .min(1, passwordRequired)
@@ -30,7 +31,10 @@ export const zodLogin = z.object({
 
 export const zodFindAccount = z.object({
   user_name: z.string().min(1, nameRequired),
-  phone: z.string().min(1, phoneRequired),
+  phone: z
+    .string()
+    .min(1, phoneRequired)
+    .regex(/^[0-9]+$/, phoneInvalid),
   auth_code: z.string().min(1, verificationCodeRequired),
   phone_verified: z.boolean().refine((value) => value === true, {
     message: verificationCodeIncomplete,
@@ -55,7 +59,7 @@ export const zodChangePassword = z
 
 export const zodJoin = z
   .object({
-    email: z.string().min(1, emailRequired).email(emailFormat),
+    email: z.string().min(1, emailRequired).email({ message: emailFormat }),
     user_pw: z
       .string()
       .min(1, passwordRequired)
@@ -65,7 +69,10 @@ export const zodJoin = z
       .min(1, passwordConfirmRequired)
       .regex(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,15}$/, passwordFormat),
     user_name: z.string().min(1, nameRequired),
-    phone: z.string().min(1, phoneRequired),
+    phone: z
+      .string()
+      .min(1, phoneRequired)
+      .regex(/^[0-9]+$/, phoneInvalid),
     auth_code: z.string().min(1, verificationCodeRequired),
     company_name: z.string().min(1, corpNameRequired),
     user_position: z.string(),
@@ -91,7 +98,10 @@ export const zodEditAccount = z
     user_name: z.string().min(1, nameRequired),
     company_name: z.string().min(1, corpNameRequired),
     user_position: z.string(),
-    phone: z.string(),
+    phone: z
+      .string()
+      .min(1, phoneRequired)
+      .regex(/^[0-9]+$/, phoneInvalid),
     phone_changed: z.optional(z.boolean()),
     phone_verified: z.optional(z.boolean()),
   })

@@ -33,6 +33,8 @@ export const samePasswordEntered = IsKorean
 
 export const nameRequired = IsKorean ? "이름을 입력해주세요." : "";
 export const phoneRequired = IsKorean ? "전화번호를 입력해주세요." : "";
+
+export const phoneInvalid = IsKorean ? "숫자만 입력해주세요." : "";
 export const differentPhoneRequired = IsKorean
   ? "기존 번호와 다른 번호를 입력해주세요."
   : "";

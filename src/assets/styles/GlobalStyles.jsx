@@ -132,7 +132,7 @@ const style = css`
     input:read-only::placeholder {
         background: #FAFAFD;
         border: 3px solid #FAFAFD;
-        color: #777;
+        color: #777 !important;
     }
 
     textarea:read-only {

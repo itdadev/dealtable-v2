@@ -25,7 +25,7 @@ export const ButtonWrapper = styled.div(() => ({
 
 const JoinComplete = () => {
   return (
-    <CustomForm noGoBack>
+    <CustomForm noGoBack fit>
       <div>
         <FormDescription>
           <JoinRequestCompleteText />

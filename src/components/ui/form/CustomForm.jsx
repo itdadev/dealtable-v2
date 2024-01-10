@@ -117,6 +117,10 @@ export const TextAresFieldContainer = styled.div(({ theme }) => ({
 
   [mq("desktop")]: {
     fontSize: "1.6rem",
+
+    label: {
+      fontSize: "1.6rem",
+    },
   },
 }));
 

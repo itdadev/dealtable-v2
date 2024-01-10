@@ -91,7 +91,7 @@ const FindAccount = () => {
       />
 
       <ButtonWrapper>
-        <PrimaryButton buttonType="button">
+        <PrimaryButton buttonType="submit">
           <FindAccountText />
         </PrimaryButton>
       </ButtonWrapper>
