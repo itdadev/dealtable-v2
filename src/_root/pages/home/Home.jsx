@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 import { useMediaQuery } from "react-responsive";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styled from "@emotion/styled";
@@ -22,11 +24,6 @@ import {
   HomeStart,
   MainBanner,
 } from ".";
-import {
-  NeedsDoneCompleteText,
-  NeedsDoneText,
-} from "@/util/language-setting/texts/TranslatedTexts";
-import { useLocation } from "react-router-dom";
 
 export const BackgroundImageWrapper = styled.div(({ url, isFooter }) => ({
   position: "relative",

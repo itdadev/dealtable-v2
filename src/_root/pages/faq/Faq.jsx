@@ -41,6 +41,7 @@ const Date = styled.div(({ theme }) => ({
 const Content = styled.div(({ theme }) => ({
   fontSize: "1.6rem",
   color: theme.color.grey,
+  overflowWrap: "break-word",
 
   [mq("desktop")]: {
     padding: "0.8rem",
@@ -67,6 +68,10 @@ const StyledInput = styled(Input)(({ theme }) => ({
   border: "none",
 }));
 
+const TitleWrapper = styled(Flex)(() => ({
+  maxWidth: "70rem",
+  overflowWrap: "break-word",
+}));
 const Faq = () => {
   const intl = useIntl();
 
@@ -124,7 +129,7 @@ const Faq = () => {
               vertical={!isDesktop}
               gap="8px"
             >
-              <Flex vertical gap="8px">
+              <TitleWrapper vertical gap="8px">
                 <Category>{item.category}</Category>
 
                 <Title
@@ -132,7 +137,7 @@ const Faq = () => {
                 >
                   {item.title}
                 </Title>
-              </Flex>
+              </TitleWrapper>
 
               <Date>{item.ins_date}</Date>
             </Flex>

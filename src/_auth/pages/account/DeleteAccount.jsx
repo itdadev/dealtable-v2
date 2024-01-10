@@ -30,8 +30,6 @@ const DeleteAccount = () => {
 
   const [confirmModal, setConfirmModal] = useState(false);
 
-  const [deleteDoneAlert, setDeleteDoneAlert] = useState(false);
-
   const { control, handleSubmit, watch, setError } = useForm({
     resolver: zodResolver(zodDeleteAccount),
     mode: "onChange",

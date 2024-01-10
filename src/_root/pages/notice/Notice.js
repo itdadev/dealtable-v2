@@ -46,6 +46,7 @@ const Date = styled.div(({ theme }) => ({
 const Content = styled.div(({ theme }) => ({
   fontSize: "1.6rem",
   color: theme.color.grey,
+  overflowWrap: "break-word",
 
   [mq("desktop")]: {
     padding: "0.8rem",
@@ -66,6 +67,11 @@ const panelStyle = {
   border: "none",
   borderBottom: `1px solid ${color.lightGrey}`,
 };
+
+const TitleWrapper = styled(Flex)(() => ({
+  maxWidth: "70rem",
+  overflowWrap: "break-word",
+}));
 
 const Notice = () => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -115,7 +121,7 @@ const Notice = () => {
               vertical={!isDesktop}
               gap="8px"
             >
-              <Flex vertical gap="8px">
+              <TitleWrapper vertical gap="8px">
                 <Category>{item.category}</Category>
 
                 <Title
@@ -123,7 +129,7 @@ const Notice = () => {
                 >
                   {item.title}
                 </Title>
-              </Flex>
+              </TitleWrapper>
 
               <Date>{item.ins_date}</Date>
             </Flex>
