@@ -197,7 +197,7 @@ export const PhoneField = ({
       name="phone"
       label={<PhoneText />}
       labelrequired="true"
-      inputmode="decimal"
+      inputMode="decimal"
       onKeyDown={handleOnKeyPress}
       control={control}
       placeholder={phoneNumPH}
@@ -236,7 +236,7 @@ export const DealScaleField = ({
   return (
     <TextInput
       name="deal_scale"
-      inputmode="decimal"
+      inputMode="decimal"
       label={<DealScaleText />}
       labelrequired="true"
       control={control}
@@ -260,7 +260,7 @@ export const SalesField = ({
     <TextInput
       name="sales"
       label={<SalesText />}
-      inputmode="decimal"
+      inputMode="decimal"
       control={control}
       placeholder={salesPH}
       readOnly={readOnly}
@@ -281,7 +281,7 @@ export const RevenueField = ({
   return (
     <TextInput
       name="revenue"
-      inputmode="decimal"
+      inputMode="decimal"
       label={<RevenueText />}
       control={control}
       placeholder={revenuePH}

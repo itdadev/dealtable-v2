@@ -70,6 +70,7 @@ const panelStyle = {
 
 const TitleWrapper = styled(Flex)(() => ({
   maxWidth: "70rem",
+  width: "100%",
   overflowWrap: "break-word",
 }));
 

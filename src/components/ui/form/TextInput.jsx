@@ -69,6 +69,7 @@ const TextInput = ({ children, ...props }) => {
                   size="large"
                   type={props.type ? props.type : "text"}
                   addonAfter={props.addonAfter}
+                  inputMode={props.inputMode}
                 />
 
                 {props.customerror && (

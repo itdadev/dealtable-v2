@@ -20,6 +20,7 @@ import {
   DeleteAccountLongText,
   DeleteUserAccountText,
 } from "@/util/language-setting/texts/TranslatedTexts";
+import { currentPasswordInvalid } from "@/lib/react-hook-form/validation/inputErrorMessage";
 
 const DeleteAccount = () => {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ const DeleteAccount = () => {
           setConfirmModal(false);
 
           setError("user_pw", {
-            message: "현재 비밀번호와 일치하지 않습니다.",
+            message: currentPasswordInvalid,
           });
         }
       },

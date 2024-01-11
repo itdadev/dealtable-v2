@@ -574,3 +574,8 @@ export const DeleteAccountDescText = () => {
   // 서비스에서 탈퇴하시겠습니까? 지금까지 생성한 니즈가 삭제됩니다.
   return <FormattedMessage id="lang-delete-account-desc" />;
 };
+
+export const SellConsultText = () => {
+  // 매각 문의
+  return <FormattedMessage id="lang-sell-consult" />;
+};

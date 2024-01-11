@@ -106,6 +106,10 @@ const style = css`
   .ant-notification-notice-message {
     margin-bottom: 0 !important;
   }
+
+  .ant-collapse-header-text {
+    width: 100% !important;
+  }
 `;
 
 function LibraryStyles() {

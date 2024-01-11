@@ -12,6 +12,8 @@ import {
   LoginText,
   LogoutText,
   MyProfileText,
+  NoticeText,
+  SellConsultText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 import { Space } from "antd/lib";
 import { DownOutlined } from "@ant-design/icons";
@@ -143,7 +145,9 @@ const LanguageSwitcher = () => {
 
     window.location.reload();
   }, [isKorean]);
+
   const LANG_OFF = true;
+
   return LANG_OFF ? (
     <></>
   ) : (
@@ -194,7 +198,11 @@ const Header = () => {
 
   const items = [
     {
-      label: <StyledLink to="/notice">공지사항</StyledLink>,
+      label: (
+        <StyledLink to="/notice">
+          <NoticeText />
+        </StyledLink>
+      ),
       key: "1",
     },
     {
@@ -266,7 +274,7 @@ const Header = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                매각 문의
+                <SellConsultText />
               </a>
 
               <StyledLink to="/login" onClick={closeModal}>
@@ -312,28 +320,38 @@ const Header = () => {
             <Flex vertical gap={24}>
               {isAuthenticated && (
                 <>
-                  <Link to="/notice">공지사항</Link>
+                  <Link to="/notice" onClick={closeModal}>
+                    <NoticeText />
+                  </Link>
 
-                  <Link to="/faq">FAQ</Link>
+                  <Link to="/faq" onClick={closeModal}>
+                    FAQ
+                  </Link>
+
+                  <Link to="/account" onClick={closeModal}>
+                    <MyProfileText />
+                  </Link>
                 </>
               )}
-
-              <a
-                href="https://www.mmp.co.kr/m61.php"
-                target="_blank"
-                rel="noreferrer"
-              >
-                매각 문의
-              </a>
 
               {isAuthenticated ? (
                 <button type="button" onClick={logout}>
                   <LogoutText />
                 </button>
               ) : (
-                <StyledLink to="/login" onClick={closeModal}>
-                  <LoginText />
-                </StyledLink>
+                <>
+                  <a
+                    href="https://www.mmp.co.kr/m61.php"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <SellConsultText />
+                  </a>
+
+                  <StyledLink to="/login" onClick={closeModal}>
+                    <LoginText />
+                  </StyledLink>
+                </>
               )}
 
               <LanguageSwitcher />
