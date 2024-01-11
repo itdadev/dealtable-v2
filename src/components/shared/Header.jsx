@@ -44,7 +44,7 @@ const MobileMenuContainer = styled.div(({ theme, active }) => ({
   background: theme.color.primary,
   width: "100vw",
   height: "calc(100vh - 6rem)",
-  bottom: 0,
+  top: "6rem",
   left: active ? 0 : "100vw",
   transition: "all 0.3s",
   zIndex: headerContainerZIndex,

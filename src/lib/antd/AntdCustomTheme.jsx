@@ -22,7 +22,7 @@ export const AntdTheme = {
     Input: {
       paddingInlineLG: 16,
       paddingBlockLG: 16,
-      colorBgContainer: "inherit",
+      colorBgContainer: "white",
       border: "none",
       paddingBlock: 0,
       paddingInline: 0,

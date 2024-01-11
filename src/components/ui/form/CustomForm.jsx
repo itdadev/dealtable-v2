@@ -20,7 +20,7 @@ import { NormalOverlay } from "..";
 const FormContainer = styled.div(({ width = "100rem", fit }) => ({
   position: "relative",
   zIndex: contentZIndex,
-  margin: "2rem auto",
+  margin: "0 auto",
   width: "100%",
 
   [mq("tablet")]: {

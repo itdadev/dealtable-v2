@@ -46,18 +46,20 @@ export const BackgroundImageWrapper = styled.div(({ url, isFooter }) => ({
 export const HomeSectionTextContainer = styled.div(({ theme, home }) => ({
   position: "absolute",
   zIndex: borderZIndex,
-  bottom: 0,
+  top: "6rem",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   gap: "0.6rem 0",
   width: "100%",
   maxWidth: "calc(100% - 4rem)",
-  height: "100%",
-  maxHeight: "calc(100% - 6rem)",
+  minHeight: "calc(100svh - 6rem)",
+  maxHeight: "calc(100svh - 6rem)",
   margin: "0 2rem",
   borderRight: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
   borderLeft: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
+  // border: "1px solid hotpink",
+  paddingTop: "2rem",
 
   [mq("desktop")]: {
     left: "50%",
@@ -95,7 +97,7 @@ export const HomeSectionTextWrapper = styled.div(({ theme }) => ({
   header: {
     //Big Header Text
     position: "relative",
-    left: 0,
+    left: "-1.5rem",
     fontSize: "5.4rem",
     fontWeight: theme.fontWeight.extraBold,
     fontFamily: theme.fontFamily.secondary,
@@ -244,15 +246,15 @@ const Home = () => {
     },
   ];
 
-  useEffect(() => {
-    if (swiper && swiper?.realIndex === 7) {
-      swiper?.autoplay.stop();
-
-      return;
-    }
-
-    swiper?.autoplay.start();
-  }, [swiper, swiper?.realIndex]);
+  // useEffect(() => {
+  //   if (swiper && swiper?.realIndex === 7) {
+  //     swiper?.autoplay.stop();
+  //
+  //     return;
+  //   }
+  //
+  //   swiper?.autoplay.start();
+  // }, [swiper, swiper?.realIndex]);
 
   const [api, contextHolder] = notification.useNotification();
 
@@ -285,7 +287,7 @@ const Home = () => {
             clickable: isDesktop,
           }}
           loop={false}
-          autoplay={{ delay: 5000 }}
+          // autoplay={{ delay: 5000 }}
           speed={1000}
           onSwiper={setSwiper}
           onResize={setSwiper}

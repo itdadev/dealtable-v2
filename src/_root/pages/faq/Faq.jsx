@@ -41,7 +41,7 @@ const Date = styled.div(({ theme }) => ({
 const Content = styled.div(({ theme }) => ({
   fontSize: "1.6rem",
   color: theme.color.grey,
-  overflowWrap: "break-word",
+  overflowWrap: "anywhere",
 
   [mq("desktop")]: {
     padding: "0.8rem",
@@ -70,7 +70,7 @@ const StyledInput = styled(Input)(({ theme }) => ({
 
 const TitleWrapper = styled(Flex)(() => ({
   maxWidth: "70rem",
-  overflowWrap: "break-word",
+  overflowWrap: "anywhere",
 }));
 const Faq = () => {
   const intl = useIntl();

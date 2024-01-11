@@ -69,7 +69,7 @@ const style = css`
     }
 
     body::-webkit-scrollbar-track {
-        background: white; /*스크롤바 뒷 배경 색상*/
+        background: transparent; /*스크롤바 뒷 배경 색상*/
     }
 
 
@@ -79,14 +79,14 @@ const style = css`
 
     *:not(body)::-webkit-scrollbar-thumb {
         height: 10%; /* 스크롤바의 길이 */
-        background: #e8e8e8; /* 스크롤바의 색상 */
         border-radius: 60px;
+        background: #e8e8e8;
         border: 5px solid transparent;
         background-clip: padding-box;
     }
 
     *:not(body)::-webkit-scrollbar-track {
-        background: white; /*스크롤바 뒷 배경 색상*/
+        background: transparent; /*스크롤바 뒷 배경 색상*/
     }
 
     p + p {
@@ -138,6 +138,10 @@ const style = css`
     textarea:read-only {
         background: #FAFAFD;
         color: #777;
+    }
+
+    textarea {
+        background: white;
     }
 
     .ellipsis-1 {

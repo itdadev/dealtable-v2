@@ -46,7 +46,7 @@ const Date = styled.div(({ theme }) => ({
 const Content = styled.div(({ theme }) => ({
   fontSize: "1.6rem",
   color: theme.color.grey,
-  overflowWrap: "break-word",
+  overflowWrap: "anywhere",
 
   [mq("desktop")]: {
     padding: "0.8rem",
@@ -54,7 +54,6 @@ const Content = styled.div(({ theme }) => ({
 }));
 
 const ContentIn = styled(Collapse)(({ theme }) => ({
-  marginTop: "2.4rem",
   background: "white",
   border: "none",
   borderRadius: 0,
@@ -71,7 +70,7 @@ const panelStyle = {
 const TitleWrapper = styled(Flex)(() => ({
   maxWidth: "70rem",
   width: "100%",
-  overflowWrap: "break-word",
+  overflowWrap: "anywhere",
 }));
 
 const Notice = () => {
