@@ -304,6 +304,11 @@ const Need = () => {
 
   useEffect(() => {
     window.history.replaceState({}, document.title);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   return (

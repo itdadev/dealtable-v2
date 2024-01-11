@@ -63,13 +63,11 @@ const style = css`
   }
 
   .antd-modal-wrapper {
-    max-height: 70vh;
+    max-height: 80svh;
+    max-width: 90vw;
+    margin: 10svh auto 0;
     display: flex;
-    margin-top: 15vh;
-
-    ::-webkit-scrollbar {
-      display: none;
-    }
+    overflow-y: auto;
   }
 
   .ant-input-group-addon {
@@ -92,6 +90,15 @@ const style = css`
   .antd-input-custom-border {
     border: 1px solid #d9d9d9;
     border-radius: 0.6rem;
+  }
+
+  .ant-input {
+    background: white !important;
+
+    &:read-only {
+      background: #fafafd !important;
+      color: #777 !important;
+    }
   }
 
   .ant-checkbox-wrapper {

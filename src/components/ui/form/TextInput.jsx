@@ -15,7 +15,7 @@ const StyledInput = styled(Input)(({ props, errors, isfocused }) => ({
       ? `1px solid ${color.error}`
       : props.customborder === "true" && isfocused === "true"
         ? `1px solid ${color.primary}`
-        : "1px solid #d9d9d9",
+        : "1px solid rgb(217, 217, 217)",
   boxShadow:
     isfocused === "true" && !errors[props.name]
       ? "0 0 0 2px rgba(1, 6, 27, 0.39)"

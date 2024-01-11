@@ -58,17 +58,19 @@ export const HomeSectionTextContainer = styled.div(({ theme, home }) => ({
   margin: "0 2rem",
   borderRight: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
   borderLeft: home ? `1px solid ${theme.color.opacityWhite20}` : "none",
-  // border: "1px solid hotpink",
-  paddingTop: "2rem",
+  padding: "2rem 0",
 
   [mq("desktop")]: {
     left: "50%",
     transform: "translateX(-50%)",
     justifyContent: "center",
     maxWidth: "92rem",
+    minHeight: "calc(100svh - 10rem)",
     maxHeight: "calc(100% - 10rem)",
     margin: 0,
     paddingTop: 0,
+    top: "auto",
+    bottom: 0,
     gap: 0,
     borderRight: `1px solid ${theme.color.opacityWhite20}`,
     borderLeft: `1px solid ${theme.color.opacityWhite20}`,
@@ -246,15 +248,15 @@ const Home = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   if (swiper && swiper?.realIndex === 7) {
-  //     swiper?.autoplay.stop();
-  //
-  //     return;
-  //   }
-  //
-  //   swiper?.autoplay.start();
-  // }, [swiper, swiper?.realIndex]);
+  useEffect(() => {
+    if (swiper && swiper?.realIndex === 7) {
+      swiper?.autoplay.stop();
+
+      return;
+    }
+
+    swiper?.autoplay.start();
+  }, [swiper, swiper?.realIndex]);
 
   const [api, contextHolder] = notification.useNotification();
 
@@ -287,7 +289,7 @@ const Home = () => {
             clickable: isDesktop,
           }}
           loop={false}
-          // autoplay={{ delay: 5000 }}
+          autoplay={{ delay: 5000 }}
           speed={1000}
           onSwiper={setSwiper}
           onResize={setSwiper}

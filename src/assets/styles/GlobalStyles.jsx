@@ -130,9 +130,13 @@ const style = css`
     }
 
     input:read-only::placeholder {
-        background: #FAFAFD;
-        border: 3px solid #FAFAFD;
+        background: #FAFAFD !important;
+        //border: 3px solid #FAFAFD;
         color: #777 !important;
+    }
+
+    input::placeholder {
+        background: white !important;
     }
 
     textarea:read-only {

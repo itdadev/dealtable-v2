@@ -52,41 +52,44 @@ function App() {
   return (
     <ThemeProvider theme={AppTheme}>
       <ConfigProvider theme={AntdTheme}>
-        <Header />
+        <div>
+          <Header />
 
-        <Routes>
-          <Route element={<AuthLayout />}>
-            {/* Private Routes - only accessible after login */}
-            <Route path="/account" element={<Account />} />
-            <Route path="/change-account" element={<Account edit />} />
-            <Route path="/delete-account" element={<DeleteAccount />} />
-            <Route path="/change-my-password" element={<ChangeMyPassword />} />
+          <Routes>
+            <Route element={<AuthLayout />}>
+              {/* Private Routes - only accessible after login */}
+              <Route path="/account" element={<Account />} />
+              <Route path="/change-account" element={<Account edit />} />
+              <Route path="/delete-account" element={<DeleteAccount />} />
+              <Route
+                path="/change-my-password"
+                element={<ChangeMyPassword />}
+              />
 
-            <Route path="/need" element={<Need />} />
-            <Route path="/need/add" element={<AddNeed />} />
-            <Route path="/need/edit/:needsKey" element={<AddNeed />} />
-            <Route path="/need/add-complete" element={<AddNeedComplete />} />
-          </Route>
+              <Route path="/need" element={<Need />} />
+              <Route path="/need/add" element={<AddNeed />} />
+              <Route path="/need/edit/:needsKey" element={<AddNeed />} />
+              <Route path="/need/add-complete" element={<AddNeedComplete />} />
+            </Route>
 
-          {/* Public Routes - not accessible after login */}
-          <Route element={<AuthAfterLayout />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/join" element={<Join />} />
-            <Route path="/join-complete" element={<JoinComplete />} />
-            <Route path="/find-account" element={<FindAccount />} />
-            <Route path="/find-account-fail" element={<FindAccountFail />} />
-            <Route path="/change-password" element={<ChangePassword />} />
-          </Route>
+            {/* Public Routes - not accessible after login */}
+            <Route element={<AuthAfterLayout />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/join" element={<Join />} />
+              <Route path="/join-complete" element={<JoinComplete />} />
+              <Route path="/find-account" element={<FindAccount />} />
+              <Route path="/find-account-fail" element={<FindAccountFail />} />
+              <Route path="/change-password" element={<ChangePassword />} />
+            </Route>
 
-          <Route element={<RootLayout />}>
-            {/* Public Routes */}
-            <Route index element={<Home />} />
-            <Route path="/faq" element={<Faq />} />
-            <Route path="/notice" element={<Notice />} />
-          </Route>
-        </Routes>
-
-        {/* <Footer showFooter={true} /> */}
+            <Route element={<RootLayout />}>
+              {/* Public Routes */}
+              <Route index element={<Home />} />
+              <Route path="/faq" element={<Faq />} />
+              <Route path="/notice" element={<Notice />} />
+            </Route>
+          </Routes>
+        </div>
       </ConfigProvider>
     </ThemeProvider>
   );

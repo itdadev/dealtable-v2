@@ -20,7 +20,7 @@ import { DownOutlined } from "@ant-design/icons";
 import { LOCAL_STORAGE_SITE_LANGUAGE } from "@/constants/StorageKey";
 
 const HeaderContainer = styled.header(({ theme, active }) => ({
-  position: "fixed",
+  position: "absolute",
   zIndex: headerContainerZIndex,
   display: "flex",
   alignItems: "center",

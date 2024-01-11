@@ -4,12 +4,20 @@ import { Modal } from "antd";
 import { CancelText } from "@/util/language-setting/texts/TranslatedTexts";
 
 const ModalContainer = ({ children, ...props }) => {
+  const modalStyles = {
+    mask: {
+      zIndex: 500,
+    },
+  };
+
   return (
     <Modal
       {...props}
+      styles={modalStyles}
+      zIndex={5000}
       style={{
         height: "100%",
-        overflowY: "auto",
+        maxHeight: "80vh",
       }}
       okButtonProps={{ shape: "round" }}
       cancelButtonProps={{ shape: "round" }}

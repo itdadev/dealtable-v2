@@ -55,7 +55,7 @@ const Container = styled.form(({ theme, wide, noGoBack, fit }) => ({
   alignItems: "center",
   gap: "1rem",
   width: "100%",
-  maxHeight: noGoBack ? "calc(100vh - 10rem)" : "calc(100vh - 14rem)",
+  maxHeight: noGoBack ? "calc(100svh - 10rem)" : "calc(100svh - 14rem)",
   margin: "auto",
   padding: "2rem",
   boxShadow: theme.shadow.primary,
