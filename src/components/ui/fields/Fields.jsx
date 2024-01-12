@@ -184,21 +184,13 @@ export const PhoneField = ({
   readOnly = false,
   children,
   addonAfter,
-  buttonEvent,
 }) => {
-  const handleOnKeyPress = (e) => {
-    if (e.key === "Enter") {
-      buttonEvent();
-    }
-  };
-
   return (
     <TextInput
       name="phone"
       label={<PhoneText />}
       labelrequired="true"
       inputMode="decimal"
-      onKeyDown={handleOnKeyPress}
       control={control}
       placeholder={phoneNumPH}
       readOnly={readOnly}

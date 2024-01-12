@@ -149,13 +149,11 @@ const style = css`
     }
 
     .ellipsis-1 {
-        width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
-        display: block;
     }
 
     .ellipsis-2 {

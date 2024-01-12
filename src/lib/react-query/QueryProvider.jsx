@@ -5,8 +5,8 @@ const queryClientConfig = {
   defaultOptions: {
     queries: {
       retry: 0,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
       refetchOnReconnect: true,
       refetchInterval: 60 * 1000 * 180, // 3 hrs
       refetchIntervalInBackground: true,

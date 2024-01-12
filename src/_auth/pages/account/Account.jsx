@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,8 +19,6 @@ import {
 } from "@/components/ui/fields/Fields";
 import { useUserContext } from "@/context/AuthContext";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
-import { zodEditAccount } from "@/lib/react-hook-form/validation/zodValidation";
-import Interceptor from "@/lib/axios/AxiosInterceptor";
 import {
   AccountInformationChangeText,
   AccountManageText,
@@ -28,6 +27,8 @@ import {
   DeleteAccountLongText,
   UserInformationText,
 } from "@/util/language-setting/texts/TranslatedTexts";
+import { zodEditAccount } from "@/lib/react-hook-form/validation/zodValidation";
+import Interceptor from "@/lib/axios/AxiosInterceptor";
 
 const LinkText = styled(Link)(({ theme }) => ({
   color: theme.color.grey,
@@ -35,6 +36,8 @@ const LinkText = styled(Link)(({ theme }) => ({
 }));
 
 const Account = ({ edit }) => {
+  const isMini = useMediaQuery({ maxWidth: 420 });
+
   const { state } = useLocation();
 
   const { logoutUser } = useUserContext();
@@ -233,7 +236,7 @@ const Account = ({ edit }) => {
       {!edit && (
         <Flex
           align="center"
-          justify="space-between"
+          justify={isMini ? "flex-end" : "space-between"}
           gap="16px"
           wrap="wrap-reverse"
         >

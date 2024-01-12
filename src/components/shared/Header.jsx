@@ -320,11 +320,21 @@ const Header = () => {
             <Flex vertical gap={24}>
               {isAuthenticated && (
                 <>
-                  <Link to="/notice" onClick={closeModal}>
+                  <Link
+                    to="/notice"
+                    onClick={() => {
+                      closeModal();
+                    }}
+                  >
                     <NoticeText />
                   </Link>
 
-                  <Link to="/faq" onClick={closeModal}>
+                  <Link
+                    to="/faq"
+                    onClick={() => {
+                      closeModal();
+                    }}
+                  >
                     FAQ
                   </Link>
 

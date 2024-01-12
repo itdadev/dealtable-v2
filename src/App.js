@@ -74,6 +74,7 @@ function App() {
 
             {/* Public Routes - not accessible after login */}
             <Route element={<AuthAfterLayout />}>
+              <Route index element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/join" element={<Join />} />
               <Route path="/join-complete" element={<JoinComplete />} />
@@ -84,7 +85,6 @@ function App() {
 
             <Route element={<RootLayout />}>
               {/* Public Routes */}
-              <Route index element={<Home />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/notice" element={<Notice />} />
             </Route>

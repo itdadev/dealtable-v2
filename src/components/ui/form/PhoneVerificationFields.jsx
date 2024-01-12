@@ -199,9 +199,8 @@ const PhoneVerificationFields = ({
     <>
       <Flex>
         <PhoneField
-          buttonEvent={() => sendCodeFunction(watch("phone"))}
           control={control}
-          readOnly={!phoneActive || codeVerified}
+          // readOnly={!phoneActive || codeVerified}
           addonAfter={
             <SendButton
               type="primary"
@@ -235,18 +234,18 @@ const PhoneVerificationFields = ({
           label={<CodeNumberText />}
           labelrequired="true"
           control={control}
-          readOnly={codeVerified || !codeSent}
           placeholder={verificationCodePH}
           bordered={false}
           customborder="true"
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              verifyCodeFunction({
-                phone: watch("phone"),
-                auth_code: watch("auth_code"),
-              });
-            }
-          }}
+          // readOnly={codeVerified || !codeSent}
+          // onKeyDown={(e) => {
+          //   if (e.key === "Enter") {
+          //     verifyCodeFunction({
+          //       phone: watch("phone"),
+          //       auth_code: watch("auth_code"),
+          //     });
+          //   }
+          // }}
           labelafter={
             <FieldErrorMessage
               custom={{

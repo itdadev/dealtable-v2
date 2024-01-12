@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery, useQueryClient } from "react-query";
 import { Collapse, Flex, Input, Spin } from "antd";
 import styled from "@emotion/styled";
 import { useMediaQuery } from "react-responsive";
@@ -73,6 +73,8 @@ const TitleWrapper = styled(Flex)(() => ({
   overflowWrap: "anywhere",
 }));
 const Faq = () => {
+  const queryClient = useQueryClient();
+
   const intl = useIntl();
 
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -97,6 +99,7 @@ const Faq = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
   } = useInfiniteQuery({
     queryKey: ["faqList", searchKeyword],
     queryFn: getFaqList,
@@ -107,12 +110,19 @@ const Faq = () => {
     },
   });
 
+  useEffect(() => {
+    refetch();
+
+    return () => {
+      queryClient.removeQueries("noticeList");
+    };
+  }, [refetch, queryClient]);
+
   const onSearch = (value) => {
     setTimeout(async () => {
       setSearchKeyword(value);
     }, 1000);
   };
-
   const faqItems = useMemo(() => {
     const newArr = faqList?.pages.map((group) => {
       if (group.data.length <= 0) {
@@ -152,7 +162,7 @@ const Faq = () => {
     if (newArr) {
       return [].concat(...newArr);
     }
-  }, [activeKey, faqList?.pages, isDesktop]);
+  }, [activeKey, faqList, isDesktop]);
 
   return (
     <CustomForm noLogo wide>

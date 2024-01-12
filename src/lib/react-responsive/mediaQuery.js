@@ -18,6 +18,12 @@ export const IsMobile = ({ children }) => {
   return isMobile ? children : null;
 };
 
+export const IsMini = ({ children }) => {
+  const IsMini = useMediaQuery({ maxWidth: 480 });
+
+  return IsMini ? children : null;
+};
+
 export const IsDefault = ({ children }) => {
   const isDefault = useMediaQuery({ maxWidth: 1023 });
 

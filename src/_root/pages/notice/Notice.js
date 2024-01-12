@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery, useQueryClient } from "react-query";
 import { Collapse, Flex, Spin } from "antd";
 import styled from "@emotion/styled";
 import { useMediaQuery } from "react-responsive";
@@ -74,11 +74,13 @@ const TitleWrapper = styled(Flex)(() => ({
 }));
 
 const Notice = () => {
+  const queryClient = useQueryClient();
+
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   const [activeKey, setActiveKey] = useState([]);
 
-  const getFawList = async ({ pageParam = 1 }) => {
+  const getFaqList = async ({ pageParam = 1 }) => {
     const { status, data } = await axios?.get(
       `${NOTICE_LIST_API_URL}?page=${pageParam}&size=${NOTICE_LIST_LOAD_SIZE}`,
     );
@@ -95,15 +97,24 @@ const Notice = () => {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
+    refetch,
   } = useInfiniteQuery({
     queryKey: ["noticeList"],
-    queryFn: getFawList,
+    queryFn: getFaqList,
     getNextPageParam: (lastPage, pages) => {
       return pages.length < lastPage.totalCnt / NOTICE_LIST_LOAD_SIZE
         ? pages.length + 1
         : undefined;
     },
   });
+
+  useEffect(() => {
+    refetch();
+
+    return () => {
+      queryClient.removeQueries("noticeList");
+    };
+  }, [refetch, queryClient]);
 
   const noticeItems = useMemo(() => {
     const newArr = noticeList?.pages.map((group) => {
