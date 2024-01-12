@@ -132,7 +132,7 @@ const Login = () => {
   );
 
   return (
-    <CustomForm submitEvent={handleSubmit(loginSubmit)} noGoBack fit>
+    <CustomForm submitEvent={handleSubmit(loginSubmit)} noGoBack>
       {contextHolder}
 
       <FormDescription>

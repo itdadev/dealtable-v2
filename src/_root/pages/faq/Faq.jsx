@@ -66,6 +66,8 @@ const panelStyle = {
 const StyledInput = styled(Input)(({ theme }) => ({
   background: theme.color.disableGrey,
   border: "none",
+
+  "&::placeholder": {},
 }));
 
 const TitleWrapper = styled(Flex)(() => ({
@@ -174,6 +176,7 @@ const Faq = () => {
         <>
           <Flex gap="large">
             <StyledInput
+              className="colored"
               placeholder={intl.formatMessage({
                 id: "lang-enter-keyword",
               })}

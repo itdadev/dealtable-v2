@@ -72,7 +72,6 @@ const style = css`
         background: transparent; /*스크롤바 뒷 배경 색상*/
     }
 
-
     *:not(body)::-webkit-scrollbar {
         width: 15px; /* 스크롤바의 너비 */
     }
@@ -131,12 +130,19 @@ const style = css`
 
     input:read-only::placeholder {
         background: #FAFAFD !important;
-        //border: 3px solid #FAFAFD;
         color: #777 !important;
     }
 
     input::placeholder {
         background: white !important;
+    }
+
+    .colored input {
+        background: #FAFAFD !important;
+
+        &::placeholder {
+            background: #FAFAFD !important;
+        }
     }
 
     textarea:read-only {

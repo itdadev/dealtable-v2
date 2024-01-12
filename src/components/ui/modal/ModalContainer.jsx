@@ -16,8 +16,10 @@ const ModalContainer = ({ children, ...props }) => {
       styles={modalStyles}
       zIndex={5000}
       style={{
-        height: "100%",
-        maxHeight: "80vh",
+        height: "fit-content",
+        maxHeight: "80svh",
+        display: "flex",
+        placeContent: "center",
       }}
       okButtonProps={{ shape: "round" }}
       cancelButtonProps={{ shape: "round" }}

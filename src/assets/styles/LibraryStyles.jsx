@@ -63,11 +63,14 @@ const style = css`
   }
 
   .antd-modal-wrapper {
-    max-height: 80svh;
+    //max-height: 80svh;
     max-width: 90vw;
-    margin: 10svh auto 0;
+    width: fit-content;
+    margin: 0 auto;
     display: flex;
     overflow-y: auto;
+    align-items: center;
+    justify-content: center;
   }
 
   .ant-input-group-addon {

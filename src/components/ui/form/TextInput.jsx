@@ -20,6 +20,7 @@ const StyledInput = styled(Input)(({ props, errors, isfocused }) => ({
     isfocused === "true" && !errors[props.name]
       ? "0 0 0 2px rgba(1, 6, 27, 0.39)"
       : "",
+
   "&:hover": {
     border:
       props.customborder === "true" && !errors[props.name]

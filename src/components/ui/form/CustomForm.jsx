@@ -17,7 +17,7 @@ import {
 
 import { NormalOverlay } from "..";
 
-const FormContainer = styled.div(({ width = "100rem", fit }) => ({
+const FormContainer = styled.div(({ width = "100rem" }) => ({
   position: "relative",
   zIndex: contentZIndex,
   margin: "0 auto",
@@ -33,7 +33,6 @@ const FormContainer = styled.div(({ width = "100rem", fit }) => ({
     width: "fit-content",
     minWidth: "48rem",
     maxWidth: width,
-    minHeight: fit ? "fit-content" : "68.4rem",
     overflow: "hidden",
     height: "100%",
     margin: "8rem auto",
@@ -49,7 +48,7 @@ export const FormDescription = styled.p(() => ({
   },
 }));
 
-const Container = styled.form(({ theme, wide, noGoBack, fit }) => ({
+const Container = styled.form(({ theme, wide, noGoBack }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -70,7 +69,6 @@ const Container = styled.form(({ theme, wide, noGoBack, fit }) => ({
     minWidth: wide ? "92rem" : "60rem",
     maxWidth: wide ? "92rem" : "60rem",
     maxHeight: "calc(100vh - 25rem)",
-    height: fit ? "fit-content" : "100%",
     padding: "6.4rem 4.8rem",
   },
 }));
@@ -204,7 +202,6 @@ const CustomForm = ({
   noLogo,
   noGoBack,
   back,
-  fit,
 }) => {
   const { isAuthenticated } = useUserContext();
 
@@ -225,7 +222,7 @@ const CustomForm = ({
       <NormalOverlay />
 
       <HomeSectionTextContainer>
-        <FormContainer width={width} fit={fit}>
+        <FormContainer width={width}>
           {!noGoBack && (
             <GotoBack onClick={goBack}>
               <img src={image.leftArrowIcon.default} alt="<" />
@@ -234,12 +231,7 @@ const CustomForm = ({
             </GotoBack>
           )}
 
-          <Container
-            onSubmit={submitEvent}
-            wide={wide}
-            noGoBack={noGoBack}
-            fit={fit}
-          >
+          <Container onSubmit={submitEvent} wide={wide} noGoBack={noGoBack}>
             {!noLogo && (
               <LinkToHome to={isAuthenticated ? "/need" : "/"}>
                 <img
