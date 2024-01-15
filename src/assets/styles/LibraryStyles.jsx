@@ -1,4 +1,5 @@
 import { css, Global } from "@emotion/react";
+import { mq } from "@/lib/react-responsive/mediaQuery";
 
 const style = css`
   .swiper {
@@ -71,6 +72,10 @@ const style = css`
     overflow-y: auto;
     align-items: center;
     justify-content: center;
+
+    ${mq("desktop")} {
+      min-width: 60rem;
+    }
   }
 
   .ant-input-group-addon {
@@ -80,6 +85,7 @@ const style = css`
   }
 
   .ant-modal-content {
+    width: 100%;
     overflow-y: auto;
   }
 

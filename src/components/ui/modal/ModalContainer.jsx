@@ -2,8 +2,11 @@ import React from "react";
 import { Modal } from "antd";
 
 import { CancelText } from "@/util/language-setting/texts/TranslatedTexts";
+import { useMediaQuery } from "react-responsive";
 
 const ModalContainer = ({ children, ...props }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
   const modalStyles = {
     mask: {
       zIndex: 500,
@@ -18,6 +21,7 @@ const ModalContainer = ({ children, ...props }) => {
       style={{
         height: "fit-content",
         maxHeight: "80svh",
+        minWidth: isDesktop ? "60rem" : "90%",
         display: "flex",
         placeContent: "center",
       }}

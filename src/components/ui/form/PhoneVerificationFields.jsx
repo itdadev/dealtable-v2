@@ -10,6 +10,15 @@ import {
   FIND_SEND_CODE_API_URL,
   SEND_CODE_API_URL,
 } from "@/constants/apiUrls";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import {
+  CodeConfirmDoneText,
+  CodeNumberText,
+  ConfirmCodeNumberText,
+  ReEnterPhoneText,
+  ResendCodeText,
+  SendCodeNumberText,
+} from "@/util/language-setting/texts/TranslatedTexts";
 import { verificationCodePH } from "@/lib/react-hook-form/validation/placeholderTexts";
 import {
   differentPhoneRequired,
@@ -22,15 +31,6 @@ import {
 import { FieldErrorMessage } from "./CustomForm";
 import { PhoneField } from "../fields/Fields";
 import { TextInput } from ".";
-import {
-  CodeConfirmDoneText,
-  CodeNumberText,
-  ConfirmCodeNumberText,
-  ReEnterPhoneText,
-  ResendCodeText,
-  SendCodeNumberText,
-} from "@/util/language-setting/texts/TranslatedTexts";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export const CODE_EXPIRE_TIME = 5 * 60 * 1000;
 
@@ -61,7 +61,7 @@ const PhoneVerificationFields = ({
   );
 
   const timerRef = useRef(null);
-  const [phoneActive, setPhoneActive] = useState(true);
+  // const [phoneActive, setPhoneActive] = useState(true);
   const [codeActive, setCodeActive] = useState(false);
 
   const [codeSent, setCodeSent] = useState(false);
@@ -111,7 +111,7 @@ const PhoneVerificationFields = ({
     {
       onSuccess: (data) => {
         if (data === "resend") {
-          setPhoneActive(true);
+          // setPhoneActive(true);
           setCodeSent(false);
           setCodeActive(false);
           resetTimer();
@@ -133,7 +133,7 @@ const PhoneVerificationFields = ({
         startTimer();
         resetTimer();
         setCodeSent(true);
-        setPhoneActive(false);
+        // setPhoneActive(false);
       },
       onError: (error) => {
         if (error.response.status === 400) {
@@ -161,7 +161,7 @@ const PhoneVerificationFields = ({
           setError("auth_code", { message: verificationCodeInvalid });
 
           setCodeVerified(false);
-          setPhoneActive(true);
+          // setPhoneActive(true);
         }
       },
     },
@@ -169,9 +169,9 @@ const PhoneVerificationFields = ({
 
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if ((name = "phone" && value.phone !== "")) {
-        setPhoneActive(true);
-      }
+      // if ((name = "phone" && value.phone !== "")) {
+      // setPhoneActive(true);
+      // }
 
       if ((name = "auth_code" && value.auth_code !== "")) {
         setCodeActive(true);
