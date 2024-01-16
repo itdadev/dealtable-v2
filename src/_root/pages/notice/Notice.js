@@ -4,6 +4,7 @@ import { useInfiniteQuery, useQueryClient } from "react-query";
 import { Collapse, Flex, Spin } from "antd";
 import styled from "@emotion/styled";
 import { useMediaQuery } from "react-responsive";
+import moment from "moment";
 
 import { color } from "@/theme";
 import {
@@ -68,9 +69,20 @@ const panelStyle = {
 };
 
 const TitleWrapper = styled(Flex)(() => ({
+  display: "inline-flex",
+  justifyContent: "center",
   maxWidth: "70rem",
   width: "100%",
   overflowWrap: "anywhere",
+}));
+
+const NewText = styled.span(({ theme }) => ({
+  marginRight: "0.4rem",
+  minWidth: "5rem",
+  minHeight: "2rem",
+  color: theme.color.error,
+  fontWeight: theme.fontWeight.bold,
+  fontSize: "1.4rem",
 }));
 
 const Notice = () => {
@@ -116,12 +128,13 @@ const Notice = () => {
     };
   }, [refetch, queryClient]);
 
+  const now = moment();
+
   const noticeItems = useMemo(() => {
     const newArr = noticeList?.pages.map((group) => {
       if (group.data.length <= 0) {
         return [];
       }
-
       return group.data.map((item) => {
         return {
           key: `${item.notice_key}`,
@@ -138,6 +151,10 @@ const Notice = () => {
                 <Title
                   active={activeKey.includes(JSON.stringify(item.notice_key))}
                 >
+                  {now.diff(item.ins_date, "days") < 3 && (
+                    <NewText>[NEW]</NewText>
+                  )}
+
                   {item.title}
                 </Title>
               </TitleWrapper>
@@ -155,7 +172,7 @@ const Notice = () => {
     if (newArr) {
       return [].concat(...newArr);
     }
-  }, [activeKey, isDesktop, noticeList?.pages]);
+  }, [now, activeKey, isDesktop, noticeList?.pages]);
 
   return (
     <CustomForm noLogo wide>
