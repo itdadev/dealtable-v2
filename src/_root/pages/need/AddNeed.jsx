@@ -155,6 +155,13 @@ const AddNeed = () => {
     }
   }, [needDetail?.status]);
 
+  const [edit, setEdit] = useState(false);
+
+  useEffect(() => {
+    if (statusNm === "작성 완료") {
+      setEdit(true);
+    }
+  }, [statusNm]);
   const isReadOnly = useMemo(() => {
     switch (needDetail?.status) {
       case "0":
@@ -306,6 +313,7 @@ const AddNeed = () => {
   );
 
   const addNeedSubmit = useCallback(() => {
+    console.log("ddd");
     setConfirmModal({
       complete: true,
       tempo: false,
@@ -368,8 +376,15 @@ const AddNeed = () => {
     setExampleModalOpen(false);
   };
 
+  const toggleEditStatus = useCallback((e) => {
+    e.preventDefault();
+
+    setEdit((prev) => !prev);
+  }, []);
+
   return (
     <CustomForm wide submitEvent={handleSubmit(addNeedSubmit)} noLogo>
+      {/* NOTE: Modals */}
       <NeedExampleModal
         open={exampleModalOpen}
         onOk={okExampleModal}
@@ -454,34 +469,36 @@ const AddNeed = () => {
         )}
       </FormTitle>
 
+      {/* NOTE: Fields */}
       {isLoading ? (
         <Spin />
       ) : (
         <FieldGroup>
-          <IndustryField control={control} readOnly={isReadOnly} />
+          <IndustryField control={control} readOnly={isReadOnly || edit} />
 
           <DealScaleField
             control={control}
-            readOnly={isReadOnly}
+            readOnly={isReadOnly || edit}
             setValue={setValue}
           />
 
           <SalesField
             control={control}
-            readOnly={isReadOnly}
+            readOnly={isReadOnly || edit}
             setValue={setValue}
           />
 
           <RevenueField
             control={control}
-            readOnly={isReadOnly}
+            readOnly={isReadOnly || edit}
             setValue={setValue}
           />
 
-          <KeyConditionField control={control} readOnly={isReadOnly} />
+          <KeyConditionField control={control} readOnly={isReadOnly || edit} />
         </FieldGroup>
       )}
 
+      {/* NOTE: Buttons */}
       <Flex align="center" justify="space-between" gap="small">
         <LinkText type="button" onClick={deleteConfirm}>
           <DeleteText />
@@ -503,10 +520,15 @@ const AddNeed = () => {
           statusNm === "탐색중" ||
           statusNm === "탐색 완료") && (
           <Flex gap="small">
-            {statusNm === "탐색중" || statusNm === "탐색 완료" ? null : (
-              <SecondaryButton buttonType="submit">
+            {statusNm === "탐색중" || statusNm === "탐색 완료" ? null : edit ? (
+              <SecondaryButton
+                buttonType="button"
+                clickEvent={toggleEditStatus}
+              >
                 <EditLongText />
               </SecondaryButton>
+            ) : (
+              <SecondaryButton buttonType="submit">저장하기</SecondaryButton>
             )}
 
             <PrimaryButton clickEvent={terminateConfirm}>

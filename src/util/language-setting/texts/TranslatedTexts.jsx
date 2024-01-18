@@ -576,6 +576,6 @@ export const DeleteAccountDescText = () => {
 };
 
 export const SellConsultText = () => {
-  // 매각 문의
+  // 운영사 소개
   return <FormattedMessage id="lang-sell-consult" />;
 };

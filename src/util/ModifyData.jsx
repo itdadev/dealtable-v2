@@ -9,6 +9,8 @@ export function returnNull(data) {
 export function formatWon(e, setValue, name) {
   let value = e.target.value;
 
+  console.log(isNaN(value));
+
   // 모든 문자 제거 후 숫자와 소수점만 허용
   value = value.replace(/[^\d.]/g, "");
 

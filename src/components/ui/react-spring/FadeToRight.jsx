@@ -17,7 +17,7 @@ const FadeToRight = ({ active, children }) => {
           await next({
             x: 30,
             opacity: 0.5,
-            config: { duration: 1000 },
+            config: { duration: 1500 },
           });
           await next({
             x: 0,
@@ -25,7 +25,7 @@ const FadeToRight = ({ active, children }) => {
             config: { duration: 500 },
           });
         },
-        config: { duration: 1200 },
+        config: { duration: 1500 },
       });
     }
   }, [active, api]);

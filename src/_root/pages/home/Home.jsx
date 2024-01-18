@@ -223,33 +223,28 @@ const Home = () => {
     },
     {
       id: 4,
-      contents: <HomeMembers active={currentSliderIdx === 3} />,
-      image: image.homeSectionBg03,
-    },
-    {
-      id: 5,
-      contents: <HomeEasy active={currentSliderIdx === 4} />,
+      contents: <HomeEasy active={currentSliderIdx === 3} />,
       image: image.homeSectionBg04,
     },
     {
-      id: 6,
-      contents: <HomeSecurity active={currentSliderIdx === 5} />,
+      id: 5,
+      contents: <HomeSecurity active={currentSliderIdx === 4} />,
       image: image.homeSectionBg05,
     },
     {
-      id: 7,
-      contents: <HomeProfessional active={currentSliderIdx === 6} />,
+      id: 6,
+      contents: <HomeProfessional active={currentSliderIdx === 5} />,
       image: image.homeSectionBg06,
     },
     {
-      id: 8,
-      contents: <HomeStart active={currentSliderIdx === 7} />,
+      id: 7,
+      contents: <HomeStart active={currentSliderIdx === 6} />,
       image: image.homeSectionBg07,
     },
   ];
 
   useEffect(() => {
-    if (swiper && swiper?.realIndex === 7) {
+    if (swiper && swiper?.realIndex === 6) {
       swiper?.autoplay.stop();
 
       return;
@@ -278,7 +273,7 @@ const Home = () => {
       <div style={{ height: "100vh" }}>
         {contextHolder}
 
-        <FadeInOut in={currentSliderIdx !== 0 && currentSliderIdx !== 7}>
+        <FadeInOut in={currentSliderIdx !== 0 && currentSliderIdx !== 6}>
           <GoDownArrow fixed swiper={swiper} idx={currentSliderIdx + 1} />
         </FadeInOut>
 
@@ -312,7 +307,7 @@ const Home = () => {
               <SwiperSlide key={section.id}>
                 <div>
                   <BackgroundImageWrapper
-                    isFooter={idx === 7}
+                    isFooter={idx === 6}
                     url={section.image}
                     className="section"
                   >
@@ -323,7 +318,7 @@ const Home = () => {
                     <NormalOverlay />
                   </BackgroundImageWrapper>
 
-                  {idx === 7 && <Footer showFooter />}
+                  {idx === 6 && <Footer showFooter />}
                 </div>
               </SwiperSlide>
             );

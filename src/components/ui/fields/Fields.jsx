@@ -237,7 +237,6 @@ export const DealScaleField = ({
       defaultValue={defaultValue}
       onChange={(e) => formatWon(e, setValue, "deal_scale")}
       maxLength={15}
-      suffix="억원"
     />
   );
 };
@@ -259,7 +258,6 @@ export const SalesField = ({
       defaultValue={defaultValue}
       onChange={(e) => formatWon(e, setValue, "sales")}
       maxLength={15}
-      suffix="억원"
     />
   );
 };
@@ -281,7 +279,6 @@ export const RevenueField = ({
       defaultValue={defaultValue}
       onChange={(e) => formatWon(e, setValue, "revenue")}
       maxLength={15}
-      suffix="억원"
     />
   );
 };
