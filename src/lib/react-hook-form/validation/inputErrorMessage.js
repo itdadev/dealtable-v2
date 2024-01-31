@@ -57,5 +57,5 @@ export const privacyPolicyRequired = IsKorean
   ? "개인정보 처리방침에 동의해주세요."
   : "";
 
-export const industryRequired = IsKorean ? "산업군을 입력해주세요." : "";
-export const dealScaleRequired = IsKorean ? "딜 규모를 입력해주세요." : "";
+export const industryRequired = IsKorean ? "산업 및 업종을 입력해주세요." : "";
+export const dealScaleRequired = IsKorean ? "투자 규모를 입력해주세요." : "";

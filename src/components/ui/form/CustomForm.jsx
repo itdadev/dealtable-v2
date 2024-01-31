@@ -10,10 +10,7 @@ import { image } from "@/theme";
 import { contentZIndex } from "@/constants/zIndex";
 import { useUserContext } from "@/context/AuthContext";
 import { mq } from "@/lib/react-responsive/mediaQuery";
-import {
-  GoBackText,
-  NeedTakeoverText,
-} from "@/util/language-setting/texts/TranslatedTexts";
+import { GoBackText } from "@/util/language-setting/texts/TranslatedTexts";
 
 import { NormalOverlay } from "..";
 
@@ -227,7 +224,9 @@ const CustomForm = ({
             <GotoBack onClick={goBack}>
               <img src={image.leftArrowIcon.default} alt="<" />
 
-              <p>{back ? <GoBackText /> : <NeedTakeoverText />}</p>
+              <p>
+                <GoBackText />
+              </p>
             </GotoBack>
           )}
 

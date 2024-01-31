@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
-import { formatWon } from "@/util/ModifyData";
 import {
   corpNamePH,
   currentPasswordPH,
@@ -204,7 +203,12 @@ export const PhoneField = ({
   );
 };
 
-export const IndustryField = ({ control, readOnly = false, defaultValue }) => {
+export const IndustryField = ({
+  control,
+  readOnly = false,
+  defaultValue,
+  example,
+}) => {
   return (
     <TextAreaInput
       name="industry"
@@ -215,6 +219,7 @@ export const IndustryField = ({ control, readOnly = false, defaultValue }) => {
       readOnly={readOnly}
       maxLength={200}
       defaultValue={defaultValue}
+      example={example}
     />
   );
 };
@@ -228,15 +233,15 @@ export const DealScaleField = ({
   return (
     <TextInput
       name="deal_scale"
-      inputMode="decimal"
+      // inputMode="decimal"
       label={<DealScaleText />}
       labelrequired="true"
       control={control}
       placeholder={dealScalePH}
       readOnly={readOnly}
       defaultValue={defaultValue}
-      onChange={(e) => formatWon(e, setValue, "deal_scale")}
-      maxLength={15}
+      // onChange={(e) => formatWon(e, setValue, "deal_scale")}
+      maxLength={50}
     />
   );
 };
@@ -251,13 +256,13 @@ export const SalesField = ({
     <TextInput
       name="sales"
       label={<SalesText />}
-      inputMode="decimal"
+      // inputMode="decimal"
       control={control}
       placeholder={salesPH}
       readOnly={readOnly}
       defaultValue={defaultValue}
-      onChange={(e) => formatWon(e, setValue, "sales")}
-      maxLength={15}
+      // onChange={(e) => formatWon(e, setValue, "sales")}
+      maxLength={50}
     />
   );
 };
@@ -271,14 +276,14 @@ export const RevenueField = ({
   return (
     <TextInput
       name="revenue"
-      inputMode="decimal"
+      // inputMode="decimal"
       label={<RevenueText />}
       control={control}
       placeholder={revenuePH}
       readOnly={readOnly}
       defaultValue={defaultValue}
-      onChange={(e) => formatWon(e, setValue, "revenue")}
-      maxLength={15}
+      // onChange={(e) => formatWon(e, setValue, "revenue")}
+      maxLength={50}
     />
   );
 };

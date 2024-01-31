@@ -9,8 +9,8 @@ export const verificationCodePH = "인증 번호를 입력하세요";
 export const corpNamePH = "기업명을 입력하세요";
 export const positionPH = "직책을 입력하세요";
 
-export const industryPH = "산업군을 입력하세요";
-export const dealScalePH = "딜 규모를 입력하세요";
+export const industryPH = "산업 및 업종을 입력하세요";
+export const dealScalePH = "투자 규모를 입력하세요";
 export const salesPH = "매출을 입력하세요";
 export const revenuePH = "영업이익을 입력하세요";
 export const keyConditionPH = "핵심조건을 입력하세요";

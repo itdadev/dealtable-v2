@@ -135,7 +135,7 @@ const ToggleButton = styled.img(() => ({
 }));
 
 const DealScaleValue = styled.small(({ theme }) => ({
-  marginLeft: "0.3rem",
+  marginRight: "0.3rem",
   color: theme.color.grey,
   fontSize: "1.2rem",
 }));
@@ -382,13 +382,13 @@ const Need = () => {
 
                     <Column flex={columns[1].flex}>
                       <div className="ellipsis-2">
-                        {need.deal_scale ? addComma(need.deal_scale) : "-"}
-
                         <IsDefault>
                           <DealScaleValue>
                             <DealScaleValueText />
                           </DealScaleValue>
                         </IsDefault>
+
+                        {need.deal_scale ? addComma(need.deal_scale) : "-"}
                       </div>
                     </Column>
 

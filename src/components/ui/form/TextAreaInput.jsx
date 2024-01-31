@@ -69,6 +69,7 @@ const TextAreaInput = (props) => {
           padding: "1.6rem",
           resize: "none",
           fontSize: "1.6rem",
+          marginBottom: props.example ? "1rem" : 0,
         }}
       />
     </TextAresFieldContainer>

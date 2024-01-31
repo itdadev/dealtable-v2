@@ -32,6 +32,7 @@ const NeedExampleModal = ({ open, onOk, onCancel }) => {
         <IndustryField
           maxLength={200}
           readOnly
+          example
           defaultValue={intl.formatMessage({
             id: "lang-example-1",
           })}

@@ -203,6 +203,13 @@ export const NeedsAddEditQuestionText = ({ text }) => {
   );
 };
 
+export const NeedsAddQuestionText = ({ text }) => {
+  // 인수 니즈를 {text}하시겠습니까?
+  return (
+    <FormattedMessage id="lang-needs-add-question" values={{ text: text }} />
+  );
+};
+
 export const NeedsTempoText = () => {
   // 인수 니즈 임시저장
   return <FormattedMessage id="lang-needs-tempo" />;
@@ -231,6 +238,11 @@ export const NeedsTerminateText = () => {
 export const NeedsTerminateQuestionText = () => {
   // 인수 니즈를 종료하시겠습니까?
   return <FormattedMessage id="lang-needs-terminate-question" />;
+};
+
+export const NeedsTerminateWarningText = () => {
+  // 종료 시, 더 이상 인수니즈에 맞는 회사를 추천해드리지 않습니다.
+  return <FormattedMessage id="lang-needs-terminate-warning" />;
 };
 
 export const NeedsRequestText = () => {
@@ -463,7 +475,7 @@ export const MyProfileText = () => {
 };
 
 export const DealScaleValueText = () => {
-  // 억원 딜 규모
+  // 투자 규모
   return <FormattedMessage id="lang-deal-scale-value" />;
 };
 
@@ -478,7 +490,7 @@ export const LoginText = () => {
 };
 
 export const GoBackText = () => {
-  // 뒤로가기
+  // 나가기
   return <FormattedMessage id="lang-go-back" />;
 };
 

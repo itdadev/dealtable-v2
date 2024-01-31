@@ -58,12 +58,12 @@ export const PhoneText = () => {
 };
 
 export const IndustryText = () => {
-  // 산업군
+  // 산업 및 업종
   return <FormattedMessage id="lang-industry" />;
 };
 
 export const DealScaleText = () => {
-  // 딜 규모
+  // 투자 규모
   return <FormattedMessage id="lang-deal-scale" />;
 };
 

@@ -23,13 +23,9 @@ import {
   SalesField,
 } from "@/components/ui/fields/Fields";
 import { ModalContainer, NeedExampleModal } from "@/components/ui/modal";
-import {
-  ModalContents,
-  ModalDescription,
-} from "@/components/ui/modal/TermModal";
+import { ModalContents } from "@/components/ui/modal/TermModal";
 import { zodNeedsAdd } from "@/lib/react-hook-form/validation/zodValidation";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
-import { addComma, returnNull } from "@/util/ModifyData";
 import {
   AddLongText,
   AddText,
@@ -38,7 +34,7 @@ import {
   EditLongText,
   EditText,
   NeedsAddEditQuestionText,
-  NeedsAddModalTitleText,
+  NeedsAddQuestionText,
   NeedsDeleteQuestionText,
   NeedsDeleteWarningText,
   NeedsRequestText,
@@ -46,6 +42,7 @@ import {
   NeedsTempoText,
   NeedsTerminateQuestionText,
   NeedsTerminateText,
+  NeedsTerminateWarningText,
   ShowExampleText,
   TempoAddText,
   TerminateLongText,
@@ -126,9 +123,9 @@ const AddNeed = () => {
   useEffect(() => {
     if (needDetail) {
       setValue("industry", needDetail?.industry);
-      setValue("deal_scale", addComma(needDetail?.deal_scale));
-      setValue("sales", addComma(needDetail?.sales));
-      setValue("revenue", addComma(needDetail?.revenue));
+      setValue("deal_scale", needDetail?.deal_scale);
+      setValue("sales", needDetail?.sales);
+      setValue("revenue", needDetail?.revenue);
       setValue("key_condition", needDetail?.key_condition);
     }
   }, [needDetail, setValue]);
@@ -190,9 +187,9 @@ const AddNeed = () => {
       Interceptor.patch(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: true,
-        deal_scale: returnNull(data?.sales),
-        sales: returnNull(data?.sales),
-        revenue: returnNull(data?.revenue),
+        deal_scale: data?.deal_scale,
+        sales: data?.sales,
+        revenue: data?.revenue,
         needs_key: needsKey,
       }),
     {
@@ -214,9 +211,9 @@ const AddNeed = () => {
       Interceptor.patch(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: false,
-        deal_scale: returnNull(data?.deal_scale),
-        sales: returnNull(data?.sales),
-        revenue: returnNull(data?.revenue),
+        deal_scale: data?.deal_scale,
+        sales: data?.sales,
+        revenue: data?.revenue,
         needs_key: needsKey,
       }),
     {
@@ -238,9 +235,9 @@ const AddNeed = () => {
       Interceptor.post(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: true,
-        deal_scale: returnNull(data?.deal_scale),
-        sales: returnNull(data?.sales),
-        revenue: returnNull(data?.revenue),
+        deal_scale: data?.deal_scale,
+        sales: data?.sales,
+        revenue: data?.revenue,
       }),
     {
       onSuccess: () => {
@@ -260,9 +257,9 @@ const AddNeed = () => {
       Interceptor.post(MUTATE_NEEDS_API_URL, {
         ...data,
         complete: false,
-        deal_scale: returnNull(data?.deal_scale),
-        sales: returnNull(data?.sales),
-        revenue: returnNull(data?.revenue),
+        deal_scale: data?.deal_scale,
+        sales: data?.sales,
+        revenue: data?.revenue,
       }),
     {
       onSuccess: () => {
@@ -393,20 +390,20 @@ const AddNeed = () => {
 
       <ModalContainer
         title={
-          <NeedsAddModalTitleText
-            text={
-              needsKey && statusNm !== "작성중" ? <EditText /> : <AddText />
-            }
-          />
+          needsKey && statusNm !== "작성중" ? <EditLongText /> : <AddLongText />
         }
         open={confirmModal.complete}
         onOk={doneComplete}
         onCancel={handleCancel}
         okText={needsKey && statusNm !== "작성중" ? <EditText /> : <AddText />}
       >
-        <NeedsAddEditQuestionText
-          text={needsKey && statusNm !== "작성중" ? <EditText /> : <AddText />}
-        />
+        <ModalContents>
+          {needsKey && statusNm !== "작성중" ? (
+            <NeedsAddEditQuestionText text={<EditText />} />
+          ) : (
+            <NeedsAddQuestionText />
+          )}
+        </ModalContents>
       </ModalContainer>
 
       <ModalContainer
@@ -416,7 +413,9 @@ const AddNeed = () => {
         onCancel={handleCancel}
         okText={<TempoAddText />}
       >
-        <NeedsTempoQuestionText />
+        <ModalContents>
+          <NeedsTempoQuestionText />
+        </ModalContents>
       </ModalContainer>
 
       <ModalContainer
@@ -426,12 +425,14 @@ const AddNeed = () => {
         onCancel={handleCancel}
         okText={<DeleteText />}
       >
-        <ModalDescription>
-          <NeedsDeleteQuestionText />
-        </ModalDescription>
-
         <ModalContents>
-          <NeedsDeleteWarningText />
+          <p>
+            <NeedsDeleteQuestionText />
+          </p>
+
+          <p>
+            <NeedsDeleteWarningText />
+          </p>
         </ModalContents>
       </ModalContainer>
 
@@ -442,7 +443,15 @@ const AddNeed = () => {
         onCancel={handleCancel}
         okText={<TerminateText />}
       >
-        <NeedsTerminateQuestionText />
+        <ModalContents>
+          <p>
+            <NeedsTerminateQuestionText />
+          </p>
+
+          <p>
+            <NeedsTerminateWarningText />
+          </p>
+        </ModalContents>
       </ModalContainer>
 
       <FormTitle align="center" justify="space-between" wrap="wrap" gap="small">
