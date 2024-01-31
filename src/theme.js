@@ -8,6 +8,9 @@ export const image = {
   homeSectionBg05: require("./assets/images/home-section-bg05.png"),
   homeSectionBg06: require("./assets/images/home-section-bg06.png"),
   homeSectionBg07: require("./assets/images/home-section-bg07.png"),
+  longList: require("./assets/images/long-list.jpg"),
+  longListImage: require("./assets/images/long-list-image.jpg"),
+  longListExcel: require("./assets/images/long-list-excel.xlsx"),
 
   // NOTE: icons for all pages
   whiteLogo: require("./assets/icons/logo-white.svg"),
@@ -20,6 +23,8 @@ export const image = {
   filterAsc: require("./assets/icons/filter-asc.svg"),
   filterDesc: require("./assets/icons/filter-desc.svg"),
   leftArrowIcon: require("./assets/icons/arrow-left-s-line.svg"),
+  downloadIcon: require("./assets/icons/download-icon.svg"),
+  downloadIconWhite: require("./assets/icons/download-icon-white.svg"),
 };
 
 export const color = {

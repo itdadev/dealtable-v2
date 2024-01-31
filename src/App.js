@@ -34,6 +34,7 @@ import { Notice } from "./_root/pages/notice";
 import { Header } from "./components/shared";
 import { useEffect } from "react";
 import { LOCAL_STORAGE_SITE_LANGUAGE } from "@/constants/StorageKey";
+import { FloatImageButton } from "@/components/ui/buttons";
 
 function App() {
   useEffect(() => {
@@ -54,6 +55,8 @@ function App() {
       <ConfigProvider theme={AntdTheme}>
         <div>
           <Header />
+
+          <FloatImageButton />
 
           <Routes>
             <Route element={<AuthLayout />}>
