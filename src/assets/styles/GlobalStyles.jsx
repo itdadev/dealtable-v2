@@ -88,10 +88,6 @@ const style = css`
         background: transparent; /*스크롤바 뒷 배경 색상*/
     }
 
-    p + p {
-        margin-block-start: 0.6rem;
-    }
-
     a {
         color: inherit;
         font-size: inherit;

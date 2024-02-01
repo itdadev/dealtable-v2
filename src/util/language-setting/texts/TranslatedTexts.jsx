@@ -40,17 +40,17 @@ export const StartText = () => {
 };
 
 export const Home1Text1 = () => {
-  // 수십만 개의 기업 중
+  // 원하는 조건의
   return <FormattedMessage id="lang-home-1-text-1" />;
 };
 
 export const Home1Text2 = () => {
-  // 인수하고 싶은 조건의 회사를 찾는 것은
+  // 인수대상 회사를 찾는 것은
   return <FormattedMessage id="lang-home-1-text-2" />;
 };
 
 export const Home1Text3 = () => {
-  // 매우 어려운 일입니다.
+  // 매우 어렵습니다.
   return <FormattedMessage id="lang-home-1-text-3" />;
 };
 
@@ -61,7 +61,7 @@ export const Home2Text1 = () => {
 };
 
 export const Home2Text2 = () => {
-  // 인수 니즈에 맞는 잠재매도기업을
+  // 조건에 맞는 인수대상 회사를
   return <FormattedMessage id="lang-home-2-text-2" />;
 };
 
@@ -86,53 +86,38 @@ export const Home3Text3 = () => {
 };
 
 export const Home4Text1 = () => {
-  // 인수하고 싶은 회사의 조건만
+  // 산업군, 매출 및 영업이익,
   return <FormattedMessage id="lang-home-4-text-1" />;
 };
 
 export const Home4Text2 = () => {
-  // 입력하면 직접 탐색할 필요없이 잠재매도기업 리스트를
+  // 투자규모 및 핵심 조건 몇 가지만
   return <FormattedMessage id="lang-home-4-text-2" />;
 };
 
 export const Home4Text3 = () => {
-  //  받을 수 있습니다.
+  //  입력하면 됩니다.
   return <FormattedMessage id="lang-home-4-text-3" />;
 };
 
 export const Home5Text1Contents = () => {
-  // 내부 리서치 전담팀과 IT기술을 활용하여 축적한
+  // IT 기술로 축적한 10만개 이상의 DB와
   return <FormattedMessage id="lang-home-5-text-1-contents" />;
 };
 
 export const Home5Text2Contents = () => {
-  // 10만개 이상의 기업과 Deal 정보를 기반으로
+  // 리서치팀의 최적화된 프로세스로 운영됩니다.
   return <FormattedMessage id="lang-home-5-text-2-contents" />;
 };
 
-export const Home5Text3Contents = () => {
-  // 인수 니즈에 최적화 된 리스트를 추출합니다.
-  return <FormattedMessage id="lang-home-5-text-3-contents" />;
-};
-
 export const Home6Text1 = () => {
-  // DEALTABLE은 매각 및 인수 주관/자문, 기업가치평가 등
+  // 회계법인, 사모펀드 및 대기업 출신 전문가로 구성된
   return <FormattedMessage id="lang-home-6-text-1" />;
 };
 
 export const Home6Text2 = () => {
-  // Deal 전문 서비스를 제공하며 10만개 이상의
+  // MMP가 만들고 운영합니다.
   return <FormattedMessage id="lang-home-6-text-2" />;
-};
-
-export const Home6Text3 = () => {
-  // 기업 DB를 축적한 중소기업 전문
-  return <FormattedMessage id="lang-home-6-text-3" />;
-};
-
-export const Home6Text4 = () => {
-  // Deal Advisory, MMP가 만들고 운영합니다.
-  return <FormattedMessage id="lang-home-6-text-4" />;
 };
 
 // NOTE: 인수 니즈

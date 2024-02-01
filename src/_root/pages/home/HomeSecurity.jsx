@@ -4,7 +4,6 @@ import { BorderButton } from "@/components/ui/buttons";
 import {
   Home5Text1Contents,
   Home5Text2Contents,
-  Home5Text3Contents,
   StartText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 import { FadeToRight, Trail } from "@/components/ui/react-spring";
@@ -30,8 +29,6 @@ const HomeSecurity = ({ active }) => {
           <Home5Text1Contents />
 
           <Home5Text2Contents />
-
-          <Home5Text3Contents />
         </Trail>
       </HomeSectionDescWithLine>
 

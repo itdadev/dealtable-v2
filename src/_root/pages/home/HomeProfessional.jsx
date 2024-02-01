@@ -5,8 +5,6 @@ import { FadeToRight, Trail } from "@/components/ui/react-spring";
 import {
   Home6Text1,
   Home6Text2,
-  Home6Text3,
-  Home6Text4,
   StartText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 
@@ -29,10 +27,6 @@ const HomeProfessional = ({ active }) => {
           <Home6Text1 />
 
           <Home6Text2 />
-
-          <Home6Text3 />
-
-          <Home6Text4 />
         </Trail>
       </HomeSectionDescContainer>
 

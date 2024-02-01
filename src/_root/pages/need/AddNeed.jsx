@@ -310,7 +310,6 @@ const AddNeed = () => {
   );
 
   const addNeedSubmit = useCallback(() => {
-    console.log("ddd");
     setConfirmModal({
       complete: true,
       tempo: false,

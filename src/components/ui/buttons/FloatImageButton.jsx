@@ -28,7 +28,7 @@ const NeedsList = styled(Flex)(({ theme }) => ({
   flexDirection: "column",
   background: theme.color.disableGrey,
   padding: "2.4rem",
-  gap: "0 5.6rem",
+  gap: "1rem 5.6rem",
   fontSize: "1.6rem",
 
   [mq("desktop")]: {
@@ -42,14 +42,19 @@ const NeedsWrapper = styled(Flex)(() => ({
 }));
 
 const NeedsItem = styled(Flex)(() => ({
-  wordBreak: "keep-all",
-  whiteSpace: "nowrap",
-  gap: "0 1rem",
+  [mq("desktop")]: {
+    wordBreak: "keep-all",
+    whiteSpace: "nowrap",
+  },
 }));
 
 const NeedsTitle = styled.header(({ theme }) => ({
-  minWidth: "12rem",
+  minWidth: "10rem",
   color: theme.color.readOnlyText,
+
+  [mq("desktop")]: {
+    minWidth: "12rem",
+  },
 }));
 
 const BorderButton = styled.a(({ theme }) => ({
