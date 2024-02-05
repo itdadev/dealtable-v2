@@ -216,7 +216,7 @@ const FloatImageButton = () => {
           <Flex align="center" justify="center" gap="0.8rem" wrap="wrap">
             <BorderButton
               href={image.longListImage}
-              download
+              download="DEALTABLE_Long-list"
               onMouseEnter={() => handleHover("image")}
               onMouseLeave={() => handleLeave("image")}
             >
@@ -233,7 +233,7 @@ const FloatImageButton = () => {
 
             <BorderButton
               href={image.longListExcel}
-              download
+              download="DEALTABLE_Long-list"
               onMouseEnter={() => handleHover("excel")}
               onMouseLeave={() => handleLeave("excel")}
             >
@@ -254,7 +254,7 @@ const FloatImageButton = () => {
           <SectionTitle justify="space-between">
             <p>Long-List</p>{" "}
             <p>
-              기업 총 <b>85개</b>
+              기업 총 <b>32개</b>
             </p>
           </SectionTitle>
 

@@ -9,8 +9,8 @@ export const image = {
   homeSectionBg06: require("./assets/images/home-section-bg06.png"),
   homeSectionBg07: require("./assets/images/home-section-bg07.png"),
   longList: require("./assets/images/long-list.jpg"),
-  longListImage: require("./assets/images/long-list-image.jpg"),
-  longListExcel: require("./assets/images/long-list-excel.xlsx"),
+  longListImage: require("./assets/images/DEALTABLE_Long-list.jpg"),
+  longListExcel: require("./assets/images/DEALTABLE_Long-list.xlsx"),
 
   // NOTE: icons for all pages
   whiteLogo: require("./assets/icons/logo-white.svg"),
