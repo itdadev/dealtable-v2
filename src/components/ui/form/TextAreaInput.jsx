@@ -24,6 +24,10 @@ const TextAreaInput = (props) => {
               rows={4}
               id={props.name}
               showCount
+              autoSize={{
+                minRows: props.minrows ? props.minrows : 5,
+                maxRows: 18,
+              }}
               styles={{
                 padding: "1.6rem",
                 resize: "none",

@@ -269,11 +269,7 @@ const Header = () => {
             <Flex gap="large">
               <LanguageSwitcher />
 
-              <a
-                href="https://www.mmp.co.kr/m61.php"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="https://www.mmp.co.kr/" target="_blank" rel="noreferrer">
                 <SellConsultText />
               </a>
 
@@ -351,9 +347,10 @@ const Header = () => {
               ) : (
                 <>
                   <a
-                    href="https://www.mmp.co.kr/m61.php"
+                    href="https://www.mmp.co.kr/"
                     target="_blank"
                     rel="noreferrer"
+                    onClick={closeModal}
                   >
                     <SellConsultText />
                   </a>

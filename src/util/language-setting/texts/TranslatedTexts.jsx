@@ -146,6 +146,11 @@ export const EditLongText = () => {
   return <FormattedMessage id="lang-edit-long" />;
 };
 
+export const PleaseEditNeedText = () => {
+  // 수정하기
+  return <FormattedMessage id="lang-please-edit-needs" />;
+};
+
 export const AddText = () => {
   // 생성
   return <FormattedMessage id="lang-add" />;
@@ -434,22 +439,22 @@ export const ContinueText = () => {
 
 // NOTE: Footer
 export const BrandNameText = () => {
-  // (주)딜테이블
+  // 주식회사 엠엠피
   return <FormattedMessage id="lang-brand-name" />;
 };
 
 export const CEONameText = () => {
-  // 대표: 김테이블
+  // 대표: 김규현
   return <FormattedMessage id="lang-ceo-name" />;
 };
 
 export const CompanyAddressText = () => {
-  // 주소: 서울시 강남구 강남대로 123
+  // 주소: 서울시 강남구 영동대로 607 랜드마크빌딩 12층
   return <FormattedMessage id="lang-company-address" />;
 };
 
 export const CEONumberText = () => {
-  // 대표번호: 02-1234-5678
+  // 대표번호: 02-6426-0308
   return <FormattedMessage id="lang-ceo-number" />;
 };
 

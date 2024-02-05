@@ -9,6 +9,7 @@ import {
 } from "@/util/language-setting/texts/TranslatedTexts";
 import { mq } from "@/lib/react-responsive/mediaQuery";
 import { image } from "@/theme";
+import { useMediaQuery } from "react-responsive";
 
 const Container = styled.div(() => ({
   maxWidth: "90rem",
@@ -73,7 +74,36 @@ const BorderButton = styled.a(({ theme }) => ({
   },
 }));
 
+const StyledFloatButton = styled(FloatButton)(({ theme }) => ({
+  width: "16rem !important",
+  height: "5rem !important",
+  backgroundColor: `${theme.color.primary02} !important`,
+  borderRadius: "5.6rem !important",
+
+  ".ant-float-btn-body": {
+    backgroundColor: `${theme.color.primary02} !important`,
+    borderRadius: "5.6rem !important",
+  },
+
+  ".ant-float-btn-content": {
+    flexDirection: "row !important",
+    gap: "0 0.8rem",
+  },
+
+  [mq("desktop")]: {
+    width: "23rem !important",
+    height: "6rem !important",
+
+    ".ant-float-btn-description": {
+      fontSize: "1.6rem !important",
+      fontWeight: theme.fontWeight.bold,
+    },
+  },
+}));
+
 const FloatImageButton = () => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
   const [hover, setHover] = useState({
     image: false,
     excel: false,
@@ -234,7 +264,19 @@ const FloatImageButton = () => {
         </Section>
       </ModalContainer>
 
-      <FloatButton onClick={() => handleModalOpen()} />
+      <StyledFloatButton
+        onClick={() => handleModalOpen()}
+        icon={
+          <img
+            src={image.longListIcon.default}
+            alt="long list 아이콘"
+            width={isDesktop ? 18 : 14}
+            height={isDesktop ? 18 : 14}
+          />
+        }
+        description="Long-list 샘플보기"
+        type="primary"
+      />
     </>
   );
 };

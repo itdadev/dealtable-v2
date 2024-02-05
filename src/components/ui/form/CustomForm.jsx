@@ -95,7 +95,7 @@ export const FieldContainer = styled.div(({ theme }) => ({
 }));
 
 export const TextAresFieldContainer = styled.div(({ theme }) => ({
-  minHeight: "18rem",
+  minHeight: "21rem",
   width: "100%",
   flex: 1,
   display: "flex",

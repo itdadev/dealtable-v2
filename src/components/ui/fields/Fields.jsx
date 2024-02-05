@@ -304,6 +304,7 @@ export const KeyConditionField = ({
       maxLength={700}
       defaultValue={defaultValue}
       example={example}
+      minrows={8}
     />
   );
 };

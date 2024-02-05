@@ -24,6 +24,7 @@ import {
   HomeStart,
   MainBanner,
 } from ".";
+import { FloatImageButton } from "@/components/ui/buttons";
 
 export const BackgroundImageWrapper = styled.div(({ url, isFooter }) => ({
   position: "relative",
@@ -271,6 +272,8 @@ const Home = () => {
   return (
     <>
       <div style={{ height: "100vh" }}>
+        <FloatImageButton />
+
         {contextHolder}
 
         <FadeInOut in={currentSliderIdx !== 0 && currentSliderIdx !== 6}>
@@ -284,7 +287,7 @@ const Home = () => {
             clickable: isDesktop,
           }}
           loop={false}
-          autoplay={{ delay: 5000 }}
+          autoplay={{ delay: 7000 }}
           speed={1000}
           onSwiper={setSwiper}
           onResize={setSwiper}

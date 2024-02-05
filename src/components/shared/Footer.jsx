@@ -60,7 +60,7 @@ const Footer = ({ showFooter }) => {
           </div>
 
           <div>
-            email: mmp@mmp.co.kr
+            Email: contact@dealtable.co.kr
             <Divider
               type="vertical"
               style={{

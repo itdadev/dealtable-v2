@@ -102,6 +102,7 @@ const Column = styled.div(({ flex, header, theme, point }) => ({
   whiteSpace: header === "true" ? "nowrap" : "break-word",
   textOverflow: "ellipsis",
   overflow: "hidden",
+  wordBreak: "break-word",
 
   [mq("desktop")]: {
     flex: flex,

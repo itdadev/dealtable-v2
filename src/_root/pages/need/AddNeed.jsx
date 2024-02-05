@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Flex, Spin } from "antd";
+import { Flex, notification, Spin } from "antd";
 import styled from "@emotion/styled";
 import { useMediaQuery } from "react-responsive";
 
@@ -43,6 +43,7 @@ import {
   NeedsTerminateQuestionText,
   NeedsTerminateText,
   NeedsTerminateWarningText,
+  PleaseEditNeedText,
   ShowExampleText,
   TempoAddText,
   TerminateLongText,
@@ -57,7 +58,6 @@ const LinkText = styled.button(({ theme }) => ({
 
 const FormTitle = styled(Flex)(() => ({
   fontSize: "2.2rem",
-  marginBottom: "2rem",
 }));
 
 const StatusName = styled.span(({ theme }) => ({
@@ -72,7 +72,13 @@ const ExampleButton = styled.button(({ theme }) => ({
   fontSize: "1.4rem",
 }));
 
+const FormWrapper = styled.div(() => ({
+  marginTop: "2.2rem",
+}));
+
 const AddNeed = () => {
+  const [api, contextHolder] = notification.useNotification();
+
   const [exampleModalOpen, setExampleModalOpen] = useState(false);
 
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -159,6 +165,7 @@ const AddNeed = () => {
       setEdit(true);
     }
   }, [statusNm]);
+
   const isReadOnly = useMemo(() => {
     switch (needDetail?.status) {
       case "0":
@@ -372,14 +379,27 @@ const AddNeed = () => {
     setExampleModalOpen(false);
   };
 
-  const toggleEditStatus = useCallback((e) => {
-    e.preventDefault();
+  const toggleEditStatus = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    setEdit((prev) => !prev);
-  }, []);
+      if (edit) {
+        api.success({
+          message: <EditLongText />,
+          description: <PleaseEditNeedText />,
+          duration: 3,
+        });
+      }
+
+      setEdit((prev) => !prev);
+    },
+    [api, edit],
+  );
 
   return (
     <CustomForm wide submitEvent={handleSubmit(addNeedSubmit)} noLogo>
+      {contextHolder}
+
       {/* NOTE: Modals */}
       <NeedExampleModal
         open={exampleModalOpen}
@@ -468,43 +488,69 @@ const AddNeed = () => {
           </StatusName>
         </Flex>
 
+        {statusNm !== "작성 완료" ? null : edit ? (
+          <SecondaryButton buttonType="button" clickEvent={toggleEditStatus}>
+            <EditLongText />
+          </SecondaryButton>
+        ) : (
+          <SecondaryButton buttonType="submit">저장하기</SecondaryButton>
+        )}
+
         {(statusNm === "생성" ||
-          statusNm === "작성중" ||
-          statusNm === "작성 완료") && (
+          statusNm === "탐색중" ||
+          statusNm === "탐색 완료" ||
+          statusNm === "작성중") && (
           <ExampleButton type="button" onClick={showExampleModal}>
             <ShowExampleText />
           </ExampleButton>
         )}
       </FormTitle>
 
-      {/* NOTE: Fields */}
-      {isLoading ? (
-        <Spin />
-      ) : (
-        <FieldGroup>
-          <IndustryField control={control} readOnly={isReadOnly || edit} />
-
-          <DealScaleField
-            control={control}
-            readOnly={isReadOnly || edit}
-            setValue={setValue}
-          />
-
-          <SalesField
-            control={control}
-            readOnly={isReadOnly || edit}
-            setValue={setValue}
-          />
-
-          <RevenueField
-            control={control}
-            readOnly={isReadOnly || edit}
-            setValue={setValue}
-          />
-
-          <KeyConditionField control={control} readOnly={isReadOnly || edit} />
-        </FieldGroup>
+      {statusNm === "작성 완료" && (
+        <Flex justify="flex-end">
+          {(statusNm === "생성" ||
+            statusNm === "작성중" ||
+            statusNm === "작성 완료") && (
+            <ExampleButton type="button" onClick={showExampleModal}>
+              <ShowExampleText />
+            </ExampleButton>
+          )}
+        </Flex>
       )}
+
+      <FormWrapper>
+        {/* NOTE: Fields */}
+        {isLoading ? (
+          <Spin />
+        ) : (
+          <FieldGroup>
+            <IndustryField control={control} readOnly={isReadOnly || edit} />
+
+            <DealScaleField
+              control={control}
+              readOnly={isReadOnly || edit}
+              setValue={setValue}
+            />
+
+            <SalesField
+              control={control}
+              readOnly={isReadOnly || edit}
+              setValue={setValue}
+            />
+
+            <RevenueField
+              control={control}
+              readOnly={isReadOnly || edit}
+              setValue={setValue}
+            />
+
+            <KeyConditionField
+              control={control}
+              readOnly={isReadOnly || edit}
+            />
+          </FieldGroup>
+        )}
+      </FormWrapper>
 
       {/* NOTE: Buttons */}
       <Flex align="center" justify="space-between" gap="small">
@@ -528,17 +574,6 @@ const AddNeed = () => {
           statusNm === "탐색중" ||
           statusNm === "탐색 완료") && (
           <Flex gap="small">
-            {statusNm === "탐색중" || statusNm === "탐색 완료" ? null : edit ? (
-              <SecondaryButton
-                buttonType="button"
-                clickEvent={toggleEditStatus}
-              >
-                <EditLongText />
-              </SecondaryButton>
-            ) : (
-              <SecondaryButton buttonType="submit">저장하기</SecondaryButton>
-            )}
-
             <PrimaryButton clickEvent={terminateConfirm}>
               <TerminateLongText />
             </PrimaryButton>

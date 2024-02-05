@@ -25,12 +25,14 @@ export const image = {
   leftArrowIcon: require("./assets/icons/arrow-left-s-line.svg"),
   downloadIcon: require("./assets/icons/download-icon.svg"),
   downloadIconWhite: require("./assets/icons/download-icon-white.svg"),
+  longListIcon: require("./assets/icons/long-list-icon.svg"),
 };
 
 export const color = {
   // NOTE: colors for all pages
   primary: "#2B2F65",
   primaryPoint: "#141CBE",
+  primary02: "#4347B7",
   secondary: "#BD9B60",
   exampleButton: "#C4C2B8",
   baseBlack: "#111",
