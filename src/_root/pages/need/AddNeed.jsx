@@ -46,13 +46,12 @@ import {
   PleaseEditNeedText,
   ShowExampleText,
   TempoAddText,
-  TerminateLongText,
   TerminateText,
   WritingText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 
-const LinkText = styled.button(({ theme }) => ({
-  color: theme.color.grey,
+const LinkText = styled.button(({ theme, isdelete }) => ({
+  color: isdelete ? theme.color.error : theme.color.grey,
   fontSize: "1.6rem",
 }));
 
@@ -250,7 +249,9 @@ const AddNeed = () => {
       onSuccess: () => {
         queryClient.removeQueries("needList");
 
-        navigate("/need/add-complete");
+        navigate("/need/add-complete", {
+          state: { correctAccess: true },
+        });
       },
       onError: (error) => {
         console.log(error);
@@ -488,25 +489,6 @@ const AddNeed = () => {
           </StatusName>
         </Flex>
 
-        {statusNm !== "작성 완료" ? null : edit ? (
-          <SecondaryButton buttonType="button" clickEvent={toggleEditStatus}>
-            <EditLongText />
-          </SecondaryButton>
-        ) : (
-          <SecondaryButton buttonType="submit">저장하기</SecondaryButton>
-        )}
-
-        {(statusNm === "생성" ||
-          statusNm === "탐색중" ||
-          statusNm === "탐색 완료" ||
-          statusNm === "작성중") && (
-          <ExampleButton type="button" onClick={showExampleModal}>
-            <ShowExampleText />
-          </ExampleButton>
-        )}
-      </FormTitle>
-
-      {statusNm === "작성 완료" && (
         <Flex justify="flex-end">
           {(statusNm === "생성" ||
             statusNm === "작성중" ||
@@ -516,7 +498,7 @@ const AddNeed = () => {
             </ExampleButton>
           )}
         </Flex>
-      )}
+      </FormTitle>
 
       <FormWrapper>
         {/* NOTE: Fields */}
@@ -554,9 +536,29 @@ const AddNeed = () => {
 
       {/* NOTE: Buttons */}
       <Flex align="center" justify="space-between" gap="small">
-        <LinkText type="button" onClick={deleteConfirm}>
-          <DeleteText />
-        </LinkText>
+        <Flex gap="0 1.6rem">
+          <LinkText type="button" onClick={deleteConfirm} isdelete>
+            <DeleteText />
+          </LinkText>
+
+          {(statusNm === "작성 완료" ||
+            statusNm === "탐색중" ||
+            statusNm === "탐색 완료") && (
+            <Flex gap="small">
+              <LinkText type="button" onClick={terminateConfirm}>
+                <TerminateText />
+              </LinkText>
+            </Flex>
+          )}
+        </Flex>
+
+        {statusNm !== "작성 완료" ? null : edit ? (
+          <SecondaryButton buttonType="button" clickEvent={toggleEditStatus}>
+            <EditLongText />
+          </SecondaryButton>
+        ) : (
+          <SecondaryButton buttonType="submit">저장하기</SecondaryButton>
+        )}
 
         {(statusNm === "작성중" || !needsKey) && (
           <Flex gap="small">
@@ -566,16 +568,6 @@ const AddNeed = () => {
 
             <PrimaryButton buttonType="submit">
               <AddLongText />
-            </PrimaryButton>
-          </Flex>
-        )}
-
-        {(statusNm === "작성 완료" ||
-          statusNm === "탐색중" ||
-          statusNm === "탐색 완료") && (
-          <Flex gap="small">
-            <PrimaryButton clickEvent={terminateConfirm}>
-              <TerminateLongText />
             </PrimaryButton>
           </Flex>
         )}

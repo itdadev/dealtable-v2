@@ -3,6 +3,7 @@ import { Controller } from "react-hook-form";
 import Password from "antd/es/input/Password";
 
 import { FieldContainer, FieldErrorMessage } from "./CustomForm";
+import { Flex } from "antd";
 
 const PasswordInput = (props) => {
   return (
@@ -13,11 +14,13 @@ const PasswordInput = (props) => {
         return (
           <FieldContainer>
             <label htmlFor={props.name}>
-              {props.label}
+              <Flex align="center" justify="space-between">
+                <Flex>
+                  <span>{props.label}</span>
 
-              <sup>
-                {props.labelrequired === "true" && !props.readOnly && "*"}
-              </sup>
+                  <sup>{props.labelrequired === "true" && "*"}</sup>
+                </Flex>
+              </Flex>
             </label>
 
             <Password

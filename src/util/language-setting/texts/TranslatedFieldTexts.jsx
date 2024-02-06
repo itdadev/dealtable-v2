@@ -73,7 +73,7 @@ export const SalesText = () => {
 };
 
 export const RevenueText = () => {
-  // 영업 이익
+  // 영업이익
   return <FormattedMessage id="lang-revenue" />;
 };
 

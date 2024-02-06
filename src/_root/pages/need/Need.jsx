@@ -1,17 +1,17 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useInfiniteQuery } from "react-query";
-import { Flex, Spin, notification } from "antd";
-import { useIntl } from "react-intl";
+import React, {Fragment, useCallback, useEffect, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useInfiniteQuery} from "react-query";
+import {Flex, Spin, notification} from "antd";
+import {useIntl} from "react-intl";
 import styled from "@emotion/styled";
 
-import { PrimaryButton } from "@/components/ui/buttons";
+import {PrimaryButton} from "@/components/ui/buttons";
 import LoadMoreButton from "@/components/ui/buttons/LoadMoreButton";
-import { NEEDS_LIST_API_URL, NEED_LIST_LOAD_SIZE } from "@/constants/apiUrls";
-import { CustomForm } from "@/components/ui/form";
+import {NEEDS_LIST_API_URL, NEED_LIST_LOAD_SIZE} from "@/constants/apiUrls";
+import {CustomForm} from "@/components/ui/form";
 import Interceptor from "@/lib/axios/AxiosInterceptor";
-import { IsDefault, IsDesktop, mq } from "@/lib/react-responsive/mediaQuery";
-import { image } from "@/theme";
+import {IsDefault, IsDesktop, mq} from "@/lib/react-responsive/mediaQuery";
+import {image} from "@/theme";
 import {
   NeedTakeoverText,
   NeedsAddText,
@@ -27,21 +27,21 @@ import {
   TotalTicketText,
   DealScaleValueText,
 } from "@/util/language-setting/texts/TranslatedTexts";
-import { addComma } from "@/util/ModifyData";
+import {addComma} from "@/util/ModifyData";
 
-const StyledTable = styled.div(({ theme, noborder }) => ({
+const StyledTable = styled.div(({theme, noborder}) => ({
   maxWidth: "80vw",
   margin: "1.6rem auto",
   borderBottom: noborder ? "none" : `1px solid ${theme.color.lightGrey}`,
 }));
 
-export const Nodata = styled.div(({ theme }) => ({
+export const Nodata = styled.div(({theme}) => ({
   padding: "2rem",
   textAlign: "center",
   color: theme.color.grey,
 }));
 
-const StyledRow = styled(Flex)(({ theme }) => ({
+const StyledRow = styled(Flex)(({theme}) => ({
   position: "relative",
   color: theme.color.baseBlack,
   flexDirection: "column",
@@ -93,7 +93,7 @@ const StyledRow = styled(Flex)(({ theme }) => ({
   },
 }));
 
-const Column = styled.div(({ flex, header, theme, point }) => ({
+const Column = styled.div(({flex, header, theme, point}) => ({
   flex: "1",
   display: "flex",
   lineHeight: 1.8,
@@ -135,19 +135,19 @@ const ToggleButton = styled.img(() => ({
   cursor: "pointer",
 }));
 
-const DealScaleValue = styled.small(({ theme }) => ({
+const DealScaleValue = styled.small(({theme}) => ({
   marginRight: "0.3rem",
   color: theme.color.grey,
   fontSize: "1.2rem",
 }));
 
-const FilterToggle = ({ switchStatus, setSwitchStatus, type }) => {
+const FilterToggle = ({switchStatus, setSwitchStatus, type}) => {
   if (switchStatus === "asc") {
     return (
       <ToggleButton
         src={image.filterAsc.default}
         alt="필터 오름차순"
-        onClick={() => setSwitchStatus({ [type]: "desc" })}
+        onClick={() => setSwitchStatus({[type]: "desc"})}
       />
     );
   }
@@ -157,7 +157,7 @@ const FilterToggle = ({ switchStatus, setSwitchStatus, type }) => {
       <ToggleButton
         src={image.filterDesc.default}
         alt="필터 내림차순"
-        onClick={() => setSwitchStatus({ [type]: "asc" })}
+        onClick={() => setSwitchStatus({[type]: "asc"})}
       />
     );
   }
@@ -167,7 +167,7 @@ const FilterToggle = ({ switchStatus, setSwitchStatus, type }) => {
       <ToggleButton
         src={image.filterOff.default}
         alt="필터 없음"
-        onClick={() => setSwitchStatus({ [type]: "asc" })}
+        onClick={() => setSwitchStatus({[type]: "asc"})}
       />
     );
   }
@@ -177,15 +177,15 @@ const Need = () => {
   const intl = useIntl();
 
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const {state} = useLocation();
 
   const [switchStatus, setSwitchStatus] = useState({
     status: "",
     date: "desc",
   });
 
-  const getNeedList = async ({ pageParam = 1 }) => {
-    const { status, data } = await Interceptor?.get(
+  const getNeedList = async ({pageParam = 1}) => {
+    const {status, data} = await Interceptor?.get(
       `${NEEDS_LIST_API_URL}?page=${pageParam}&size=${NEED_LIST_LOAD_SIZE}&order_status=${
         switchStatus.status ? switchStatus.status : ""
       }&order_ins_date=${switchStatus.date ? switchStatus.date : "desc"}`,
@@ -201,32 +201,32 @@ const Need = () => {
   useEffect(() => {
     if (state?.mutateStatus === "delete") {
       api.success({
-        message: <NeedsDeleteText />,
-        description: <NeedsDeleteCompleteText />,
+        message: <NeedsDeleteText/>,
+        description: <NeedsDeleteCompleteText/>,
         duration: 3,
       });
     }
 
     if (state?.mutateStatus === "terminate") {
       api.success({
-        message: <NeedsDoneText />,
-        description: <NeedsDoneCompleteText />,
+        message: <NeedsDoneText/>,
+        description: <NeedsDoneCompleteText/>,
         duration: 3,
       });
     }
 
     if (state?.mutateStatus === "tempo") {
       api.success({
-        message: <NeedsTempoAddText />,
-        description: <NeedsTempoAddCompleteText />,
+        message: <NeedsTempoAddText/>,
+        description: <NeedsTempoAddCompleteText/>,
         duration: 3,
       });
     }
 
     if (state?.mutateStatus === "edit") {
       api.success({
-        message: <NeedsEditText />,
-        description: <NeedsEditCompleteText />,
+        message: <NeedsEditText/>,
+        description: <NeedsEditCompleteText/>,
         duration: 3,
       });
     }
@@ -319,7 +319,7 @@ const Need = () => {
       <Flex align="center" justify="space-between">
         <TotalCnt vertical>
           <Title>
-            <NeedTakeoverText />
+            <NeedTakeoverText/>
           </Title>
 
           <Flex gap="small">
@@ -334,14 +334,14 @@ const Need = () => {
         </TotalCnt>
 
         <PrimaryButton linkTo="/need/add">
-          <NeedsAddText />
+          <NeedsAddText/>
         </PrimaryButton>
       </Flex>
 
       <StyledTable noborder={isLoading ? "true" : "false"}>
         {isLoading ? (
           <Flex align="center" justify="center">
-            <Spin />
+            <Spin/>
           </Flex>
         ) : (
           <>
@@ -368,7 +368,7 @@ const Need = () => {
               if (group.data.length <= 0) {
                 return (
                   <Nodata key="no Data">
-                    <NoNeedsDataText />
+                    <NoNeedsDataText/>
                   </Nodata>
                 );
               }
@@ -385,11 +385,11 @@ const Need = () => {
                       <div className="ellipsis-2">
                         <IsDefault>
                           <DealScaleValue>
-                            <DealScaleValueText />
+                            <DealScaleValueText/>
                           </DealScaleValue>
                         </IsDefault>
 
-                        {need.deal_scale ? addComma(need.deal_scale) : "-"}
+                        <p>{need.deal_scale ? addComma(need.deal_scale) : "-"}</p>
                       </div>
                     </Column>
 

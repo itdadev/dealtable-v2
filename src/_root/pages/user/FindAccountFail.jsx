@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 
 import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
@@ -13,13 +13,25 @@ import {
 } from "@/util/language-setting/texts/TranslatedTexts";
 
 import { ButtonWrapper } from "./JoinComplete";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Description = styled.div(({ theme }) => ({
   color: theme.color.grey,
   fontSize: "1.6rem",
+  lineHeight: 1.5,
 }));
 
 const FindAccountFail = () => {
+  const navigate = useNavigate();
+
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state === null || !state?.correctAccess) {
+      navigate("/");
+    }
+  }, [navigate, state]);
+
   return (
     <CustomForm noGoBack>
       <div>
@@ -38,11 +50,11 @@ const FindAccountFail = () => {
         </Description>
 
         <ButtonWrapper>
-          <SecondaryButton type="primary" key="console" linkTo="/login">
+          <SecondaryButton type="primary" linkTo="/login">
             <LoginLongText />
           </SecondaryButton>
 
-          <PrimaryButton type="primary" key="console" linkTo="/find-account">
+          <PrimaryButton type="primary" linkTo="/find-account">
             <ChangeAccountPasswordText />
           </PrimaryButton>
         </ButtonWrapper>

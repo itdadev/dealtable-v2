@@ -130,7 +130,7 @@ const FloatImageButton = () => {
     {
       id: 1,
       title: "산업 및 업종",
-      description: "소스, 조미료 등의 식품첨가물 첨가물",
+      description: "소스, 조미료 등의 식품첨가물",
     },
     {
       id: 2,
@@ -156,8 +156,6 @@ const FloatImageButton = () => {
           <li>2. 대기업 매출처 보유</li>
           <li>3. 공장이 수도권에 위치한 회사 선호</li>
           <li>4. 업력 15년 이상</li>
-          <li>5. 기타</li>
-          <li>6. 기타2</li>
         </ul>
       ),
       separate: true,
@@ -211,7 +209,7 @@ const FloatImageButton = () => {
         </Section>
 
         <Section>
-          <SectionTitle>Long-List 다운로드</SectionTitle>
+          <SectionTitle>Long-list 다운로드</SectionTitle>
 
           <Flex align="center" justify="center" gap="0.8rem" wrap="wrap">
             <BorderButton
@@ -252,7 +250,8 @@ const FloatImageButton = () => {
 
         <Section>
           <SectionTitle justify="space-between">
-            <p>Long-List</p>{" "}
+            <p>Long-list</p>
+
             <p>
               기업 총 <b>32개</b>
             </p>
@@ -266,6 +265,7 @@ const FloatImageButton = () => {
 
       <StyledFloatButton
         onClick={() => handleModalOpen()}
+        shape="square"
         icon={
           <img
             src={image.longListIcon.default}

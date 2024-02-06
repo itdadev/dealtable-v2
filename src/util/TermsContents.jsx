@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-const TermSubTitle = styled.header(({theme}) => ({
+const TermSubTitle = styled.header(({ theme }) => ({
   margin: "3.6rem 0 1.6rem",
   fontSize: "1.8rem",
   fontWeight: theme.fontWeight.bold,
@@ -20,7 +20,7 @@ const UnorderedList = styled.ul(() => ({
   },
 }));
 
-const StrongText = styled.strong(({theme}) => ({
+const StrongText = styled.strong(({ theme }) => ({
   color: theme.color.error,
 }));
 
@@ -825,7 +825,9 @@ export const UseTermContents = () => {
         <TermSubTitle>부칙(시행일)</TermSubTitle>
 
         <div>
-          본 약관은 <StrongText>2023년 0월 00일부터</StrongText> 적용됩니다.
+          본 약관은{" "}
+          <StrongText>{process.env.REACT_APP_BUILD_DATE}부터</StrongText>
+          적용됩니다.
         </div>
       </div>
     </div>
@@ -843,7 +845,8 @@ export const PrivacyPolicyContents = () => {
       </p>
 
       <p>
-        ○ 이 개인정보처리방침은 <StrongText>2023년 0월 0</StrongText>부터
+        ○ 이 개인정보처리방침은{" "}
+        <StrongText>{process.env.REACT_APP_BUILD_DATE}</StrongText>부터
         적용됩니다.
       </p>
 
@@ -1234,7 +1237,7 @@ export const PrivacyPolicyContents = () => {
                 </UnorderedList>
               </li>
 
-              <li style={{marginTop: "1rem"}}>
+              <li style={{ marginTop: "1rem" }}>
                 <div>▶ 개인정보 보호 담당부서</div>
 
                 <UnorderedList>
@@ -1301,7 +1304,7 @@ export const PrivacyPolicyContents = () => {
           <li>경찰청 : (국번없이) 182 (ecrm.cyber.go.kr)</li>
         </OrderedListWrapper>
 
-        <div style={{marginTop: "1rem"}}>
+        <div style={{ marginTop: "1rem" }}>
           「개인정보보호법」제35조(개인정보의 열람), 제36조(개인정보의
           정정·삭제), 제37조(개인정보의 처리정지 등)의 규정에 의한 요구에 대
           하여 공공기관의 장이 행한 처분 또는 부작위로 인하여 권리 또는 이익의
@@ -1309,7 +1312,7 @@ export const PrivacyPolicyContents = () => {
           있습니다.
         </div>
 
-        <div style={{marginTop: "1rem"}}>
+        <div style={{ marginTop: "1rem" }}>
           ※ 행정심판에 대해 자세한 사항은 중앙행정심판위원회(www.simpan.go.kr)
           홈페이지를 참고하시기 바랍니다.
         </div>
@@ -1319,7 +1322,10 @@ export const PrivacyPolicyContents = () => {
         <TermSubTitle>제14조(개인정보 처리방침 변경)</TermSubTitle>
 
         <OrderedListWrapper>
-          <li>이 개인정보처리방침은 2023년 12월 00부터 적용됩니다.</li>
+          <li>
+            이 개인정보처리방침은 {process.env.REACT_APP_BUILD_DATE}부터
+            적용됩니다.
+          </li>
           <li>
             이전의 개인정보 처리방침은 아래에서 확인하실 수 있습니다.
             <div>예시 ) - 20XX. X. X ~ 20XX. X. X 적용 (클릭)</div>

@@ -3,6 +3,7 @@ import { Controller } from "react-hook-form";
 import TextArea from "antd/es/input/TextArea";
 
 import { FieldErrorMessage, TextAresFieldContainer } from "./CustomForm";
+import { Flex } from "antd";
 
 const TextAreaInput = (props) => {
   return props?.control ? (
@@ -13,9 +14,13 @@ const TextAreaInput = (props) => {
         return (
           <TextAresFieldContainer>
             <label htmlFor={props.name}>
-              {props.label}
+              <Flex align="center" justify="space-between">
+                <Flex>
+                  <span>{props.label}</span>
 
-              <sup>{props.labelrequired === "true" && "*"}</sup>
+                  <sup>{props.labelrequired === "true" && "*"}</sup>
+                </Flex>
+              </Flex>
             </label>
 
             <TextArea

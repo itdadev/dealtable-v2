@@ -17,9 +17,6 @@ import {
   revenuePH,
   salesPH,
 } from "@/lib/react-hook-form/validation/placeholderTexts";
-
-import PasswordInput from "../form/PasswordInput";
-import { TextAreaInput, TextInput } from "../form";
 import {
   CompanyNameText,
   CurrentPasswordText,
@@ -37,13 +34,16 @@ import {
   UserPositionText,
 } from "@/util/language-setting/texts/TranslatedFieldTexts";
 
+import PasswordInput from "../form/PasswordInput";
+import { TextAreaInput, TextInput } from "../form";
+
 export const EmailField = ({ control, readOnly }) => {
   return (
     <TextInput
       name="email"
       control={control}
       placeholder={emailPH}
-      readOnly={readOnly}
+      readOnly={readOnly ? "" : readOnly}
       label={<EmailText />}
       labelrequired="true"
     />
@@ -60,7 +60,7 @@ export const PasswordField = ({ control, readOnly = false }) => {
       control={control}
       type="password"
       labelrequired="true"
-      placeholder={passwordPH}
+      placeholder={readOnly ? "" : passwordPH}
       readOnly={readOnly}
       iconRender={(visible) =>
         visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -83,7 +83,7 @@ export const ConfirmPasswordField = ({ control, readOnly = false }) => {
       labelrequired="true"
       control={control}
       type="password"
-      placeholder={passwordConfirmPH}
+      placeholder={readOnly ? "" : passwordConfirmPH}
       readOnly={readOnly}
       iconRender={(visible) =>
         visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -147,7 +147,7 @@ export const UserNameField = ({ control, readOnly = false }) => {
       label={<UserNameText />}
       labelrequired="true"
       control={control}
-      placeholder={namePH}
+      placeholder={readOnly ? "" : namePH}
       readOnly={readOnly}
     />
   );
@@ -160,7 +160,7 @@ export const CompanyNameField = ({ control, readOnly = false }) => {
       label={<CompanyNameText />}
       labelrequired="true"
       control={control}
-      placeholder={corpNamePH}
+      placeholder={readOnly ? "" : corpNamePH}
       readOnly={readOnly}
     />
   );
@@ -172,7 +172,7 @@ export const UserPositionField = ({ control, readOnly = false }) => {
       name="user_position"
       label={<UserPositionText />}
       control={control}
-      placeholder={positionPH}
+      placeholder={readOnly ? "" : positionPH}
       readOnly={readOnly}
     />
   );
@@ -191,7 +191,7 @@ export const PhoneField = ({
       labelrequired="true"
       inputMode="decimal"
       control={control}
-      placeholder={phoneNumPH}
+      placeholder={readOnly ? "" : phoneNumPH}
       readOnly={readOnly}
       pattern="[0-9]+"
       addonAfter={addonAfter}
@@ -215,7 +215,7 @@ export const IndustryField = ({
       label={<IndustryText />}
       labelrequired="true"
       control={control ? control : undefined}
-      placeholder={industryPH}
+      placeholder={readOnly ? "" : industryPH}
       readOnly={readOnly}
       maxLength={200}
       defaultValue={defaultValue}
@@ -237,9 +237,10 @@ export const DealScaleField = ({
       label={<DealScaleText />}
       labelrequired="true"
       control={control}
-      placeholder={dealScalePH}
+      placeholder={readOnly ? "" : dealScalePH}
       readOnly={readOnly}
       defaultValue={defaultValue}
+      suffix="억원"
       // onChange={(e) => formatWon(e, setValue, "deal_scale")}
       maxLength={50}
     />
@@ -258,9 +259,10 @@ export const SalesField = ({
       label={<SalesText />}
       // inputMode="decimal"
       control={control}
-      placeholder={salesPH}
+      placeholder={readOnly ? "" : salesPH}
       readOnly={readOnly}
       defaultValue={defaultValue}
+      suffix="억원"
       // onChange={(e) => formatWon(e, setValue, "sales")}
       maxLength={50}
     />
@@ -279,9 +281,10 @@ export const RevenueField = ({
       // inputMode="decimal"
       label={<RevenueText />}
       control={control}
-      placeholder={revenuePH}
+      placeholder={readOnly ? "" : revenuePH}
       readOnly={readOnly}
       defaultValue={defaultValue}
+      suffix="억원"
       // onChange={(e) => formatWon(e, setValue, "revenue")}
       maxLength={50}
     />
@@ -299,12 +302,12 @@ export const KeyConditionField = ({
       name="key_condition"
       label={<KeyConditiondText />}
       control={control}
-      placeholder={keyConditionPH}
+      placeholder={readOnly ? "" : keyConditionPH}
       readOnly={readOnly}
       maxLength={700}
       defaultValue={defaultValue}
       example={example}
-      minrows={8}
+      minrows={readOnly ? 5 : 8}
     />
   );
 };

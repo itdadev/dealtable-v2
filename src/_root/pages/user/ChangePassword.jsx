@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useMutation } from "react-query";
@@ -33,6 +33,7 @@ const FoundEmailContainer = styled(Flex)(() => ({
 
 const ChangePassword = () => {
   const { state } = useLocation();
+  console.log(state);
 
   const navigate = useNavigate();
 
@@ -76,6 +77,12 @@ const ChangePassword = () => {
     },
     [changePasswordFunction],
   );
+
+  useEffect(() => {
+    if (state === null || state?.enc_email === undefined) {
+      navigate("/");
+    }
+  }, [navigate, state]);
 
   return (
     <CustomForm submitEvent={handleSubmit(changePasswordSubmit)} noGoBack>

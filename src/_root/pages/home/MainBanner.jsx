@@ -56,9 +56,7 @@ const MainBanner = ({ active, swiper }) => {
         <GoDownArrow swiper={swiper} idx={1} />
 
         <div>
-          <p>Any M&A participant</p>
-
-          <p>I'm a customer of dealtable</p>
+          <p>Any M&A participants can be a customer of DEALTABLE</p>
         </div>
       </ArrowTextContainer>
     </>

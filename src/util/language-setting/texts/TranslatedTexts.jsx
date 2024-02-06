@@ -231,7 +231,7 @@ export const NeedsTerminateQuestionText = () => {
 };
 
 export const NeedsTerminateWarningText = () => {
-  // 종료 시, 더 이상 인수니즈에 맞는 회사를 추천해드리지 않습니다.
+  // 종료 시, 더 이상 인수 니즈에 맞는 회사를 추천해드리지 않습니다.
   return <FormattedMessage id="lang-needs-terminate-warning" />;
 };
 

@@ -58,8 +58,9 @@ const FindAccount = () => {
         });
       },
       onError: (error) => {
-        console.log(error);
-        navigate("/find-account-fail");
+        navigate("/find-account-fail", {
+          state: { correctAccess: true },
+        });
       },
     },
   );

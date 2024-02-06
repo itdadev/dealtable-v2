@@ -102,7 +102,9 @@ const Join = () => {
       axios.post(JOIN_API_URL, { ...data, news_agree_yn: data?.personal_info }),
     {
       onSuccess: () => {
-        navigate("/join-complete");
+        navigate("/join-complete", {
+          state: { correctAccess: true },
+        });
       },
       onError: (error) => {
         if (error.response.status === 400) {
