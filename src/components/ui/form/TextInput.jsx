@@ -92,10 +92,16 @@ const TextInput = ({ children, ...props }) => {
     />
   ) : (
     <FieldContainer>
-      <label>
-        {props.label}
+      <label htmlFor={props.name}>
+        <Flex align="center" justify="space-between">
+          <Flex>
+            <span>{props.label}</span>
 
-        <sup>{props.labelrequired === "true" && "*"}</sup>
+            <sup>{props.labelrequired === "true" && "*"}</sup>
+          </Flex>
+
+          {props.labelafter && props.labelafter}
+        </Flex>
       </label>
 
       <Flex gap="small">

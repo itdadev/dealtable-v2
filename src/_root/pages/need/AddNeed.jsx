@@ -51,8 +51,12 @@ import {
 } from "@/util/language-setting/texts/TranslatedTexts";
 
 const LinkText = styled.button(({ theme, isdelete }) => ({
-  color: isdelete ? theme.color.error : theme.color.grey,
+  color: theme.color.grey,
   fontSize: "1.6rem",
+
+  ":hover": {
+    color: isdelete ? theme.color.error : theme.color.baseBlack,
+  },
 }));
 
 const FormTitle = styled(Flex)(() => ({
