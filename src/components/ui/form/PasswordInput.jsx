@@ -30,6 +30,7 @@ const PasswordInput = (props) => {
               status={errors[props.name] ? "error" : ""}
               size="large"
               type={props.type ? props.type : "text"}
+              maxLength={15}
             />
 
             {props.customerror && (

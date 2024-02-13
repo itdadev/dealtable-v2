@@ -80,7 +80,6 @@ const TextAreaInput = (props) => {
           maxRows: props.example ? 18 : 4,
         }}
         style={{
-          backgroundColor: "#FAFAFD",
           padding: "1.6rem",
           resize: "none",
           fontSize: "1.6rem",

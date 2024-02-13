@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import styled from "@emotion/styled";
 
 import {
@@ -14,11 +14,6 @@ import {
 
 import { FormDescription } from "../form/CustomForm";
 import { ModalContainer } from ".";
-
-export const ModalDescription = styled.div(() => ({
-  margin: "4.8rem 0 1.8rem",
-  fontSize: "1.8rem",
-}));
 
 export const ModalContents = styled.div(({ theme }) => ({
   color: theme.color.grey,

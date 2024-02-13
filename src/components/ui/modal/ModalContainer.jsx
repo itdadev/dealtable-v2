@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Modal } from "antd";
 
 import { CancelText } from "@/util/language-setting/texts/TranslatedTexts";
