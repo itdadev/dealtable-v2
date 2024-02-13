@@ -105,7 +105,6 @@ const style = css`
     background: white !important;
 
     &:read-only {
-      background: #fafafd !important;
       color: #777 !important;
     }
   }

@@ -125,7 +125,6 @@ const style = css`
     }
 
     input:read-only::placeholder {
-        background: #FAFAFD !important;
         color: #777 !important;
     }
 

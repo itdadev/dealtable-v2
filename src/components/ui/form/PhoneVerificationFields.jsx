@@ -200,7 +200,7 @@ const PhoneVerificationFields = ({
       <Flex>
         <PhoneField
           control={control}
-          // readOnly={!phoneActive || codeVerified}
+          readOnly={codeSent || codeVerified}
           addonAfter={
             <SendButton
               type="primary"
@@ -237,7 +237,7 @@ const PhoneVerificationFields = ({
           placeholder={verificationCodePH}
           bordered={false}
           customborder="true"
-          // readOnly={codeVerified || !codeSent}
+          readOnly={codeVerified || !codeSent}
           // onKeyDown={(e) => {
           //   if (e.key === "Enter") {
           //     verifyCodeFunction({

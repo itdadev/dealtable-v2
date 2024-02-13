@@ -18,7 +18,6 @@ import {
   FixedButtonContainer,
 } from "@/components/ui/form/CustomForm";
 import { JOIN_API_URL } from "@/constants/apiUrls";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CompanyNameField,
   ConfirmPasswordField,
@@ -27,7 +26,6 @@ import {
   UserNameField,
   UserPositionField,
 } from "@/components/ui/fields/Fields";
-import { zodJoin } from "@/lib/react-hook-form/validation/zodValidation";
 import { TermModal } from "@/components/ui/modal";
 import {
   AccountInformationText,
@@ -36,6 +34,8 @@ import {
   UserInformationText,
   ViewText,
 } from "@/util/language-setting/texts/TranslatedTexts";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { zodJoin } from "@/lib/react-hook-form/validation/zodValidation";
 
 const TermLink = styled.button(({ theme }) => ({
   color: theme.color.grey,

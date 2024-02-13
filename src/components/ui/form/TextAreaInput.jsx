@@ -37,13 +37,13 @@ const TextAreaInput = (props) => {
                 padding: "1.6rem",
                 resize: "none",
                 fontSize: "1.6rem",
-                backgroundColor: props.readOnly ? "#FAFAFD" : "white",
+                backgroundColor: "white",
               }}
               style={{
                 padding: "1.6rem",
                 resize: "none",
                 fontSize: "1.6rem",
-                backgroundColor: props.readOnly ? "#FAFAFD" : "white",
+                backgroundColor: "white",
               }}
             />
 

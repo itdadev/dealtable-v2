@@ -7,7 +7,7 @@ import { color } from "@/theme";
 import styled from "@emotion/styled";
 
 const StyledInput = styled(Input)(({ props, errors, isfocused }) => ({
-  background: props.readOnly ? "#FAFAFD" : "white",
+  background: "white",
   color: props.readOnly ? color.readOnlyText : color.baseBlack,
   transition: "all 0.2s",
   border:
@@ -113,7 +113,7 @@ const TextInput = ({ children, ...props }) => {
             type={props.type ? props.type : "text"}
             addonAfter={props.addonAfter}
             style={{
-              background: props.readOnly ? "#FAFAFD" : "white",
+              background: "white",
             }}
           />
 
