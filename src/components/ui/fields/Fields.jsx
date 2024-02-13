@@ -179,7 +179,6 @@ export const UserPositionField = ({ control, readOnly = false }) => {
 };
 
 export const PhoneField = ({ control, readOnly, children, addonAfter }) => {
-  console.log(readOnly);
   return (
     <TextInput
       name="phone"

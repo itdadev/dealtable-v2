@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal } from "antd";
 
 import { CancelText } from "@/util/language-setting/texts/TranslatedTexts";
@@ -30,6 +30,7 @@ const ModalContainer = ({ children, ...props }) => {
       centered
       cancelText={props.cancelText ? props.cancelText : <CancelText />}
       wrapClassName="antd-modal-wrapper"
+      destroyOnClose={true}
     >
       {children}
     </Modal>

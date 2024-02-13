@@ -54,6 +54,7 @@ const ContentIn = styled(Collapse)(({ theme }) => ({
   border: "none",
   borderRadius: 0,
   borderTop: `1px solid ${theme.color.baseBlack}`,
+  whiteSpace: "break-spaces",
 }));
 
 const panelStyle = {

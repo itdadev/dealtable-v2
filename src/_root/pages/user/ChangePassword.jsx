@@ -33,7 +33,6 @@ const FoundEmailContainer = styled(Flex)(() => ({
 
 const ChangePassword = () => {
   const { state } = useLocation();
-  console.log(state);
 
   const navigate = useNavigate();
 
@@ -79,7 +78,7 @@ const ChangePassword = () => {
   );
 
   useEffect(() => {
-    if (state === null || state?.enc_email === undefined) {
+    if (state?.encEmail === undefined) {
       navigate("/");
     }
   }, [navigate, state]);
