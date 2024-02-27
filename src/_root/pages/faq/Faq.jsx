@@ -87,9 +87,11 @@ const Faq = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
 
   const getFaqList = async ({ pageParam = 1 }) => {
-    const { status, data } = await axios?.get(
-      `${FAQ_LIST_API_URL}?page=${pageParam}&size=${FAQ_LIST_LOAD_SIZE}&keyword=${searchKeyword}`,
-    );
+    const { status, data } = await axios?.post(FAQ_LIST_API_URL, {
+      page: JSON.stringify(pageParam),
+      size: JSON.stringify(FAQ_LIST_LOAD_SIZE),
+      keyword: searchKeyword,
+    });
 
     if (status === 200) {
       return data;
@@ -147,6 +149,11 @@ const Faq = () => {
 
                 <Title
                   active={activeKey.includes(JSON.stringify(item.faq_key))}
+                  className={
+                    activeKey.includes(JSON.stringify(item.faq_key))
+                      ? ""
+                      : "ellipsis-2"
+                  }
                 >
                   {item.title}
                 </Title>

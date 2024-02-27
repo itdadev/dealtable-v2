@@ -43,14 +43,15 @@ export const EmailField = ({ control, readOnly }) => {
       name="email"
       control={control}
       placeholder={emailPH}
-      readOnly={readOnly ? "" : readOnly}
+      maxLength={50}
+      readOnly={readOnly}
       label={<EmailText />}
       labelrequired="true"
     />
   );
 };
 
-export const PasswordField = ({ control, readOnly = false }) => {
+export const PasswordField = ({ control, readOnly }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
@@ -149,6 +150,7 @@ export const UserNameField = ({ control, readOnly = false }) => {
       control={control}
       placeholder={readOnly ? "" : namePH}
       readOnly={readOnly}
+      maxLength={20}
     />
   );
 };
@@ -162,6 +164,7 @@ export const CompanyNameField = ({ control, readOnly = false }) => {
       control={control}
       placeholder={readOnly ? "" : corpNamePH}
       readOnly={readOnly}
+      maxLength={30}
     />
   );
 };
@@ -174,6 +177,7 @@ export const UserPositionField = ({ control, readOnly = false }) => {
       control={control}
       placeholder={readOnly ? "" : positionPH}
       readOnly={readOnly}
+      maxLength={30}
     />
   );
 };

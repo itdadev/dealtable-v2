@@ -51,7 +51,7 @@ const style = css`
     transition: opacity 0.3s;
   }
 
-  // Antd
+  // NOTE: Antd
 
   .ant-input-data-count {
     top: -2.2rem;

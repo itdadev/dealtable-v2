@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import { ConfigProvider } from "antd";
 
@@ -56,6 +56,8 @@ function App() {
           <Header />
 
           <Routes>
+            <Route path="*" element={<Navigate to="/" />} />
+
             <Route element={<AuthLayout />}>
               {/* Private Routes - only accessible after login */}
               <Route path="/account" element={<Account />} />

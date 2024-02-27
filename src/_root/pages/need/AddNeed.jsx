@@ -162,6 +162,7 @@ const AddNeed = () => {
   }, [needDetail?.status]);
 
   const [edit, setEdit] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     if (statusNm === "작성 완료") {
@@ -231,7 +232,7 @@ const AddNeed = () => {
         queryClient.removeQueries("needList");
         queryClient.removeQueries({ queryKey: ["needDetail", needsKey] });
 
-        navigate("/need", { state: { mutateStatus: "edit" } });
+        navigate("/need", { state: { mutateStatus: "tempo" } });
       },
       onError: (error) => {
         console.log(error);
@@ -344,14 +345,14 @@ const AddNeed = () => {
   }, []);
 
   const doneComplete = useCallback(() => {
-    if (needsKey) {
+    if (editing) {
       editNeedsFunction(watch());
 
       return;
     }
 
     addNeedsFunction(watch());
-  }, [addNeedsFunction, editNeedsFunction, needsKey, watch]);
+  }, [addNeedsFunction, editNeedsFunction, editing, watch]);
 
   const doneTempo = useCallback(() => {
     if (needsKey) {
@@ -394,6 +395,8 @@ const AddNeed = () => {
           description: <PleaseEditNeedText />,
           duration: 3,
         });
+
+        setEditing(true);
       }
 
       setEdit((prev) => !prev);

@@ -32,6 +32,7 @@ const Title = styled.div(({ theme, active }) => ({
 
   [mq("desktop")]: {
     fontSize: "1.8rem",
+    width: "fit-content",
     borderBottom: active
       ? `1px solid ${theme.color.baseBlack}`
       : `1px solid transparent`,
@@ -78,12 +79,18 @@ const TitleWrapper = styled(Flex)(() => ({
 }));
 
 const NewText = styled.span(({ theme }) => ({
+  display: "inline-block",
   marginRight: "0.4rem",
   minWidth: "5rem",
-  minHeight: "2rem",
   color: theme.color.error,
   fontWeight: theme.fontWeight.bold,
-  fontSize: "1.6rem",
+  fontSize: "1.4rem",
+  lineHeight: "normal",
+
+  [mq("desktop")]: {
+    fontSize: "1.6rem",
+    fontWeight: theme.fontWeight.regular,
+  },
 }));
 
 const Notice = () => {
@@ -151,6 +158,11 @@ const Notice = () => {
 
                 <Title
                   active={activeKey.includes(JSON.stringify(item.notice_key))}
+                  className={
+                    activeKey.includes(JSON.stringify(item.notice_key))
+                      ? ""
+                      : "ellipsis-2"
+                  }
                 >
                   {now.diff(item.ins_date, "days") < 3 && (
                     <NewText>[NEW]</NewText>
