@@ -189,7 +189,7 @@ const Join = () => {
   ];
 
   return (
-    <CustomForm submitEvent={handleSubmit(joinSubmit)} back>
+    <CustomForm submitEvent={handleSubmit(joinSubmit)}>
       <TermModal onCancel={onCancel} termModalOpen={termModalOpen} />
 
       {userData?.reject_reason && (
