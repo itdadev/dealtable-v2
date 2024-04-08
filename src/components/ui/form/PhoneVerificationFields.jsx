@@ -32,7 +32,7 @@ import { FieldErrorMessage } from "./CustomForm";
 import { PhoneField } from "../fields/Fields";
 import { TextInput } from ".";
 
-export const CODE_EXPIRE_TIME = 5 * 60 * 1000;
+export const CODE_EXPIRE_TIME = 0.1 * 60 * 1000;
 
 const SendButton = styled.div(({ theme, disabled }) => ({
   color: theme.color.primary,
@@ -83,13 +83,14 @@ const PhoneVerificationFields = ({
 
   const { mutate: sendCodeFunction, isLoading: sendLoading } = useMutation(
     (data) => {
-      if (codeSent) {
+      if (codeSent && !codeExpired) {
         // CASE: 휴대폰 번호 다시 입력
         return "resend";
       }
 
       if (data === "") {
         // 전화 번호 입력 안하고 인증 코드 전송 눌렀을 때
+
         return phoneRequired;
       }
 
@@ -99,14 +100,14 @@ const PhoneVerificationFields = ({
         return differentPhoneRequired;
       }
 
-      const res = axios.post(
+      setCodeExpired(false);
+
+      return axios.post(
         findAccount ? FIND_SEND_CODE_API_URL : SEND_CODE_API_URL,
         {
           phone: data,
         },
       );
-
-      return res;
     },
     {
       onSuccess: (data) => {
@@ -117,6 +118,7 @@ const PhoneVerificationFields = ({
           resetTimer();
           stopTimer();
           resetField("auth_code");
+          setCodeExpired(false);
 
           return;
         }
@@ -150,7 +152,6 @@ const PhoneVerificationFields = ({
     {
       onSuccess: () => {
         // CASE: 코드 인증 완료
-        resetTimer();
         setCodeVerified(true);
         stopTimer();
         clearErrors("auth_code");
@@ -270,12 +271,19 @@ const PhoneVerificationFields = ({
             <SendButton
               type="button"
               disabled={(!codeActive && !codeExpired) || codeVerified}
-              onClick={() =>
-                verifyCodeFunction({
-                  phone: watch("phone"),
-                  auth_code: watch("auth_code"),
-                })
-              }
+              onClick={() => {
+                if (codeExpired) {
+                  //   재전송 클릭시
+                  sendCodeFunction(watch("phone"));
+                  setCodeExpired(false);
+                  resetTimer();
+                } else {
+                  verifyCodeFunction({
+                    phone: watch("phone"),
+                    auth_code: watch("auth_code"),
+                  });
+                }
+              }}
             >
               {verifyLoading ? (
                 <LoadingSpinner />
