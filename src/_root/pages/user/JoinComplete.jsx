@@ -36,8 +36,6 @@ const JoinComplete = () => {
     }
   }, [navigate, state]);
 
-  console.log(state);
-
   return (
     <CustomForm noGoBack>
       <Helmet>
