@@ -100,16 +100,19 @@ const Join = () => {
 
   const { mutate: userJoinFunction } = useMutation(
     (data) => {
-      axios.post(JOIN_API_URL, { ...data, news_agree_yn: data?.personal_info });
+      return axios.post(JOIN_API_URL, {
+        ...data,
+        news_agree_yn: data?.personal_info,
+      });
     },
     {
-      onSuccess: () => {
+      onSuccess: (res) => {
         navigate("/join-complete", {
           state: {
             correctAccess: true,
             userDetail: {
-              email: userDetail?.email,
-              phone: userDetail?.phone,
+              email: watch("email"),
+              phone: watch("phone"),
             },
           },
         });
