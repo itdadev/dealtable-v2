@@ -11,6 +11,7 @@ import {
   JoinRequestCompleteText,
 } from "@/util/language-setting/texts/TranslatedTexts";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Description = styled.div(({ theme }) => ({
   color: theme.color.grey,
@@ -37,6 +38,30 @@ const JoinComplete = () => {
 
   return (
     <CustomForm noGoBack>
+      <Helmet>
+        <script type="text/javascript">
+          {`gtag("event", "conversion", {
+            send_to: "AW-16482224730/wWMmCL2GgaIZENqUq7M9",
+          })`}
+        </script>
+
+        <script type="text/javascript">
+          {`gtag("event", "conversion", {
+            send_to: "AW-16482224730/PJeUCMCGgaIZENqUq7M9",
+          })`}
+        </script>
+
+        <script type="text/javascript">
+          {`
+            gtag('set', 'user_data', {
+                "email": "${state?.userDetail?.email}",
+                "phone_number": "${state?.userDetail?.phone}"
+            });
+            gtag('event', 'conversion', {'send_to': 'AW-16482224730/wWMmCL2GgaIZENqUq7M9'});
+          `}
+        </script>
+      </Helmet>
+
       <div>
         <FormDescription>
           <JoinRequestCompleteText />

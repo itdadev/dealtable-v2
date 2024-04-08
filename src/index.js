@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { IntlProvider } from "react-intl";
 
 import { LOCAL_STORAGE_SITE_LANGUAGE } from "@/constants/StorageKey";
+import { HelmetProvider } from "react-helmet-async";
 
 import App from "./App";
 import GlobalStyles from "./assets/styles/GlobalStyles";
@@ -27,15 +28,17 @@ root.render(
     <QueryProvider>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
 
-      <IntlProvider locale={lang} messages={messages}>
-        <AuthProvider>
-          <GlobalStyles />
+      <HelmetProvider>
+        <IntlProvider locale={lang} messages={messages}>
+          <AuthProvider>
+            <GlobalStyles />
 
-          <LibraryStyles />
+            <LibraryStyles />
 
-          <App />
-        </AuthProvider>
-      </IntlProvider>
+            <App />
+          </AuthProvider>
+        </IntlProvider>
+      </HelmetProvider>
     </QueryProvider>
   </BrowserRouter>,
 );

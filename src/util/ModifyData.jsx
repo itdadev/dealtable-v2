@@ -38,3 +38,9 @@ export function addComma(price) {
 
   return "";
 }
+
+export function changePhoneFormat(value) {
+  if (value) {
+    return value.replace("0", "+82");
+  }
+}

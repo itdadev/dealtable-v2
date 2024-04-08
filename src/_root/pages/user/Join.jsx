@@ -54,6 +54,7 @@ const Join = () => {
   const [userData, setUserData] = useState({
     reject_reason: "",
   });
+  const [userDetail, setUserDetail] = useState();
 
   const { state } = useLocation();
 
@@ -98,12 +99,19 @@ const Join = () => {
   }, []);
 
   const { mutate: userJoinFunction } = useMutation(
-    (data) =>
-      axios.post(JOIN_API_URL, { ...data, news_agree_yn: data?.personal_info }),
+    (data) => {
+      axios.post(JOIN_API_URL, { ...data, news_agree_yn: data?.personal_info });
+    },
     {
       onSuccess: () => {
         navigate("/join-complete", {
-          state: { correctAccess: true },
+          state: {
+            correctAccess: true,
+            userDetail: {
+              email: userDetail?.email,
+              phone: userDetail?.phone,
+            },
+          },
         });
       },
       onError: (error) => {
@@ -130,6 +138,7 @@ const Join = () => {
 
   const joinSubmit = useCallback(
     (data) => {
+      setUserDetail(data);
       userJoinFunction(data);
     },
     [userJoinFunction],

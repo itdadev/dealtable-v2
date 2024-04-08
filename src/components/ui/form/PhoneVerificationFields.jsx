@@ -32,7 +32,7 @@ import { FieldErrorMessage } from "./CustomForm";
 import { PhoneField } from "../fields/Fields";
 import { TextInput } from ".";
 
-export const CODE_EXPIRE_TIME = 0.1 * 60 * 1000;
+export const CODE_EXPIRE_TIME = 5 * 60 * 1000;
 
 const SendButton = styled.div(({ theme, disabled }) => ({
   color: theme.color.primary,
